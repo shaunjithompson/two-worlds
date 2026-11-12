@@ -73,6 +73,8 @@ img { display: block; max-width: 100%; }
 .rows li > span { flex: 1 1 320px; min-width: 0; }
 .work { font-family: var(--serif); font-size: 30px; }
 .rows small { display: block; margin-top: 4px; font-size: 15px; color: #A4A8AD; }
+.rows small .listen { color: var(--paper); border-bottom: 1px solid #6E86A3; }
+.rows small .listen:hover { border-bottom-color: var(--paper); }
 
 /* travel side: dot map */
 .travel-grid { display: flex; flex-wrap: wrap; gap: 40px 56px; align-items: flex-start; }
