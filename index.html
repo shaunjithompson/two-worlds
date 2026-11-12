@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shaun Ji-Thompson — Two Worlds</title>
+<meta name="description" content="Music for wind orchestra and journeys made overland, by Shaun Ji-Thompson.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <nav class="nav wrap" aria-label="Primary">
+    <a class="brand" href="index.html">Shaun Ji-Thompson</a>
+    <div class="nav-links">
+      <a href="#worlds" data-go="music">Music</a>
+      <a href="#worlds" data-go="travel">Travel</a>
+      <a href="#writing">Writing</a>
+      <a href="#about">About</a>
+    </div>
+  </nav>
+  <div class="wrap hero-body">
+    <p class="mono rise">COMPOSER · FOUNDER · SYDNEY</p>
+    <h1 id="hero-title" class="rise d1">Music for wind orchestra and journeys made overland. <em>Each one leads to the other.</em></h1>
+    <p class="lede rise d2">Pick a side below. Wherever a piece of music and a place are linked, you can cross straight over.</p>
+  </div>
+</section>
+
+<!-- THE TWO WORLDS -->
+<section id="worlds" data-side="music" aria-labelledby="worlds-h">
+  <div class="wrap stage">
+    <h2 id="worlds-h" class="sr-only">Music and travel</h2>
+
+    <div class="switch" role="group" aria-label="Choose a side">
+      <span class="thumb" aria-hidden="true"></span>
+      <button type="button" data-go="music" aria-pressed="true">Music</button>
+      <button type="button" data-go="travel" aria-pressed="false">Travel</button>
+    </div>
+
+    <div class="sides">
+
+      <!-- MUSIC SIDE -->
+      <div class="side music">
+        <div class="feature">
+          <img src="assets/gorge.jpg" alt="Placeholder landscape">
+          <div>
+            <div class="mono accent">LATEST · PREMIERED OCTOBER 2026</div>
+            <h3 class="title"><em>Beyond the Darial Pass</em></h3>
+            <p class="body">For wind band, after Aivazovsky's 1868 painting of the gorge in the Caucasus.</p>
+            <div class="actions">
+              <a class="btn light" href="beyond-the-darial-pass.html"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>Listen</a>
+              <button type="button" class="cross" data-go="travel" data-place="darial"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg><img src="assets/gorge.jpg" alt="">The place: Darial Gorge</button>
+            </div>
+          </div>
+        </div>
+        <ul class="rows">
+          <li id="row-marNovo">
+            <span><a class="work" href="#worlds"><em>O Mar Novo</em></a><small>Wind orchestra · [YEAR]</small></span>
+            <button type="button" class="cross" data-go="travel" data-place="bojador"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg><img src="assets/coast.jpg" alt="">The place: Cape Bojador, on the next journey</button>
+          </li>
+          <li>
+            <span><a class="work" href="#worlds"><em>Koncert Elegia Kościuszki</em></a><small>Flute and wind band · [YEAR]</small></span>
+            <small>Poland · [PLACE TO LINK]</small>
+          </li>
+        </ul>
+      </div>
+
+      <!-- TRAVEL SIDE -->
+      <div class="side travel">
+        <div class="travel-grid">
+          <div class="map-col">
+            <div class="map" id="map">
+              <img src="assets/map.png" alt="">
+              <canvas aria-hidden="true"></canvas>
+              <svg aria-hidden="true" viewBox="0 0 135 66" preserveAspectRatio="none">
+                <path d="M128.82 58.65 Q 75 18 15.86 21.28" fill="none" stroke="#21364F" stroke-width="1.5" stroke-dasharray="3 5" vector-effect="non-scaling-stroke"/>
+                <path class="march" d="M19.2 24.2 L10.5 33.87 L9 41.9 L7.6 45.3 L8.4 46.55" fill="none" stroke="#A63D24" stroke-width="2.5" stroke-dasharray="10 7" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <span class="city-dot" style="left:11.75%;top:32.24%"></span><span class="city" style="left:11.75%;top:32.24%;transform:translate(10px,-130%)">Lisbon</span>
+              <span class="city-dot" style="left:95.42%;top:88.86%"></span><span class="city" style="left:95.42%;top:88.86%;transform:translate(-110%,-50%)">Singapore</span>
+              <!-- pins are added by js/home.js from the PLACES list -->
+            </div>
+            <div class="chips" id="chips"></div>
+            <p class="caption">Move across the map, or click anywhere on it. Red line: the next journey. Dashed line: Singapore to Lisbon overland. Both are sketches, not exact routes.</p>
+          </div>
+          <div class="place" aria-live="polite">
+            <div class="place-imgs" id="place-imgs"></div>
+            <div class="mono accent-dark" id="place-label"></div>
+            <h3 class="title small" id="place-name"></h3>
+            <p class="body dark" id="place-text"></p>
+            <div class="actions">
+              <button type="button" class="cross solid" id="place-music" hidden></button>
+              <a class="btn dark" id="place-journey" href="morocco-to-the-gambia.html" hidden>Follow the journey</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing" class="paper" aria-labelledby="writing-h">
+  <div class="wrap section">
+    <h2 id="writing-h" class="h2">Writing</h2>
+    <p class="intro">What I'm working out about AI agents, advertising markets and building products.</p>
+    <ul class="list">
+      <li><a href="#writing"><span>[Essay title]</span><small>Agents and advertising · [DATE]</small></a></li>
+      <li><a href="#writing"><span>[Essay title]</span><small>Economics · [DATE]</small></a></li>
+      <li><a href="#writing"><span>[Essay title]</span><small>Product · [DATE]</small></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ABOUT + CONTACT -->
+<footer id="about" class="footer">
+  <div class="wrap">
+    <h2 class="about">I'm Shaun. I spent years building products in advertising and banking, and I'm now starting a company.</h2>
+    <div class="actions">
+      <a class="btn light big" href="#about">Get in touch</a>
+      <a class="btn outline big" href="#about">Read the full story</a>
+    </div>
+    <form class="signup" onsubmit="return false">
+      <label for="nl">Occasional letters: new music, essays and dispatches.</label>
+      <div><input id="nl" type="email" placeholder="you@example.com"><button type="submit">Subscribe</button></div>
+    </form>
+    <div class="fine"><span>Shaun Ji-Thompson · Sydney</span><span>[EMAIL] · [LINKEDIN]</span></div>
+  </div>
+</footer>
+
+<script src="js/home.js"></script>
+</body>
+</html>
