@@ -10,13 +10,13 @@
       img: 'assets/dunes.jpg', x: 5.63, y: 68.64, music: '', musicRow: '', journey: true },
     { id: 'bojador', name: 'Cape Bojador', label: 'WESTERN SAHARA · 26.13° N, 14.50° W',
       text: 'The cape Portuguese sailors feared to pass. The next journey goes by it on the road south.',
-      img: 'assets/coast.jpg', x: 7.78, y: 51.32, music: 'O Mar Novo', musicRow: 'row-marNovo', journey: true },
+      img: 'assets/coast.jpg', x: 7.78, y: 51.32, music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: true },
     { id: 'darial', name: 'The Darial Gorge', label: 'CAUCASUS · 42.74° N, 44.62° E',
       text: 'Dar-e Alān, the old gate through the Caucasus, painted by Aivazovsky in 1868.',
-      img: 'assets/gorge.jpg', x: 51.57, y: 26.15, music: 'Beyond the Darial Pass', musicRow: '', journey: false },
+      img: 'assets/gorge.jpg', x: 51.57, y: 26.15, music: 'Overture: “Beyond the Darial Pass”', musicRow: '', journey: false },
     { id: 'sevan', name: 'Lake Sevan', label: 'ARMENIA · 40.33° N, 45.33° E',
       text: 'The Gegham Sea, high in the Armenian mountains, one of the largest freshwater lakes in the Caucasus.',
-      img: 'assets/plain.jpg', x: 52.10, y: 29.80, music: 'Gegham Sea', musicRow: 'row-gegham', journey: false }
+      img: 'assets/plain.jpg', x: 52.10, y: 29.80, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: false }
   ];
   var MAP_W = 1170, MAP_H = 572;
   var CROSS_ICON = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg>';
