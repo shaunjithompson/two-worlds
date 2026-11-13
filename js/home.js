@@ -20,9 +20,9 @@
     { id: 'krakow', name: 'Kraków', label: 'POLAND · 50.06° N, 19.94° E',
       text: 'On 24 March 1794, in the Main Square, Tadeusz Kościuszko swore his oath to the nation and took up arms against the partitioning powers.',
       img: 'assets/plain.jpg', x: 33.29, y: 15.06, music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
-    { id: 'stalheim', name: 'Stalheim', label: 'NORWAY · 60.84° N, 6.68° E',
-      text: 'The view J.C. Dahl painted in 1842: the Nærøy valley falling between sheer walls towards the fjord.',
-      img: 'assets/gorge.jpg', x: 23.47, y: 2.6, music: 'Forløp (Forløb)', musicRow: 'row-forlop', journey: false }
+    { id: 'hardanger', name: 'Hardangerfjord', label: 'NORWAY · 60.10° N, 6.20° E',
+      text: 'The fjord of Tidemand and Gude\'s Bridal Procession on the Hardangerfjord (1848), the best-loved painting of Norwegian national romanticism.',
+      img: 'assets/coast.jpg', x: 23.11, y: 2.6, music: 'Forløp (Forløb)', musicRow: 'row-forlop', journey: false }
   ];
   var MAP_W = 1170, MAP_H = 572;
   var CROSS_ICON = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg>';
