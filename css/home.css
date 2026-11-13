@@ -73,6 +73,7 @@ img { display: block; max-width: 100%; }
 .rows li > span { flex: 1 1 320px; min-width: 0; }
 .work { font-family: var(--serif); font-size: 30px; }
 .rows small { display: block; margin-top: 4px; font-size: 15px; color: #A4A8AD; }
+.rows .about { margin: 8px 0 0; max-width: 60ch; font-size: 17px; line-height: 1.5; color: #C9CCCF; }
 .rows small .listen { color: var(--paper); border-bottom: 1px solid #6E86A3; }
 .rows small .listen:hover { border-bottom-color: var(--paper); }
 
