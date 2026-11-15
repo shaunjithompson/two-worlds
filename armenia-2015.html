@@ -52,12 +52,12 @@ h1 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-size: c
 .line:empty { display: none; }
 .stage figure { margin: 0; } .stage img { display: block; width: 100%; object-fit: cover; }
 .line { margin: 16px 0 0; max-width: 520px; font-family: 'Newsreader', serif; font-style: italic; font-size: 20px; line-height: 1.4; color: #D8D4CC; }
-.stage.full img { aspect-ratio: 16 / 9; }
+.stage img { height: auto; }
 .stage.pair .photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-.stage.pair img { aspect-ratio: 4 / 5; }
-.stage.offset .body { display: flex; flex-wrap: wrap-reverse; gap: 24px 48px; align-items: flex-end; }
+.stage.pair .photos { align-items: start; }
+.stage.offset .body { display: flex; flex-wrap: wrap-reverse; gap: 24px 48px; align-items: flex-start; }
 .stage.offset .line { flex: 1 1 240px; margin: 0; font-size: 24px; }
-.stage.offset .photos { flex: 2 1 420px; } .stage.offset img { aspect-ratio: 4 / 3; }
+.stage.offset .photos { flex: 2 1 420px; }
 .score { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; padding: 28px 32px; background: var(--indigo); border-radius: 2px; }
 .score a.info { flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; text-decoration: none; }
 .btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: var(--paper); color: #111214; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
