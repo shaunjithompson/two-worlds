@@ -170,7 +170,19 @@
     }
   }
 
+  // Deep links from other pages: #music, #travel, #place-<id> (travel side, that place selected), #row-<id> (music side, that work lit)
+  function fromHash() {
+    var h = (location.hash || '').slice(1);
+    if (h === 'travel') setSide('travel');
+    else if (h === 'music') setSide('music');
+    else if (h.indexOf('place-') === 0) { selectPlace(h.slice(6), false); setSide('travel'); }
+    else if (h.indexOf('row-') === 0 && document.getElementById(h)) setSide('music', h);
+    else return;
+    stage.scrollIntoView({ block: 'start' });
+  }
   selectPlace('journey', false);
   setSide('music');
+  fromHash();
+  window.addEventListener('hashchange', fromHash);
   requestAnimationFrame(draw);
 })();

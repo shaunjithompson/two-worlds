@@ -177,6 +177,11 @@ h1 em { font-style: italic; font-weight: 200; }
 .fb textarea:focus, .fb input[type=email]:focus { outline: none; border-color: var(--oxide-light); }
 .fb .send { justify-self: start; border: 0; cursor: pointer; }
 .fb .status { margin: 0; min-height: 1.5em; color: #CFCAC0; }
+.more { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; padding-bottom: 40px; }
+.more a { display: flex; flex-direction: column; gap: 8px; padding: 22px 24px; border: 1px solid var(--rule); border-radius: 2px; text-decoration: none; transition: border-color .2s ease, background-color .2s ease; }
+.more a:hover { border-color: #4A4A50; background: #121214; color: var(--paper); }
+.more .mono { color: var(--mute); font-size: 11px; }
+.more .serif { font-size: 24px; font-weight: 300; }
 </style>
 </head>
 <body>
@@ -185,8 +190,8 @@ h1 em { font-style: italic; font-weight: 200; }
 <header class="wrap nav">
   <a class="brand" href="index.html">Shaun Ji-Thompson</a>
   <nav class="nav-links" aria-label="Primary">
-    <a href="index.html#worlds">Music</a>
-    <a href="index.html#worlds" aria-current="page">Travel</a>
+    <a href="index.html#music">Music</a>
+    <a href="index.html#travel" aria-current="page">Travel</a>
     <a href="index.html#writing">Writing</a>
     <a href="index.html#about">About</a>
   </nav>
@@ -265,6 +270,12 @@ h1 em { font-style: italic; font-weight: 200; }
 <nav class="wrap leg" aria-label="The rest of the leg">
   <div id="before"><span class="mono">Before · Iran</span><span class="serif">← Tabriz</span></div>
   <div id="after"><span class="mono">After · Georgia</span><span class="serif">Tbilisi →</span></div>
+</nav>
+
+<nav class="wrap more" aria-label="More from Two Worlds">
+  <a href="index.html#place-sevan"><span class="mono">Travel</span><span class="serif">Back to the atlas</span></a>
+  <a href="index.html#row-gegham"><span class="mono">Music</span><span class="serif">All works and scores</span></a>
+  <a href="index.html"><span class="mono">Home</span><span class="serif">Shaun Ji-Thompson</span></a>
 </nav>
 
 <section class="wrap feedback" aria-labelledby="fb-h">
@@ -441,7 +452,7 @@ h1 em { font-style: italic; font-weight: 200; }
       location.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Feedback: Armenia, 2015') + '&body=' + encodeURIComponent(body);
       st.textContent = 'Your email app should open with the message ready to send.';
     } else {
-      st.textContent = 'Feedback is not connected yet.';
+      st.textContent = 'Thank you. Feedback isn’t switched on yet, so this hasn’t been sent.';
     }
   });
 
