@@ -3,7 +3,7 @@
   "subtitle": "to the shores of Lake Sevan",
   "date": "2015-08",
   "leg": "Tabriz to Tbilisi",
-  "standfirst": "Up through the gorges of Syunik, a detour east into Karabakh, then north over the Selim Pass to Lake Sevan, the high lake behind my score À la côte de la mer de Gegham.",
+  "standfirst": "Up through the gorges of Syunik, east into Karabakh, then back over the Sotk Pass to Lake Sevan, the high lake behind my score À la côte de la mer de Gegham, and on to Yerevan.",
   "cover": {
     "src": "assets/sevan.jpg",
     "alt": "Sevanavank's stone church silhouetted at sunset above Lake Sevan",
@@ -48,7 +48,8 @@
           "alt": "A hand-painted shop sign in Armenian script hanging from a stone wall",
           "date": "2015-08-13"
         }
-      ]
+      ],
+      "native": "Կապան"
     },
     {
       "place": "Goris",
@@ -87,21 +88,81 @@
           "alt": "A statue between two columns on a square, parked cars in front and mountains behind",
           "date": "2015-08-13"
         }
-      ]
+      ],
+      "native": "Գորիս"
     },
     {
       "place": "Stepanakert / Khankendi",
+      "native": "Ստեփանակերտ",
       "country": "Karabakh",
-      "date": "2015-08",
-      "caption": "The main town of Karabakh, at the end of the mountain road east from Goris.",
-      "photos": []
+      "date": "2015-08-14",
+      "caption": "The main town of Karabakh. On the hill above it stands We Are Our Mountains, the 1967 monument locals call Tatik-Papik.",
+      "photos": [
+        {
+          "src": "assets/step-01.jpg",
+          "alt": "The red tufa monument We Are Our Mountains, two giant stone faces on a grassy hill, visitors taking photos",
+          "date": "2015-08-14",
+          "lead": true
+        },
+        {
+          "src": "assets/step-02.jpg",
+          "alt": "A lamp-lined boulevard at sunset leading to a pale stone public building",
+          "date": "2015-08-15"
+        },
+        {
+          "src": "assets/step-03.jpg",
+          "alt": "A small jewellery-repair kiosk with signs in Armenian and Russian, apartment blocks behind",
+          "date": "2015-08-15"
+        },
+        {
+          "src": "assets/step-04.jpg",
+          "alt": "A white Lada rounding a square beneath a statue on a tall plinth, cypress trees behind",
+          "date": "2015-08-15"
+        },
+        {
+          "src": "assets/step-05.jpg",
+          "alt": "A guesthouse room in morning light: striped runner on a red-painted floor, ferns, stacked bedding",
+          "date": "2015-08-15"
+        }
+      ]
     },
     {
-      "place": "Selim Pass",
-      "country": "Armenia",
-      "date": "2015-08",
-      "caption": "The Selim caravanserai, built in 1332 for travellers crossing the pass on the Silk Road.",
-      "photos": []
+      "place": "Gandzasar",
+      "native": "Գանձասար",
+      "country": "Karabakh",
+      "date": "2015-08-15",
+      "caption": "Gandzasar monastery, whose church of St John the Baptist was consecrated in 1240.",
+      "photos": [
+        {
+          "src": "assets/gandz-02.jpg",
+          "alt": "The carved drum and conical roof of Gandzasar church against a blue sky",
+          "date": "2015-08-15"
+        },
+        {
+          "src": "assets/gandz-01.jpg",
+          "alt": "The long rubble-stone monastery wall with arched wooden doors and small windows",
+          "date": "2015-08-15"
+        }
+      ]
+    },
+    {
+      "place": "Sotk Pass",
+      "native": "Սոթքի լեռնանցք",
+      "country": "Karabakh to Armenia",
+      "date": "2015-08-15",
+      "caption": "Back over the mountains by the northern road and the Sotk Pass, down to Vardenis near the lake.",
+      "photos": [
+        {
+          "src": "assets/road-01.jpg",
+          "alt": "Cattle standing and lying on a gravel mountain road between forested slopes",
+          "date": "2015-08-15"
+        },
+        {
+          "src": "assets/road-02.jpg",
+          "alt": "Soviet apartment blocks with washing on the balconies, a wide plain and mountains behind",
+          "date": "2015-08-15"
+        }
+      ]
     },
     {
       "place": "Lake Sevan",
@@ -114,14 +175,59 @@
           "alt": "Sevanavank's church above Lake Sevan in evening light, a man walking towards a camera on a tripod",
           "date": "2015-08-16"
         }
-      ]
+      ],
+      "native": "Սևանա լիճ"
     },
     {
       "place": "Yerevan",
+      "native": "Երևան",
       "country": "Armenia",
-      "date": "2015-08",
+      "date": "2015-08-16",
       "caption": "The pink-stone capital, with Ararat on the horizon on a clear day.",
-      "photos": []
+      "photos": [
+        {
+          "src": "assets/yer-07.jpg",
+          "alt": "People sitting on a stone parapet at the top of the Cascade, looking over Yerevan to the twin peaks of Ararat",
+          "date": "2015-08-18",
+          "lead": true
+        },
+        {
+          "src": "assets/yer-00.jpg",
+          "alt": "An overgrown Soviet-era terraced fountain park with bronze figures and three arches",
+          "date": "2015-08-16"
+        },
+        {
+          "src": "assets/yer-01.jpg",
+          "alt": "A seated bronze statue before the colonnaded Opera House",
+          "date": "2015-08-17"
+        },
+        {
+          "src": "assets/yer-02.jpg",
+          "alt": "A wide avenue of pink-stone apartment blocks under a genocide-centenary billboard, a yellow bus in traffic",
+          "date": "2015-08-17"
+        },
+        {
+          "src": "assets/yer-03.jpg",
+          "alt": "A suburban street of houses and vines, the TV tower on the hills beyond",
+          "date": "2015-08-17"
+        },
+        {
+          "src": "assets/yer-04.jpg",
+          "alt": "A carved orange stone frieze of musicians and poets on a building beneath a sweeping roof",
+          "date": "2015-08-17"
+        },
+        {
+          "src": "assets/yer-05.jpg",
+          "alt": "Visitors beside the eternal flame inside the ring of leaning basalt slabs at Tsitsernakaberd",
+          "date": "2015-08-17"
+        },
+        {
+          "src": "assets/yer-06.jpg",
+          "alt": "A boy riding a wave board past the fan-shaped stone fountains of the Cascade",
+          "date": "2015-08-18"
+        }
+      ]
     }
-  ]
+  ],
+  "titleNative": "Հայաստան"
 }

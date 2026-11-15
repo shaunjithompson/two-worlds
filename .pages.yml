@@ -12,6 +12,7 @@ content:
     format: json
     fields:
       - { name: title, label: Title, type: string }
+      - { name: titleNative, label: Title in the local script, type: string }
       - { name: subtitle, label: Subtitle (sells the music), type: string }
       - { name: date, label: "Date (YYYY-MM or YYYY-MM-DD)", type: string }
       - { name: leg, label: Part of which leg, type: string }
@@ -50,6 +51,7 @@ content:
         list: true
         fields:
           - { name: place, label: "Place (town or site)", type: string }
+          - { name: native, label: "Place in the local language and script", type: string }
           - { name: country, label: Country, type: string }
           - { name: date, label: "Date (YYYY-MM or YYYY-MM-DD)", type: string }
           - { name: caption, label: One-line caption, type: string }

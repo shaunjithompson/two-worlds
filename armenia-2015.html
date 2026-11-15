@@ -9,7 +9,7 @@
 <meta property="og:image" content="assets/sevan.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,300;0,6..72,400;1,6..72,200;1,6..72,300;1,6..72,400&family=Inter+Tight:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,300;0,6..72,400;1,6..72,200;1,6..72,300;1,6..72,400&family=Inter+Tight:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+Armenian:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* VOICE: a travel magazine feature — quiet, photographic, generous air.
    IDEA: the printed photo essay: full-bleed opener, display title cut into the photo, numbered plates.
@@ -40,6 +40,11 @@ a { color: var(--paper); } a:hover { color: var(--oxide-light); }
 .kicker .accent { color: var(--oxide-light); }
 h1 { margin: 14px 0 0; font-family: 'Newsreader', serif; font-weight: 200; font-size: clamp(64px, 13vw, 196px); line-height: .86; letter-spacing: -0.035em; }
 h1 em { font-style: italic; font-weight: 200; }
+.title .native { margin: 10px 0 0; font-family: 'Noto Serif Armenian', serif; font-weight: 300; font-size: clamp(20px, 2.4vw, 30px); color: var(--mute); letter-spacing: .02em; }
+.plate-head .native { font-family: 'Noto Serif Armenian', serif; font-weight: 300; font-size: clamp(15px, 1.5vw, 19px); color: #CFCAC0; margin-top: 6px; }
+.city .hy, .pin-label .hy { display: block; font-family: 'Noto Serif Armenian', serif; font-size: .92em; opacity: .8; }
+.city.up { transform: translate(-50%, calc(-100% - 8px)); text-align: center; }
+.city.down { transform: translate(-50%, 8px); text-align: center; }
 .subtitle { margin: 6px 0 0; font-family: 'Newsreader', serif; font-style: italic; font-weight: 200; font-size: clamp(30px, 4.6vw, 64px); line-height: 1; color: #D8D4CC; }
 .facts .span { grid-column: 1 / -1; }
 .deck { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px 64px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--rule); }
@@ -73,7 +78,7 @@ h1 em { font-style: italic; font-weight: 200; }
 .map-note { margin: 14px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.6; color: #5E625F; }
 .plate { padding-top: clamp(96px, 12vw, 170px); }
 .plate-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 20px; align-items: end; margin-bottom: 24px; padding-top: 22px; border-top: 1px solid var(--rule); }
-.plate-head .num { grid-row: span 2; font-family: 'Newsreader', serif; font-style: italic; font-weight: 200; font-size: clamp(56px, 7vw, 96px); line-height: .8; color: var(--oxide-light); }
+.plate-head .num { grid-row: span 3; font-family: 'Newsreader', serif; font-style: italic; font-weight: 200; font-size: clamp(56px, 7vw, 96px); line-height: .8; color: var(--oxide-light); }
 .plate-head .place { font-family: 'Newsreader', serif; font-weight: 300; font-size: clamp(30px, 3.6vw, 48px); line-height: 1; letter-spacing: -0.01em; }
 .plate-head .meta { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--mute); }
 .plate img { display: block; width: 100%; height: auto; }
@@ -152,13 +157,14 @@ h1 em { font-style: italic; font-weight: 200; }
 <section class="wrap title">
   <p class="mono kicker"><span class="accent" data-k="date">August 2015</span><span data-k="leg">Tabriz to Tbilisi</span></p>
   <h1 data-k="title">Armenia</h1>
+  <p class="native" lang="hy" data-k="titleNative">Հայաստան</p>
   <p class="subtitle" data-k="subtitle">to the shores of Lake Sevan</p>
   <div class="deck">
-    <p class="standfirst" data-k="standfirst">Up through the gorges of Syunik, a detour east into Karabakh, then north over the Selim Pass to Lake Sevan, the high lake behind my score À la côte de la mer de Gegham.</p>
+    <p class="standfirst" data-k="standfirst">Up through the gorges of Syunik, east into Karabakh, then back over the Sotk Pass to Lake Sevan, the high lake behind my score À la côte de la mer de Gegham, and on to Yerevan.</p>
     <dl class="facts">
-      <div><dt>Stops</dt><dd id="stop-count">6</dd></div>
+      <div><dt>Stops</dt><dd id="stop-count">7</dd></div>
       <div><dt>Leg</dt><dd data-k="leg">Tabriz to Tbilisi</dd></div>
-      <div class="span"><dt>Route</dt><dd id="stop-list">Kapan · Goris · Stepanakert / Khankendi · Selim Pass · Lake Sevan · Yerevan</dd></div>
+      <div class="span"><dt>Route</dt><dd id="stop-list">Kapan · Goris · Stepanakert / Khankendi · Gandzasar · Sotk Pass · Lake Sevan · Yerevan</dd></div>
       <div class="span"><dt>Photographs</dt><dd>Shaun Ji-Thompson</dd></div>
     </dl>
   </div>
@@ -167,14 +173,14 @@ h1 em { font-style: italic; font-weight: 200; }
 <section class="wrap route" aria-labelledby="route-h">
   <div class="sec-head"><h2 id="route-h">The route</h2><span class="mono">Black Sea to the Caspian</span></div>
   <div class="map-card reveal">
-    <div class="map" role="img" aria-label="Dot map of the South Caucasus between the Black Sea and the Caspian, with country borders. The route runs from Kapan north to Goris, east to Stepanakert, back west into Armenia over the Selim Pass to Lake Sevan, then down to Yerevan. Faint lines show the wider leg, in from Tabriz and out to Tbilisi.">
+    <div class="map" role="img" aria-label="Dot map of the South Caucasus between the Black Sea and the Caspian, with country borders. The route runs from Kapan north to Goris, east to Stepanakert and Gandzasar, back west over the Sotk Pass to Lake Sevan, then down to Yerevan. Faint lines show the wider leg, in from Tabriz and out to Tbilisi.">
       <img src="assets/armenia-map.png" alt="">
       <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
         <g fill="none" stroke-linejoin="round" stroke-linecap="round">
           <path id="borders" d="M8.00 9.23 L12.80 6.92 L20.00 11.54 L28.00 12.31 L36.00 17.69 L40.00 19.23 L44.80 19.23 L49.60 22.31 L53.60 27.69 L59.60 32.31 L62.40 37.69 L66.40 40.77 L71.20 43.08 L74.40 38.46 L76.64 32.92 M20.40 38.15 L28.00 39.23 L30.40 37.23 L35.76 44.31 L40.00 43.08 L46.40 43.08 L48.16 41.69 L53.60 40.77 L58.40 43.08 L61.60 36.92 L59.60 32.31 M35.76 44.31 L36.80 52.31 L37.60 60.00 L42.40 61.54 L46.16 66.00 M48.16 41.69 L51.60 45.38 L52.80 51.54 L55.60 56.92 L54.40 62.31 L56.80 65.38 L59.60 68.46 L60.40 73.85 L60.40 78.46 M46.16 66.00 L49.60 66.92 L53.60 68.46 L55.20 71.54 L57.20 73.85 L56.00 77.69 L56.96 78.92 L60.40 78.46 M46.16 66.00 L46.40 66.92 L50.40 72.31 L54.40 76.92 L56.96 78.92 M60.40 78.46 L64.00 74.62 L68.00 70.77 L72.00 67.69 L74.80 71.54 L72.80 76.92 L74.40 83.08 L78.96 85.69 M46.40 66.92 L44.80 70.77 L43.20 76.92 L42.40 84.62 L44.00 93.85 L42.40 101.54" stroke="#F1EEE7" stroke-width="5" vector-effect="non-scaling-stroke"/>
           <use href="#borders" stroke="#5E625F" stroke-width="1.2" stroke-dasharray="2 4"/>
           <path d="M58.32 90.92 L57.44 78.92 L57.20 74.62 L59.24 73.74 M44.10 58.82 L43.92 49.08 L45.28 44.62 L46.40 42.31 L46.32 35.08" stroke="#A63D24" stroke-opacity="0.5" stroke-width="2" stroke-dasharray="1 5" vector-effect="non-scaling-stroke"/>
-          <path class="march" d="M59.24 73.74 L58.71 69.06 L60.37 67.08 L62.00 65.23 L62.02 64.38 M62.02 64.38 L62.00 65.23 L60.37 67.08 L58.71 69.06 L56.24 68.92 L51.76 66.31 L49.92 62.31 L50.40 59.38 L48.96 56.00 L48.10 52.86 L46.16 53.85 L44.10 58.82" stroke="#A63D24" stroke-width="2.5" stroke-dasharray="10 7" vector-effect="non-scaling-stroke"/>
+          <path class="march" d="M59.24 73.74 L58.71 69.06 L60.37 67.08 L62.00 65.23 L62.02 64.38 L60.44 61.08 L56.32 59.92 L54.64 58.15 L53.84 58.77 L50.40 59.38 L48.96 56.00 L48.10 52.86 L46.16 53.85 L44.10 58.82" stroke="#A63D24" stroke-width="2.5" stroke-dasharray="10 7" vector-effect="non-scaling-stroke"/>
         </g>
       </svg>
       <span class="lbl country" style="left:52.8%;top:7.7%">Russia</span>
@@ -185,27 +191,23 @@ h1 em { font-style: italic; font-weight: 200; }
       <span class="lbl country" style="left:68%;top:94%">Iran</span>
       <span class="lbl sea" style="left:7%;top:24.6%">Black Sea</span>
       <span class="lbl sea" style="left:89%;top:35.4%">Caspian Sea</span>
-      <span class="dot" style="left:59.24%;top:73.74%"></span><span class="lbl city" style="left:59.24%;top:73.74%">Kapan</span>
-      <span class="dot" style="left:58.71%;top:69.06%"></span><span class="lbl city left" style="left:58.71%;top:69.06%">Goris</span>
-      <span class="dot" style="left:62.02%;top:64.38%"></span><span class="lbl city" style="left:62.02%;top:64.38%">Stepanakert /<br>Khankendi</span>
-      <span class="dot" style="left:44.1%;top:58.82%"></span><span class="lbl city left" style="left:44.1%;top:58.82%">Yerevan</span>
+      <span class="dot" style="left:59.24%;top:73.74%"></span><span class="lbl city" style="left:59.24%;top:73.74%">Kapan<span class="hy" lang="hy">Կապան</span></span>
+      <span class="dot" style="left:58.71%;top:69.06%"></span><span class="lbl city left" style="left:58.71%;top:69.06%">Goris<span class="hy" lang="hy">Գորիս</span></span>
+      <span class="dot" style="left:62.02%;top:64.38%"></span><span class="lbl city" style="left:62.02%;top:64.38%">Stepanakert /<br>Khankendi<span class="hy" lang="hy">Ստեփանակերտ</span></span>
+      <span class="dot" style="left:44.1%;top:58.82%"></span><span class="lbl city left" style="left:44.1%;top:58.82%">Yerevan<span class="hy" lang="hy">Երևան</span></span>
+      <span class="dot" style="left:60.44%;top:61.08%"></span><span class="lbl city up" style="left:60.44%;top:61.08%">Gandzasar<span class="hy" lang="hy">Գանձասար</span></span>
+      <span class="dot" style="left:54.64%;top:58.15%"></span><span class="lbl city down" style="left:54.64%;top:58.15%">Sotk Pass<span class="hy" lang="hy">Սոթքի լեռնանցք</span></span>
       <span class="dot ctx" style="left:58.32%;top:90.92%"></span><span class="lbl city ctx left" style="left:58.32%;top:90.92%">Tabriz</span>
       <span class="dot ctx" style="left:46.32%;top:35.08%"></span><span class="lbl city ctx" style="left:46.32%;top:35.08%">Tbilisi</span>
-      <span class="pin" style="left:48.1%;top:52.86%"></span><span class="lbl pin-label" style="left:48.1%;top:52.86%">Lake Sevan</span>
+      <span class="pin" style="left:48.1%;top:52.86%"></span><span class="lbl pin-label" style="left:48.1%;top:52.86%">Lake Sevan<span class="hy" lang="hy">Սևանա լիճ</span></span>
     </div>
     <p class="map-note">COUNTRIES IN CAPITALS · Towns in plain type · Solid red: this entry · Faint red: the wider leg, Tabriz to Tbilisi · Routes sketched, not exact</p>
   </div>
 </section>
 
 <!-- PHOTO DIARY: rendered from content/journeys/armenia-2015.json (edit it in Pages CMS).
-     Stops are sorted by date. 1 photo = feature / offset / inset (rotating), 2 = pair, 3+ = carousel. Stops without photos stay hidden. -->
-<div id="diary"></div><p class="line"></p></section>
-  <section class="plate wrap" data-date="2015-08" data-place="Goris" data-country="Armenia" hidden><div class="photos"><img src="assets/goris.jpg" alt="A boy walks past the arched stone war-memorial fountain in Goris, its frieze carved with Armenian lettering" loading="lazy"></div><p class="line">The memorial fountain to the heroes of Zangezur who fell in the Second World War.</p></section>
-  <section class="plate wrap" data-date="2015-08" data-place="Stepanakert / Khankendi" data-country="Karabakh" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="plate wrap" data-date="2015-08" data-place="Selim Pass" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="plate wrap" data-date="2015-08" data-place="Lake Sevan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="plate wrap" data-date="2015-08" data-place="Yerevan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
-</div>
+     Stops are sorted by date. 1 photo = feature / offset / inset (rotating), 2 = pair, 3+ = lead photo then pair or carousel. Stops without photos stay hidden. -->
+<div id="diary"></div>
 
 <section class="wrap score-wrap" aria-label="The music">
   <div class="score reveal">
@@ -248,12 +250,12 @@ h1 em { font-style: italic; font-weight: 200; }
 
   function head(n, st) {
     return '<header class="plate-head"><span class="num">' + String(n).padStart(2, '0') + '</span><span class="place">' + esc(st.place) +
-      '</span><span class="meta mono"><span>' + esc(st.country) + '</span><span>' + esc(st._when) + '</span></span></header>';
+      '</span>' + (st.native ? '<span class="native" lang="hy">' + esc(st.native) + '</span>' : '') + '<span class="meta mono"><span>' + esc(st.country) + '</span><span>' + esc(st._when) + '</span></span></header>';
   }
   const img = (p, i) => '<img src="' + esc(src(p.src)) + '" alt="' + esc(p.alt) + '"' + (i ? ' loading="lazy"' : '') + '>';
 
   function render(data) {
-    set('[data-k="title"]', data.title); set('[data-k="subtitle"]', data.subtitle); set('[data-k="standfirst"]', data.standfirst);
+    set('[data-k="title"]', data.title); set('[data-k="titleNative"]', data.titleNative); set('[data-k="subtitle"]', data.subtitle); set('[data-k="standfirst"]', data.standfirst);
     set('[data-k="leg"]', data.leg); set('[data-k="date"]', fmt(data.date));
     if (data.cover && data.cover.src) { const c = document.getElementById('cover'); c.src = src(data.cover.src); c.alt = data.cover.alt || ''; }
     // date of a stop = its own date, else its earliest photo date
