@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lake Sevan, Armenia 2015 — Shaun Ji-Thompson</title>
+<title>Armenia, August 2015 — Shaun Ji-Thompson</title>
 <meta name="description" content="A photo diary from Armenia in August 2015: Kapan, Goris, Stepanakert, Lake Sevan and Yerevan, part of the overland leg from Tabriz to Tbilisi.">
-<meta property="og:title" content="Lake Sevan — Armenia, August 2015">
+<meta property="og:title" content="Armenia — to the shores of Lake Sevan">
 <meta property="og:image" content="assets/sevan.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +40,8 @@ a { color: var(--paper); } a:hover { color: var(--oxide-light); }
 .kicker .accent { color: var(--oxide-light); }
 h1 { margin: 14px 0 0; font-family: 'Newsreader', serif; font-weight: 200; font-size: clamp(64px, 13vw, 196px); line-height: .86; letter-spacing: -0.035em; }
 h1 em { font-style: italic; font-weight: 200; }
+.subtitle { margin: 6px 0 0; font-family: 'Newsreader', serif; font-style: italic; font-weight: 200; font-size: clamp(30px, 4.6vw, 64px); line-height: 1; color: #D8D4CC; }
+.facts .span { grid-column: 1 / -1; }
 .deck { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px 64px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--rule); }
 .deck p { margin: 0; }
 .standfirst { font-family: 'Newsreader', serif; font-weight: 300; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.35; color: #E6E2DA; max-width: 30ch; }
@@ -75,6 +77,30 @@ h1 em { font-style: italic; font-weight: 200; }
 .plate-head .place { font-family: 'Newsreader', serif; font-weight: 300; font-size: clamp(30px, 3.6vw, 48px); line-height: 1; letter-spacing: -0.01em; }
 .plate-head .meta { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--mute); }
 .plate img { display: block; width: 100%; height: auto; }
+/* feature: edge to edge */
+.plate.feature { max-width: none; padding-left: 0; padding-right: 0; }
+.plate.feature > .plate-head, .plate.feature > .line { max-width: 1240px; margin-left: auto; margin-right: auto; padding-left: clamp(18px, 4vw, 40px); padding-right: clamp(18px, 4vw, 40px); }
+.plate.feature > .plate-head { border-top: 0; }
+.plate.feature > .line { max-width: 1240px; font-size: clamp(22px, 2.6vw, 34px); }
+.plate.feature > .line span { display: block; max-width: 30ch; }
+/* inset: narrow photo, caption as a pull quote above */
+.plate.inset .line { order: -1; margin: 0 auto 32px; max-width: 24ch; text-align: center; font-size: clamp(26px, 3.4vw, 44px); line-height: 1.2; }
+.plate.inset .photos { max-width: 760px; margin: 0 auto; }
+.plate.inset { display: flex; flex-direction: column; }
+.plate.inset .plate-head { order: -2; }
+/* carousel */
+.carousel { position: relative; }
+.carousel .track { margin-right: calc(50% - 50vw); padding-right: clamp(18px, 4vw, 40px); }
+.track { display: flex; gap: clamp(10px, 1.4vw, 18px); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+.track::-webkit-scrollbar { display: none; }
+.track figure { margin: 0; flex: 0 0 auto; scroll-snap-align: start; }
+.track img { height: clamp(260px, 58vh, 640px); width: auto; max-width: 88vw; object-fit: contain; }
+.c-ctrl { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; }
+.c-ctrl .count { color: var(--mute); }
+.c-btns { display: flex; gap: 8px; }
+.c-btns button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid #3A3A3E; background: transparent; color: var(--paper); font-size: 18px; cursor: pointer; }
+.c-btns button:hover { border-color: var(--paper); }
+.c-btns button:disabled { opacity: .3; cursor: default; }
 .line { margin: 18px 0 0; max-width: 34ch; font-family: 'Newsreader', serif; font-style: italic; font-weight: 300; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.4; color: #D8D4CC; }
 .line:empty { display: none; }
 .plate.pair .photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(10px, 1.4vw, 18px); align-items: start; }
@@ -117,19 +143,20 @@ h1 em { font-style: italic; font-weight: 200; }
 
 <main>
 <div class="opener">
-  <img class="cover" src="assets/sevan.jpg" alt="Sevanavank's stone church silhouetted at sunset above Lake Sevan">
+  <img class="cover" id="cover" src="assets/sevan.jpg" alt="Sevanavank's stone church silhouetted at sunset above Lake Sevan">
 </div>
 
 <section class="wrap title">
-  <p class="mono kicker"><span class="accent">Armenia</span><span>August 2015</span><span>Tabriz to Tbilisi</span></p>
-  <h1>Lake <em>Sevan</em></h1>
+  <p class="mono kicker"><span class="accent" data-k="date">August 2015</span><span data-k="leg">Tabriz to Tbilisi</span></p>
+  <h1 data-k="title">Armenia</h1>
+  <p class="subtitle" data-k="subtitle">to the shores of Lake Sevan</p>
   <div class="deck">
-    <p class="standfirst">Kapan to Karabakh and back, then over the mountains to the lake at sundown.</p>
+    <p class="standfirst" data-k="standfirst">Up through the gorges of Syunik, a detour east into Karabakh, then north over the Selim Pass to Lake Sevan, the high lake behind my score À la côte de la mer de Gegham.</p>
     <dl class="facts">
-      <div><dt>From</dt><dd>Kapan, Armenia</dd></div>
-      <div><dt>To</dt><dd>Yerevan, Armenia</dd></div>
-      <div><dt>Via</dt><dd>Stepanakert / Khankendi</dd></div>
-      <div><dt>Photographs</dt><dd>Shaun Ji-Thompson</dd></div>
+      <div><dt>Stops</dt><dd id="stop-count">6</dd></div>
+      <div><dt>Leg</dt><dd data-k="leg">Tabriz to Tbilisi</dd></div>
+      <div class="span"><dt>Route</dt><dd id="stop-list">Kapan · Goris · Stepanakert / Khankendi · Selim Pass · Lake Sevan · Yerevan</dd></div>
+      <div class="span"><dt>Photographs</dt><dd>Shaun Ji-Thompson</dd></div>
     </dl>
   </div>
 </section>
@@ -167,14 +194,9 @@ h1 em { font-style: italic; font-weight: 200; }
   </div>
 </section>
 
-<!--
-  PHOTO DIARY. One <section class="plate"> per stop.
-  data-date: ISO date (YYYY-MM-DD or YYYY-MM). Plates are sorted by it on load, so they can be added in any order.
-  Same or missing dates keep the order written here. Layout (wide / offset / pair) is assigned after sorting.
-  A plate with no photos stays hidden.
--->
-<div id="diary">
-  <section class="plate wrap" data-date="2015-08" data-place="Kapan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
+<!-- PHOTO DIARY: rendered from content/journeys/armenia-2015.json (edit it in Pages CMS).
+     Stops are sorted by date. 1 photo = feature / offset / inset (rotating), 2 = pair, 3+ = carousel. Stops without photos stay hidden. -->
+<div id="diary"></div><p class="line"></p></section>
   <section class="plate wrap" data-date="2015-08" data-place="Goris" data-country="Armenia" hidden><div class="photos"><img src="assets/goris.jpg" alt="A boy walks past the arched stone war-memorial fountain in Goris, its frieze carved with Armenian lettering" loading="lazy"></div><p class="line">The memorial fountain to the heroes of Zangezur who fell in the Second World War.</p></section>
   <section class="plate wrap" data-date="2015-08" data-place="Stepanakert / Khankendi" data-country="Karabakh" hidden><div class="photos"></div><p class="line"></p></section>
   <section class="plate wrap" data-date="2015-08" data-place="Selim Pass" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
@@ -185,17 +207,17 @@ h1 em { font-style: italic; font-weight: 200; }
 <section class="wrap score-wrap" aria-label="The music">
   <div class="score reveal">
     <div>
-      <p class="mono label">The score · Shaun Ji-Thompson · 2024</p>
-      <h3 lang="fr"><a href="a-la-cote-de-la-mer-de-gegham.html">À la côte de la mer de Gegham</a></h3>
-      <p>A piece about this lake, for wind band.</p>
+      <p class="mono label">The score · Shaun Ji-Thompson · <span id="music-year">2024</span></p>
+      <h3 lang="fr"><a id="music-link" href="a-la-cote-de-la-mer-de-gegham.html">À la côte de la mer de Gegham</a></h3>
+      <p id="music-blurb">A piece about Lake Sevan, for wind band.</p>
     </div>
-    <a class="btn" href="a-la-cote-de-la-mer-de-gegham.html">Buy the score <span aria-hidden="true">→</span></a>
+    <a class="btn" id="music-btn" href="a-la-cote-de-la-mer-de-gegham.html">Buy the score <span aria-hidden="true">→</span></a>
   </div>
 </section>
 
 <nav class="wrap leg" aria-label="The rest of the leg">
-  <div><span class="mono">Before · Iran</span><span class="serif">← Tabriz</span></div>
-  <div><span class="mono">After · Georgia</span><span class="serif">Tbilisi →</span></div>
+  <div id="before"><span class="mono">Before · Iran</span><span class="serif">← Tabriz</span></div>
+  <div id="after"><span class="mono">After · Georgia</span><span class="serif">Tbilisi →</span></div>
 </nav>
 </main>
 
@@ -207,51 +229,89 @@ h1 em { font-style: italic; font-weight: 200; }
 <script>
 {
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const diary = document.getElementById('diary');
-  const plates = [...diary.querySelectorAll('.plate')].map((s, i) => ({ s, i }));
-  plates.sort((a, b) => {
-    const da = a.s.dataset.date || '9999', db = b.s.dataset.date || '9999';
-    return da === db ? a.i - b.i : (da < db ? -1 : 1);
-  });
-  const cycle = ['wide', 'offset', 'wide', 'offset flip'];
-  let n = 0;
-  plates.forEach(({ s }) => {
-    diary.appendChild(s);
-    const imgs = s.querySelectorAll('.photos img');
-    if (!imgs.length) return;
-    s.hidden = false;
-    const kind = imgs.length >= 2 ? 'pair' : cycle[n % cycle.length];
-    n++;
-    kind.split(' ').forEach(c => s.classList.add(c));
-    const [y, m, d] = (s.dataset.date || '').split('-');
-    const when = ((d ? Number(d) + ' ' : '') + (months[Number(m) - 1] || '') + ' ' + (y || '')).trim();
-    const head = document.createElement('header');
-    head.className = 'plate-head';
-    head.innerHTML = '<span class="num"></span><span class="place"></span><span class="meta mono"><span class="c"></span><span class="w"></span></span>';
-    head.querySelector('.num').textContent = String(n).padStart(2, '0');
-    head.querySelector('.place').textContent = s.dataset.place || '';
-    head.querySelector('.c').textContent = s.dataset.country || '';
-    head.querySelector('.w').textContent = when;
-    s.insertBefore(head, s.firstChild);
-    if (kind.startsWith('offset')) {
-      const body = document.createElement('div'); body.className = 'body';
-      body.append(s.querySelector('.line'), s.querySelector('.photos'));
-      s.appendChild(body);
-    }
-    s.querySelector('.photos').classList.add('reveal');
-  });
+  const esc = t => String(t ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const src = p => String(p || '').replace(/^\//, '');
+  const fmt = d => { const [y, m, day] = String(d || '').split('-'); return ((day ? Number(day) + ' ' : '') + (months[Number(m) - 1] || '') + ' ' + (y || '')).trim(); };
+  const set = (sel, v) => document.querySelectorAll(sel).forEach(el => { if (v) el.textContent = v; });
 
-  const els = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
+  function observe(root) {
+    const els = root.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('in')); return; }
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
     els.forEach(el => io.observe(el));
-  } else els.forEach(el => el.classList.add('in'));
+  }
+
+  function head(n, st) {
+    return '<header class="plate-head"><span class="num">' + String(n).padStart(2, '0') + '</span><span class="place">' + esc(st.place) +
+      '</span><span class="meta mono"><span>' + esc(st.country) + '</span><span>' + esc(fmt(st.date)) + '</span></span></header>';
+  }
+  const img = (p, i) => '<img src="' + esc(src(p.src)) + '" alt="' + esc(p.alt) + '"' + (i ? ' loading="lazy"' : '') + '>';
+
+  function render(data) {
+    set('[data-k="title"]', data.title); set('[data-k="subtitle"]', data.subtitle); set('[data-k="standfirst"]', data.standfirst);
+    set('[data-k="leg"]', data.leg); set('[data-k="date"]', fmt(data.date));
+    if (data.cover && data.cover.src) { const c = document.getElementById('cover'); c.src = src(data.cover.src); c.alt = data.cover.alt || ''; }
+    const stops = (data.stops || []).map((s, i) => ({ s, i })).sort((a, b) => {
+      const da = a.s.date || '9999', db = b.s.date || '9999'; return da === db ? a.i - b.i : (da < db ? -1 : 1);
+    }).map(x => x.s);
+    document.getElementById('stop-count').textContent = stops.length;
+    document.getElementById('stop-list').textContent = stops.map(s => s.place).join(' · ');
+    if (data.music) {
+      const m = data.music, a = document.getElementById('music-link'), b = document.getElementById('music-btn');
+      if (m.title) a.textContent = m.title; if (m.url) { a.href = m.url; b.href = m.url; }
+      set('#music-blurb', m.blurb); set('#music-year', m.year);
+    }
+    [['before', '← ', ''], ['after', '', ' →']].forEach(([k, pre, post]) => {
+      const v = data[k], el = document.getElementById(k); if (!v || !el) return;
+      el.innerHTML = '<span class="mono">' + (k === 'before' ? 'Before' : 'After') + ' · ' + esc(v.country) + '</span>' +
+        (v.url ? '<a class="serif" href="' + esc(v.url) + '">' : '<span class="serif">') + pre + esc(v.place) + post + (v.url ? '</a>' : '</span>');
+    });
+
+    const singles = ['feature', 'offset', 'inset', 'offset flip'];
+    let n = 0, k = 0, last = '';
+    const html = stops.map(st => {
+      const ph = (st.photos || []).filter(p => p && p.src);
+      if (!ph.length) return '';
+      n++;
+      let kind;
+      if (ph.length >= 3) kind = 'carousel';
+      else if (ph.length === 2) kind = 'pair';
+      else { kind = singles[k % singles.length]; if (kind === last) { k++; kind = singles[k % singles.length]; } k++; }
+      last = kind;
+      const cap = st.caption ? '<p class="line"><span>' + esc(st.caption) + '</span></p>' : '';
+      let body;
+      if (kind === 'carousel') {
+        body = '<div class="carousel reveal"><div class="track" tabindex="0" aria-label="' + esc(st.place) + ' photos">' +
+          ph.map(p => '<figure>' + img(p, 0) + '</figure>').join('') + '</div>' +
+          '<div class="c-ctrl"><span class="mono count">1 / ' + ph.length + '</span><span class="c-btns"><button type="button" class="prev" aria-label="Previous photo">←</button><button type="button" class="next" aria-label="Next photo">→</button></span></div></div>' + cap;
+      } else if (kind.startsWith('offset')) {
+        body = '<div class="body">' + cap + '<div class="photos reveal">' + ph.map(img).join('') + '</div></div>';
+      } else {
+        body = '<div class="photos reveal">' + ph.map(img).join('') + '</div>' + cap;
+      }
+      return '<section class="plate wrap ' + kind + '">' + head(n, st) + body + '</section>';
+    }).join('');
+    const diary = document.getElementById('diary');
+    diary.innerHTML = html;
+
+    diary.querySelectorAll('.carousel').forEach(c => {
+      const t = c.querySelector('.track'), figs = [...t.children], cnt = c.querySelector('.count');
+      const prev = c.querySelector('.prev'), next = c.querySelector('.next');
+      const idx = () => { let best = 0, d = 1e9; figs.forEach((f, i) => { const v = Math.abs(f.offsetLeft - t.offsetLeft - t.scrollLeft); if (v < d) { d = v; best = i; } }); return best; };
+      const upd = () => { const i = idx(); cnt.textContent = (i + 1) + ' / ' + figs.length; prev.disabled = t.scrollLeft < 4; next.disabled = t.scrollLeft + t.clientWidth >= t.scrollWidth - 4; };
+      const go = d => { const i = Math.max(0, Math.min(figs.length - 1, idx() + d)); t.scrollTo({ left: figs[i].offsetLeft - t.offsetLeft, behavior: 'smooth' }); };
+      prev.addEventListener('click', () => go(-1)); next.addEventListener('click', () => go(1));
+      t.addEventListener('scroll', upd, { passive: true }); t.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(1); if (e.key === 'ArrowLeft') go(-1); });
+      upd();
+    });
+    observe(diary);
+  }
+
+  observe(document);
+  fetch('content/journeys/armenia-2015.json').then(r => r.json()).then(render).catch(() => {});
 
   const bar = document.getElementById('progress');
-  const onScroll = () => {
-    const h = document.documentElement.scrollHeight - innerHeight;
-    bar.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')';
-  };
+  const onScroll = () => { const h = document.documentElement.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')'; };
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 }
 </script>

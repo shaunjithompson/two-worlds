@@ -1,0 +1,62 @@
+# Pages CMS (https://pagescms.org) — sign in with GitHub, pick this repo, edit in forms.
+media:
+  input: assets
+  output: assets
+  categories: [image]
+
+content:
+  - name: armenia-2015
+    label: "Journey · Armenia, August 2015"
+    type: file
+    path: content/journeys/armenia-2015.json
+    format: json
+    fields:
+      - { name: title, label: Title, type: string }
+      - { name: subtitle, label: Subtitle (sells the music), type: string }
+      - { name: date, label: "Date (YYYY-MM or YYYY-MM-DD)", type: string }
+      - { name: leg, label: Part of which leg, type: string }
+      - { name: standfirst, label: Standfirst, type: text }
+      - name: cover
+        label: Cover photo
+        type: object
+        fields:
+          - { name: src, label: Photo, type: image }
+          - { name: alt, label: Description for screen readers, type: string }
+      - name: before
+        label: Previous stop on the leg
+        type: object
+        fields:
+          - { name: place, label: Place, type: string }
+          - { name: country, label: Country, type: string }
+          - { name: url, label: Link (when that entry exists), type: string }
+      - name: after
+        label: Next stop on the leg
+        type: object
+        fields:
+          - { name: place, label: Place, type: string }
+          - { name: country, label: Country, type: string }
+          - { name: url, label: Link (when that entry exists), type: string }
+      - name: music
+        label: Linked score
+        type: object
+        fields:
+          - { name: title, label: Title, type: string }
+          - { name: year, label: Year, type: string }
+          - { name: blurb, label: One line, type: string }
+          - { name: url, label: Score page, type: string }
+      - name: stops
+        label: Stops (sorted by date automatically)
+        type: object
+        list: true
+        fields:
+          - { name: place, label: "Place (town or site)", type: string }
+          - { name: country, label: Country, type: string }
+          - { name: date, label: "Date (YYYY-MM or YYYY-MM-DD)", type: string }
+          - { name: caption, label: One-line caption, type: string }
+          - name: photos
+            label: "Photos (1 = feature, 2 = pair, 3+ = carousel)"
+            type: object
+            list: true
+            fields:
+              - { name: src, label: Photo, type: image }
+              - { name: alt, label: Description for screen readers, type: string }

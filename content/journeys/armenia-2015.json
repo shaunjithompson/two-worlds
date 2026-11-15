@@ -1,0 +1,62 @@
+{
+  "title": "Armenia",
+  "subtitle": "to the shores of Lake Sevan",
+  "date": "2015-08",
+  "leg": "Tabriz to Tbilisi",
+  "standfirst": "Up through the gorges of Syunik, a detour east into Karabakh, then north over the Selim Pass to Lake Sevan, the high lake behind my score À la côte de la mer de Gegham.",
+  "cover": { "src": "assets/sevan.jpg", "alt": "Sevanavank's stone church silhouetted at sunset above Lake Sevan" },
+  "before": { "place": "Tabriz", "country": "Iran", "url": "" },
+  "after": { "place": "Tbilisi", "country": "Georgia", "url": "" },
+  "music": {
+    "title": "À la côte de la mer de Gegham",
+    "year": "2024",
+    "blurb": "A piece about Lake Sevan, for wind band.",
+    "url": "a-la-cote-de-la-mer-de-gegham.html"
+  },
+  "stops": [
+    {
+      "place": "Kapan",
+      "country": "Armenia",
+      "date": "2015-08",
+      "caption": "The capital of Syunik, strung along a narrow river valley below Mount Khustup.",
+      "photos": []
+    },
+    {
+      "place": "Goris",
+      "country": "Armenia",
+      "date": "2015-08",
+      "caption": "The memorial fountain to the heroes of Zangezur who fell in the Second World War.",
+      "photos": [
+        { "src": "assets/goris.jpg", "alt": "A boy walks past the arched stone war-memorial fountain in Goris, its frieze carved with Armenian lettering" }
+      ]
+    },
+    {
+      "place": "Stepanakert / Khankendi",
+      "country": "Karabakh",
+      "date": "2015-08",
+      "caption": "The main town of Karabakh, at the end of the mountain road east from Goris.",
+      "photos": []
+    },
+    {
+      "place": "Selim Pass",
+      "country": "Armenia",
+      "date": "2015-08",
+      "caption": "The Selim caravanserai, built in 1332 for travellers crossing the pass on the Silk Road.",
+      "photos": []
+    },
+    {
+      "place": "Lake Sevan",
+      "country": "Armenia",
+      "date": "2015-08",
+      "caption": "Sevanavank's churches date from 874, when the peninsula was still an island.",
+      "photos": []
+    },
+    {
+      "place": "Yerevan",
+      "country": "Armenia",
+      "date": "2015-08",
+      "caption": "The pink-stone capital, with Ararat on the horizon on a clear day.",
+      "photos": []
+    }
+  ]
+}
