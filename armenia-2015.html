@@ -9,64 +9,101 @@
 <meta property="og:image" content="assets/sevan.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Inter+Tight:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,300;0,6..72,400;1,6..72,200;1,6..72,300;1,6..72,400&family=Inter+Tight:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root { --ink: #0B0B0C; --paper: #F1EEE7; --indigo: #21364F; --oxide: #A63D24; --oxide-light: #E8674A; --mute: #A9A6A0; }
-body { margin: 0; background: var(--ink); color: var(--paper); font-family: 'Inter Tight', system-ui, sans-serif; }
+/* VOICE: a travel magazine feature — quiet, photographic, generous air.
+   IDEA: the printed photo essay: full-bleed opener, display title cut into the photo, numbered plates.
+   PICTURE: Shaun's photographs, never cropped; the dot map as the one drawn figure.
+   COLOUR/TYPE: ink ground, paper type, Japanese indigo and oxide as the only accents; Newsreader, Inter Tight, Plex Mono.
+   LAYOUT: one calm column up to 1240px; plates alternate wide, offset and paired. */
+:root { --ink: #0B0B0C; --paper: #F1EEE7; --indigo: #21364F; --oxide: #A63D24; --oxide-light: #E8674A; --mute: #A9A6A0; --rule: #2A2A2D; }
+* { box-sizing: border-box; min-width: 0; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ink); color: var(--paper); font: 16px/1.55 'Inter Tight', system-ui, sans-serif; overflow-x: clip; -webkit-font-smoothing: antialiased; }
 a { color: var(--paper); } a:hover { color: var(--oxide-light); }
-.mono { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
-.wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; box-sizing: border-box; }
-.nav { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; padding-top: 24px; padding-bottom: 24px; }
-.nav .brand { font-family: 'Newsreader', serif; font-size: 22px; text-decoration: none; }
-.nav-links { display: flex; flex-wrap: wrap; gap: 4px; }
-.nav-links a { padding: 12px 14px; text-decoration: none; color: var(--mute); font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
-.nav-links a[aria-current] { color: var(--paper); background: var(--indigo); border-radius: 999px; }
-.cover { display: block; width: 100%; height: auto; max-height: 86vh; object-fit: cover; }
-.title-row { display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: flex-end; justify-content: space-between; padding-top: 40px; }
-h1 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-size: clamp(56px, 10vw, 136px); line-height: 0.9; letter-spacing: -0.03em; }
-.standfirst { margin: 0; max-width: 340px; font-family: 'Newsreader', serif; font-style: italic; font-weight: 300; font-size: 22px; line-height: 1.4; color: #D8D4CC; }
-.credit { display: block; margin-top: 14px; font-family: 'IBM Plex Mono', monospace; font-style: normal; font-size: 11px; letter-spacing: 0.08em; color: var(--mute); }
-.map-card { background: var(--paper); color: #111214; padding: clamp(14px, 2.5vw, 28px); border-radius: 2px; }
+:focus-visible { outline: 2px solid var(--oxide-light); outline-offset: 3px; }
+.serif { font-family: 'Newsreader', Georgia, serif; }
+.mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
+.progress { position: fixed; top: 0; left: 0; height: 2px; width: 100%; background: var(--oxide-light); transform-origin: 0 50%; transform: scaleX(0); z-index: 20; }
+.nav { position: absolute; top: 0; left: 0; right: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding-top: 22px; padding-bottom: 22px; }
+.brand { font-family: 'Newsreader', serif; font-size: 22px; text-decoration: none; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
+.nav-links { display: flex; flex-wrap: wrap; gap: 2px; }
+.nav-links a { padding: 12px 14px; text-decoration: none; color: rgba(241,238,231,.85); font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-shadow: 0 1px 10px rgba(0,0,0,.4); }
+.nav-links a[aria-current] { color: var(--paper); background: rgba(33,54,79,.85); border-radius: 999px; text-shadow: none; }
+.opener { position: relative; }
+.opener::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 160px; background: linear-gradient(to bottom, rgba(11,11,12,.55), rgba(11,11,12,0)); pointer-events: none; z-index: 1; }
+.cover { display: block; width: 100%; height: min(92vh, calc(56.25vw + 120px)); min-height: 420px; object-fit: cover; object-position: 50% 62%; }
+.opener::after { content: ''; position: absolute; inset: auto 0 0 0; height: 40%; background: linear-gradient(to bottom, rgba(11,11,12,0), rgba(11,11,12,.9)); pointer-events: none; }
+.title { position: relative; z-index: 2; margin-top: clamp(-200px, -15vw, -90px); }
+.kicker { margin: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--paper); }
+.kicker .accent { color: var(--oxide-light); }
+h1 { margin: 14px 0 0; font-family: 'Newsreader', serif; font-weight: 200; font-size: clamp(64px, 13vw, 196px); line-height: .86; letter-spacing: -0.035em; }
+h1 em { font-style: italic; font-weight: 200; }
+.deck { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px 64px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--rule); }
+.deck p { margin: 0; }
+.standfirst { font-family: 'Newsreader', serif; font-weight: 300; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.35; color: #E6E2DA; max-width: 30ch; }
+.standfirst::first-letter { font-size: 3.1em; float: left; line-height: .82; margin: 6px 10px 0 0; font-weight: 200; color: var(--oxide-light); }
+.facts { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 32px; align-content: start; }
+.facts dt { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.facts dd { margin: 4px 0 0; font-family: 'Newsreader', serif; font-size: 20px; }
+.route { padding-top: clamp(80px, 10vw, 140px); }
+.sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 22px; }
+.sec-head h2 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-style: italic; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.05; }
+.sec-head .mono { color: var(--mute); }
+.map-card { background: var(--paper); color: #111214; padding: clamp(12px, 2.5vw, 32px); }
 .map { position: relative; width: 100%; aspect-ratio: 2240 / 1536; overflow: hidden; }
 .map > img, .map > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 @keyframes march { to { stroke-dashoffset: -34; } }
 .march { animation: march 1.8s linear infinite; }
-@media (prefers-reduced-motion: reduce) { .march { animation: none; } }
 .lbl { position: absolute; white-space: nowrap; pointer-events: none; }
-.country { transform: translate(-50%, -50%); font-family: 'IBM Plex Mono', monospace; font-size: clamp(8px, 1vw, 11px); letter-spacing: 0.22em; text-transform: uppercase; color: #3F423F; background: var(--paper); padding: 2px 6px; }
-.sea { transform: translate(-50%, -50%); font-family: 'Newsreader', serif; font-style: italic; font-size: clamp(11px, 1.4vw, 16px); color: #5E625F; }
+.country { transform: translate(-50%, -50%); font-family: 'IBM Plex Mono', monospace; font-size: clamp(8px, 1vw, 11px); letter-spacing: 0.24em; text-transform: uppercase; color: #3F423F; background: var(--paper); padding: 2px 6px; }
+.sea { transform: translate(-50%, -50%); font-family: 'Newsreader', serif; font-style: italic; font-size: clamp(11px, 1.5vw, 18px); color: #5E625F; }
 .dot { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--indigo); }
-.dot.ctx { background: var(--paper); border: 1.5px solid #5E625F; box-sizing: border-box; }
-.city { font-size: clamp(10px, 1.1vw, 12px); color: var(--indigo); background: var(--paper); padding: 1px 5px; transform: translate(10px, -50%); }
+.dot.ctx { background: var(--paper); border: 1.5px solid #5E625F; }
+.city { font-size: clamp(10px, 1.1vw, 12px); line-height: 1.25; color: var(--indigo); background: var(--paper); padding: 1px 5px; transform: translate(10px, -50%); }
 .city.left { transform: translate(calc(-100% - 10px), -50%); }
 .city.ctx { color: #5E625F; font-style: italic; }
-.pin { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: var(--oxide); box-shadow: 0 0 0 9px rgba(166,61,36,0.22); }
+.pin { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: var(--oxide); box-shadow: 0 0 0 clamp(4px, 0.8vw, 9px) rgba(166,61,36,.22); }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(166,61,36,.45); } 100% { box-shadow: 0 0 0 22px rgba(166,61,36,0); } }
+.pin::after { content: ''; position: absolute; inset: 0; border-radius: 50%; animation: pulse 2.4s ease-out infinite; }
 .pin-label { transform: translate(18px, -150%); padding: 4px 11px; border-radius: 999px; background: #111214; color: var(--paper); font-size: clamp(11px, 1.2vw, 13px); }
-.map-note { margin: 14px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.5; color: #5E625F; }
-.stage { padding-top: 120px; }
-.stage-head { margin: 0 0 20px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px; color: var(--mute); }
-.stage-head .n { color: var(--oxide-light); }
-.where { display: inline-flex; gap: 10px; align-items: baseline; }
-.where .p { color: var(--paper); font-family: 'Newsreader', serif; font-size: 22px; letter-spacing: 0; text-transform: none; }
-.where .c { color: var(--mute); }
+.map-note { margin: 14px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.6; color: #5E625F; }
+.plate { padding-top: clamp(96px, 12vw, 170px); }
+.plate-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 20px; align-items: end; margin-bottom: 24px; padding-top: 22px; border-top: 1px solid var(--rule); }
+.plate-head .num { grid-row: span 2; font-family: 'Newsreader', serif; font-style: italic; font-weight: 200; font-size: clamp(56px, 7vw, 96px); line-height: .8; color: var(--oxide-light); }
+.plate-head .place { font-family: 'Newsreader', serif; font-weight: 300; font-size: clamp(30px, 3.6vw, 48px); line-height: 1; letter-spacing: -0.01em; }
+.plate-head .meta { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--mute); }
+.plate img { display: block; width: 100%; height: auto; }
+.line { margin: 18px 0 0; max-width: 34ch; font-family: 'Newsreader', serif; font-style: italic; font-weight: 300; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.4; color: #D8D4CC; }
 .line:empty { display: none; }
-.stage figure { margin: 0; } .stage img { display: block; width: 100%; object-fit: cover; }
-.line { margin: 16px 0 0; max-width: 520px; font-family: 'Newsreader', serif; font-style: italic; font-size: 20px; line-height: 1.4; color: #D8D4CC; }
-.stage img { height: auto; }
-.stage.pair .photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-.stage.pair .photos { align-items: start; }
-.stage.offset .body { display: flex; flex-wrap: wrap-reverse; gap: 24px 48px; align-items: flex-start; }
-.stage.offset .line { flex: 1 1 240px; margin: 0; font-size: 24px; }
-.stage.offset .photos { flex: 2 1 420px; }
-.score { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; padding: 28px 32px; background: var(--indigo); border-radius: 2px; }
-.score a.info { flex: 1 1 300px; display: flex; flex-direction: column; gap: 8px; text-decoration: none; }
-.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: var(--paper); color: #111214; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
-.btn:hover { color: var(--oxide); }
-.leg-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; padding-top: 56px; padding-bottom: 96px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--mute); }
-.fine { border-top: 1px solid #2A2A2D; padding-top: 24px; padding-bottom: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--mute); }
+.plate.pair .photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(10px, 1.4vw, 18px); align-items: start; }
+.plate.offset .body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px clamp(24px, 4vw, 56px); align-items: end; }
+.plate.offset .line { margin: 0; font-size: clamp(22px, 2.3vw, 30px); }
+.plate.offset.flip .body { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+.plate.offset.flip .line { order: 2; }
+@media (max-width: 700px) { .plate.offset .body, .plate.offset.flip .body { grid-template-columns: minmax(0, 1fr); } .plate.offset .line { order: 2; } }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .march, .pin::after { animation: none; } .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+.score-wrap { padding-top: clamp(110px, 14vw, 190px); }
+.score { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px 48px; align-items: end; padding: clamp(28px, 4vw, 52px); background: var(--indigo); }
+@media (max-width: 640px) { .score { grid-template-columns: minmax(0, 1fr); } }
+.score .label { margin: 0; color: #C9D3E0; }
+.score h3 { margin: 14px 0 10px; font-family: 'Newsreader', serif; font-weight: 300; font-style: italic; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.02; letter-spacing: -0.01em; }
+.score h3 a { text-decoration: none; }
+.score p { margin: 0; color: #C9D3E0; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 24px; border-radius: 999px; background: var(--paper); color: #111214; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .06em; white-space: nowrap; justify-self: start; }
+.btn:hover { background: #fff; color: var(--oxide); }
+.leg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-top: 72px; padding-bottom: 96px; }
+.leg div:last-child { text-align: right; }
+.leg .mono { color: var(--mute); font-size: 11px; }
+.leg .serif { display: block; margin-top: 8px; font-size: clamp(26px, 3.4vw, 44px); font-weight: 300; color: #8A8780; }
+.fine { border-top: 1px solid var(--rule); padding-top: 24px; padding-bottom: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--mute); }
 </style>
 </head>
 <body>
+<div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="wrap nav">
   <a class="brand" href="index.html">Shaun Ji-Thompson</a>
@@ -79,19 +116,27 @@ h1 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-size: c
 </header>
 
 <main>
-<img class="cover" src="assets/sevan.jpg" alt="Sevanavank's stone church silhouetted at sunset above Lake Sevan">
-
-<div class="wrap title-row">
-  <div>
-    <p class="mono" style="margin: 0 0 16px; color: var(--oxide-light); letter-spacing: 0.16em;">Armenia · August 2015</p>
-    <p style="margin: 0 0 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: var(--mute);">Part of the overland leg from Tabriz to Tbilisi</p>
-    <h1>Lake Sevan</h1>
-  </div>
-  <p class="standfirst">Kapan to Karabakh and back, over the mountains to the lake.<span class="credit">Photographs © Shaun Ji-Thompson</span></p>
+<div class="opener">
+  <img class="cover" src="assets/sevan.jpg" alt="Sevanavank's stone church silhouetted at sunset above Lake Sevan">
 </div>
 
-<section class="wrap" aria-label="Route map" style="padding-top: 72px;">
-  <div class="map-card">
+<section class="wrap title">
+  <p class="mono kicker"><span class="accent">Armenia</span><span>August 2015</span><span>Tabriz to Tbilisi</span></p>
+  <h1>Lake <em>Sevan</em></h1>
+  <div class="deck">
+    <p class="standfirst">Kapan to Karabakh and back, then over the mountains to the lake at sundown.</p>
+    <dl class="facts">
+      <div><dt>From</dt><dd>Kapan, Armenia</dd></div>
+      <div><dt>To</dt><dd>Yerevan, Armenia</dd></div>
+      <div><dt>Via</dt><dd>Stepanakert / Khankendi</dd></div>
+      <div><dt>Photographs</dt><dd>Shaun Ji-Thompson</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="wrap route" aria-labelledby="route-h">
+  <div class="sec-head"><h2 id="route-h">The route</h2><span class="mono">Black Sea to the Caspian</span></div>
+  <div class="map-card reveal">
     <div class="map" role="img" aria-label="Dot map of the South Caucasus between the Black Sea and the Caspian, with country borders. The route runs from Kapan north to Goris, east to Stepanakert, back west into Armenia over the Selim Pass to Lake Sevan, then down to Yerevan. Faint lines show the wider leg, in from Tabriz and out to Tbilisi.">
       <img src="assets/armenia-map.png" alt="">
       <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -107,51 +152,50 @@ h1 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-size: c
       <span class="lbl country" style="left:14%;top:66%">Turkey</span>
       <span class="lbl country" style="left:41.5%;top:47.5%">Armenia</span>
       <span class="lbl country" style="left:69%;top:52%">Azerbaijan</span>
-      <span class="lbl country" style="left:64%;top:93%">Iran</span>
+      <span class="lbl country" style="left:68%;top:94%">Iran</span>
       <span class="lbl sea" style="left:7%;top:24.6%">Black Sea</span>
       <span class="lbl sea" style="left:89%;top:35.4%">Caspian Sea</span>
       <span class="dot" style="left:59.24%;top:73.74%"></span><span class="lbl city" style="left:59.24%;top:73.74%">Kapan</span>
       <span class="dot" style="left:58.71%;top:69.06%"></span><span class="lbl city left" style="left:58.71%;top:69.06%">Goris</span>
-      <span class="dot" style="left:62.02%;top:64.38%"></span><span class="lbl city" style="left:62.02%;top:64.38%;line-height:1.25">Stepanakert /<br>Khankendi</span>
+      <span class="dot" style="left:62.02%;top:64.38%"></span><span class="lbl city" style="left:62.02%;top:64.38%">Stepanakert /<br>Khankendi</span>
       <span class="dot" style="left:44.1%;top:58.82%"></span><span class="lbl city left" style="left:44.1%;top:58.82%">Yerevan</span>
-      <span class="dot ctx" style="left:58.32%;top:90.92%"></span><span class="lbl city ctx" style="left:58.32%;top:90.92%">Tabriz</span>
+      <span class="dot ctx" style="left:58.32%;top:90.92%"></span><span class="lbl city ctx left" style="left:58.32%;top:90.92%">Tabriz</span>
       <span class="dot ctx" style="left:46.32%;top:35.08%"></span><span class="lbl city ctx" style="left:46.32%;top:35.08%">Tbilisi</span>
       <span class="pin" style="left:48.1%;top:52.86%"></span><span class="lbl pin-label" style="left:48.1%;top:52.86%">Lake Sevan</span>
     </div>
-    <p class="map-note">COUNTRIES IN CAPITALS · Towns and cities in plain type · Solid red: this entry · Faint red: the wider leg, in from Tabriz and out to Tbilisi · Routes sketched, not exact</p>
+    <p class="map-note">COUNTRIES IN CAPITALS · Towns in plain type · Solid red: this entry · Faint red: the wider leg, Tabriz to Tbilisi · Routes sketched, not exact</p>
   </div>
 </section>
 
 <!--
-  PHOTO DIARY. One <section class="stage"> per stop.
-  - data-date is the ISO date (YYYY-MM-DD, or YYYY-MM). Stages are sorted by it on load,
-    so they can be added in any order. Same or missing dates keep the order written here.
-  - The layout (full / offset / pair) is assigned after sorting, so the rhythm holds.
-  - A stage with no photos yet stays hidden.
+  PHOTO DIARY. One <section class="plate"> per stop.
+  data-date: ISO date (YYYY-MM-DD or YYYY-MM). Plates are sorted by it on load, so they can be added in any order.
+  Same or missing dates keep the order written here. Layout (wide / offset / pair) is assigned after sorting.
+  A plate with no photos stays hidden.
 -->
 <div id="diary">
-  <section class="stage wrap" data-date="2015-08" data-place="Kapan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="stage wrap" data-date="2015-08" data-place="Goris" data-country="Armenia" hidden><div class="photos"><img src="assets/goris.jpg" alt="A boy walks past the arched stone war-memorial fountain in Goris, its frieze carved with Armenian lettering" loading="lazy"></div><p class="line">The memorial fountain to the heroes of Zangezur who fell in the Second World War.</p></section>
-  <section class="stage wrap" data-date="2015-08" data-place="Stepanakert / Khankendi" data-country="Karabakh" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="stage wrap" data-date="2015-08" data-place="Selim Pass" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="stage wrap" data-date="2015-08" data-place="Lake Sevan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="stage wrap" data-date="2015-08" data-place="Yerevan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
+  <section class="plate wrap" data-date="2015-08" data-place="Kapan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
+  <section class="plate wrap" data-date="2015-08" data-place="Goris" data-country="Armenia" hidden><div class="photos"><img src="assets/goris.jpg" alt="A boy walks past the arched stone war-memorial fountain in Goris, its frieze carved with Armenian lettering" loading="lazy"></div><p class="line">The memorial fountain to the heroes of Zangezur who fell in the Second World War.</p></section>
+  <section class="plate wrap" data-date="2015-08" data-place="Stepanakert / Khankendi" data-country="Karabakh" hidden><div class="photos"></div><p class="line"></p></section>
+  <section class="plate wrap" data-date="2015-08" data-place="Selim Pass" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
+  <section class="plate wrap" data-date="2015-08" data-place="Lake Sevan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
+  <section class="plate wrap" data-date="2015-08" data-place="Yerevan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
 </div>
 
-<section class="wrap" style="max-width: 824px; padding-top: 120px;">
-  <div class="score">
-    <a class="info" href="a-la-cote-de-la-mer-de-gegham.html">
-      <span class="mono" style="font-size: 11px; color: #C9D3E0;">Score · Shaun Ji-Thompson · 2024</span>
-      <span lang="fr" style="font-family: 'Newsreader', serif; font-size: 28px; font-style: italic; line-height: 1.15;">À la côte de la mer de Gegham</span>
-      <span style="font-size: 14px; color: #C9D3E0;">A piece about this lake, for wind band.</span>
-    </a>
-    <a class="btn" href="a-la-cote-de-la-mer-de-gegham.html">Buy the score</a>
+<section class="wrap score-wrap" aria-label="The music">
+  <div class="score reveal">
+    <div>
+      <p class="mono label">The score · Shaun Ji-Thompson · 2024</p>
+      <h3 lang="fr"><a href="a-la-cote-de-la-mer-de-gegham.html">À la côte de la mer de Gegham</a></h3>
+      <p>A piece about this lake, for wind band.</p>
+    </div>
+    <a class="btn" href="a-la-cote-de-la-mer-de-gegham.html">Buy the score <span aria-hidden="true">→</span></a>
   </div>
 </section>
 
-<nav class="wrap leg-nav" aria-label="The rest of the leg" style="max-width: 824px;">
-  <span>← Before: in from Tabriz</span>
-  <span>After: on to Tbilisi →</span>
+<nav class="wrap leg" aria-label="The rest of the leg">
+  <div><span class="mono">Before · Iran</span><span class="serif">← Tabriz</span></div>
+  <div><span class="mono">After · Georgia</span><span class="serif">Tbilisi →</span></div>
 </nav>
 </main>
 
@@ -161,40 +205,55 @@ h1 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-size: c
 </footer>
 
 <script>
-(function () {
-  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var diary = document.getElementById('diary');
-  var stages = Array.prototype.slice.call(diary.querySelectorAll('.stage'));
-  stages.forEach(function (s, i) { s._i = i; });
-  stages.sort(function (a, b) {
-    var da = a.dataset.date || '9999', db = b.dataset.date || '9999';
-    return da === db ? a._i - b._i : (da < db ? -1 : 1);
+{
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const diary = document.getElementById('diary');
+  const plates = [...diary.querySelectorAll('.plate')].map((s, i) => ({ s, i }));
+  plates.sort((a, b) => {
+    const da = a.s.dataset.date || '9999', db = b.s.dataset.date || '9999';
+    return da === db ? a.i - b.i : (da < db ? -1 : 1);
   });
-  var cycle = ['full', 'offset', 'pair'], n = 0;
-  stages.forEach(function (s) {
+  const cycle = ['wide', 'offset', 'wide', 'offset flip'];
+  let n = 0;
+  plates.forEach(({ s }) => {
     diary.appendChild(s);
-    var imgs = s.querySelectorAll('.photos img');
+    const imgs = s.querySelectorAll('.photos img');
     if (!imgs.length) return;
     s.hidden = false;
-    var kind = imgs.length >= 2 ? 'pair' : cycle[n % 3] === 'pair' ? 'full' : cycle[n % 3];
+    const kind = imgs.length >= 2 ? 'pair' : cycle[n % cycle.length];
     n++;
-    s.classList.add(kind);
-    var d = (s.dataset.date || '').split('-');
-    var when = (d[2] ? Number(d[2]) + ' ' : '') + (months[Number(d[1]) - 1] || '') + ' ' + (d[0] || '');
-    var head = document.createElement('p');
-    head.className = 'mono stage-head';
-    head.innerHTML = '<span class="n">' + String(n).padStart(2, '0') + '</span><span class="where"><span class="p"></span><span class="c"></span></span><span></span>';
-    head.querySelector('.p').textContent = s.dataset.place || '';
+    kind.split(' ').forEach(c => s.classList.add(c));
+    const [y, m, d] = (s.dataset.date || '').split('-');
+    const when = ((d ? Number(d) + ' ' : '') + (months[Number(m) - 1] || '') + ' ' + (y || '')).trim();
+    const head = document.createElement('header');
+    head.className = 'plate-head';
+    head.innerHTML = '<span class="num"></span><span class="place"></span><span class="meta mono"><span class="c"></span><span class="w"></span></span>';
+    head.querySelector('.num').textContent = String(n).padStart(2, '0');
+    head.querySelector('.place').textContent = s.dataset.place || '';
     head.querySelector('.c').textContent = s.dataset.country || '';
-    head.children[2].textContent = when.trim();
+    head.querySelector('.w').textContent = when;
     s.insertBefore(head, s.firstChild);
-    if (kind === 'offset') {
-      var body = document.createElement('div'); body.className = 'body';
-      var line = s.querySelector('.line'), photos = s.querySelector('.photos');
-      body.appendChild(line); body.appendChild(photos); s.appendChild(body);
+    if (kind.startsWith('offset')) {
+      const body = document.createElement('div'); body.className = 'body';
+      body.append(s.querySelector('.line'), s.querySelector('.photos'));
+      s.appendChild(body);
     }
+    s.querySelector('.photos').classList.add('reveal');
   });
-})();
+
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+
+  const bar = document.getElementById('progress');
+  const onScroll = () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')';
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+}
 </script>
 </body>
 </html>
