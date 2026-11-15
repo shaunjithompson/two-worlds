@@ -44,8 +44,12 @@ h1 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-size: c
 .pin-label { transform: translate(18px, -150%); padding: 4px 11px; border-radius: 999px; background: #111214; color: var(--paper); font-size: clamp(11px, 1.2vw, 13px); }
 .map-note { margin: 14px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.5; color: #5E625F; }
 .stage { padding-top: 120px; }
-.stage-head { margin: 0 0 20px; display: flex; flex-wrap: wrap; gap: 6px 20px; color: var(--mute); }
-.stage-head .n { color: var(--oxide-light); } .stage-head .p { color: var(--paper); }
+.stage-head { margin: 0 0 20px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px; color: var(--mute); }
+.stage-head .n { color: var(--oxide-light); }
+.where { display: inline-flex; gap: 10px; align-items: baseline; }
+.where .p { color: var(--paper); font-family: 'Newsreader', serif; font-size: 22px; letter-spacing: 0; text-transform: none; }
+.where .c { color: var(--mute); }
+.line:empty { display: none; }
 .stage figure { margin: 0; } .stage img { display: block; width: 100%; object-fit: cover; }
 .line { margin: 16px 0 0; max-width: 520px; font-family: 'Newsreader', serif; font-style: italic; font-size: 20px; line-height: 1.4; color: #D8D4CC; }
 .stage.full img { aspect-ratio: 16 / 9; }
@@ -108,13 +112,13 @@ h1 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-size: c
       <span class="lbl sea" style="left:89%;top:35.4%">Caspian Sea</span>
       <span class="dot" style="left:59.24%;top:73.74%"></span><span class="lbl city" style="left:59.24%;top:73.74%">Kapan</span>
       <span class="dot" style="left:58.71%;top:69.06%"></span><span class="lbl city left" style="left:58.71%;top:69.06%">Goris</span>
-      <span class="dot" style="left:62.02%;top:64.38%"></span><span class="lbl city" style="left:62.02%;top:64.38%">Stepanakert / Khankendi</span>
+      <span class="dot" style="left:62.02%;top:64.38%"></span><span class="lbl city" style="left:62.02%;top:64.38%;line-height:1.25">Stepanakert /<br>Khankendi</span>
       <span class="dot" style="left:44.1%;top:58.82%"></span><span class="lbl city left" style="left:44.1%;top:58.82%">Yerevan</span>
       <span class="dot ctx" style="left:58.32%;top:90.92%"></span><span class="lbl city ctx" style="left:58.32%;top:90.92%">Tabriz</span>
       <span class="dot ctx" style="left:46.32%;top:35.08%"></span><span class="lbl city ctx" style="left:46.32%;top:35.08%">Tbilisi</span>
       <span class="pin" style="left:48.1%;top:52.86%"></span><span class="lbl pin-label" style="left:48.1%;top:52.86%">Lake Sevan</span>
     </div>
-    <p class="map-note">Solid red: this entry · Faint red: the wider leg, in from Tabriz and out to Tbilisi · Routes sketched, not exact</p>
+    <p class="map-note">COUNTRIES IN CAPITALS · Towns and cities in plain type · Solid red: this entry · Faint red: the wider leg, in from Tabriz and out to Tbilisi · Routes sketched, not exact</p>
   </div>
 </section>
 
@@ -126,12 +130,12 @@ h1 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-size: c
   - A stage with no photos yet stays hidden.
 -->
 <div id="diary">
-  <section class="stage wrap" data-date="2015-08" data-place="Kapan" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="stage wrap" data-date="2015-08" data-place="Goris" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="stage wrap" data-date="2015-08" data-place="Stepanakert / Khankendi" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="stage wrap" data-date="2015-08" data-place="Selim Pass" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="stage wrap" data-date="2015-08" data-place="Lake Sevan" hidden><div class="photos"></div><p class="line"></p></section>
-  <section class="stage wrap" data-date="2015-08" data-place="Yerevan" hidden><div class="photos"></div><p class="line"></p></section>
+  <section class="stage wrap" data-date="2015-08" data-place="Kapan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
+  <section class="stage wrap" data-date="2015-08" data-place="Goris" data-country="Armenia" hidden><div class="photos"><img src="assets/goris.jpg" alt="A boy walks past the arched stone war-memorial fountain in Goris, its frieze carved with Armenian lettering" loading="lazy"></div><p class="line">The memorial fountain to the heroes of Zangezur who fell in the Second World War.</p></section>
+  <section class="stage wrap" data-date="2015-08" data-place="Stepanakert / Khankendi" data-country="Karabakh" hidden><div class="photos"></div><p class="line"></p></section>
+  <section class="stage wrap" data-date="2015-08" data-place="Selim Pass" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
+  <section class="stage wrap" data-date="2015-08" data-place="Lake Sevan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
+  <section class="stage wrap" data-date="2015-08" data-place="Yerevan" data-country="Armenia" hidden><div class="photos"></div><p class="line"></p></section>
 </div>
 
 <section class="wrap" style="max-width: 824px; padding-top: 120px;">
@@ -179,9 +183,10 @@ h1 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-size: c
     var when = (d[2] ? Number(d[2]) + ' ' : '') + (months[Number(d[1]) - 1] || '') + ' ' + (d[0] || '');
     var head = document.createElement('p');
     head.className = 'mono stage-head';
-    head.innerHTML = '<span class="n">' + String(n).padStart(2, '0') + '</span><span></span><span class="p"></span>';
-    head.children[1].textContent = when.trim();
-    head.children[2].textContent = s.dataset.place || '';
+    head.innerHTML = '<span class="n">' + String(n).padStart(2, '0') + '</span><span class="where"><span class="p"></span><span class="c"></span></span><span></span>';
+    head.querySelector('.p').textContent = s.dataset.place || '';
+    head.querySelector('.c').textContent = s.dataset.country || '';
+    head.children[2].textContent = when.trim();
     s.insertBefore(head, s.firstChild);
     if (kind === 'offset') {
       var body = document.createElement('div'); body.className = 'body';
