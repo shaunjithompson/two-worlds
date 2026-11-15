@@ -7,16 +7,16 @@
   var PLACES = [
     { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS [DATE]',
       text: 'Seven weeks down the Atlantic edge of the Sahara, written from the road.',
-      img: 'assets/dunes.jpg', x: 5.63, y: 68.64, music: '', musicRow: '', journey: true },
+      img: 'assets/dunes.jpg', x: 5.63, y: 68.64, music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
     { id: 'bojador', name: 'Cape Bojador', label: 'WESTERN SAHARA · 26.13° N, 14.50° W',
       text: 'The cape Portuguese sailors feared to pass. The next journey goes by it on the road south.',
-      img: 'assets/coast.jpg', x: 7.78, y: 51.32, music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: true },
+      img: 'assets/coast.jpg', x: 7.78, y: 51.32, music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: 'morocco-to-the-gambia.html' },
     { id: 'darial', name: 'The Darial Gorge', label: 'CAUCASUS · 42.74° N, 44.62° E',
       text: 'Dar-e Alān, the old gate through the Caucasus, painted by Aivazovsky in 1868.',
       img: 'assets/gorge.jpg', x: 51.57, y: 26.15, music: 'Overture: “Beyond the Darial Pass”', musicRow: '', journey: false },
     { id: 'sevan', name: 'Lake Sevan', label: 'ARMENIA · 40.33° N, 45.33° E',
       text: 'The Gegham Sea, high in the Armenian mountains, one of the largest freshwater lakes in the Caucasus.',
-      img: 'assets/plain.jpg', x: 52.10, y: 29.80, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: false },
+      img: 'assets/sevan.jpg', x: 52.10, y: 29.80, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'See the photo diary' },
     { id: 'krakow', name: 'Kraków', label: 'POLAND · 50.06° N, 19.94° E',
       text: 'On 24 March 1794, in the Main Square, Tadeusz Kościuszko swore his oath to the nation and took up arms against the partitioning powers.',
       img: 'assets/plain.jpg', x: 33.29, y: 15.06, music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
@@ -76,6 +76,7 @@
     musicBtn.hidden = !p.music;
     musicBtn.innerHTML = CROSS_ICON + 'The music: ' + p.music;
     journeyLink.hidden = !p.journey;
+    if (p.journey) { journeyLink.href = p.journey; journeyLink.textContent = p.journeyText || 'Follow the journey'; }
     if (ripple) { var o = mapPoint(p); bursts.push({ x: o.x, y: o.y, t: performance.now() }); }
   }
 
