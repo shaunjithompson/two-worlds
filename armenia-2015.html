@@ -45,6 +45,9 @@ h1 em { font-style: italic; font-weight: 200; }
 .city .hy, .pin-label .hy { display: block; font-family: 'Noto Serif Armenian', serif; font-size: .92em; opacity: .8; }
 .city.up { transform: translate(-50%, calc(-100% - 8px)); text-align: center; }
 .city.down { transform: translate(-50%, 8px); text-align: center; }
+.sea.edge-l { transform: translate(0, -50%); } .sea.edge-r { left: auto; transform: translate(0, -50%); }
+.city.edge-b { top: auto; transform: translate(-50%, 0); }
+@media (max-width: 700px) { .city.minor { display: none; } .city { font-size: 10px; } .pin { width: 12px; height: 12px; margin: -6px 0 0 -6px; } .pin-label { font-size: 11px; padding: 3px 8px; } }
 .subtitle { margin: 6px 0 0; font-family: 'Newsreader', serif; font-style: italic; font-weight: 200; font-size: clamp(30px, 4.6vw, 64px); line-height: 1; color: #D8D4CC; }
 .facts .span { grid-column: 1 / -1; }
 .deck { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px 64px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--rule); }
@@ -177,29 +180,29 @@ h1 em { font-style: italic; font-weight: 200; }
       <img src="assets/armenia-map.png" alt="">
       <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
         <g fill="none" stroke-linejoin="round" stroke-linecap="round">
-          <path id="borders" d="M8.00 9.23 L12.80 6.92 L20.00 11.54 L28.00 12.31 L36.00 17.69 L40.00 19.23 L44.80 19.23 L49.60 22.31 L53.60 27.69 L59.60 32.31 L62.40 37.69 L66.40 40.77 L71.20 43.08 L74.40 38.46 L76.64 32.92 M20.40 38.15 L28.00 39.23 L30.40 37.23 L35.76 44.31 L40.00 43.08 L46.40 43.08 L48.16 41.69 L53.60 40.77 L58.40 43.08 L61.60 36.92 L59.60 32.31 M35.76 44.31 L36.80 52.31 L37.60 60.00 L42.40 61.54 L46.16 66.00 M48.16 41.69 L51.60 45.38 L52.80 51.54 L55.60 56.92 L54.40 62.31 L56.80 65.38 L59.60 68.46 L60.40 73.85 L60.40 78.46 M46.16 66.00 L49.60 66.92 L53.60 68.46 L55.20 71.54 L57.20 73.85 L56.00 77.69 L56.96 78.92 L60.40 78.46 M46.16 66.00 L46.40 66.92 L50.40 72.31 L54.40 76.92 L56.96 78.92 M60.40 78.46 L64.00 74.62 L68.00 70.77 L72.00 67.69 L74.80 71.54 L72.80 76.92 L74.40 83.08 L78.96 85.69 M46.40 66.92 L44.80 70.77 L43.20 76.92 L42.40 84.62 L44.00 93.85 L42.40 101.54" stroke="#F1EEE7" stroke-width="5" vector-effect="non-scaling-stroke"/>
-          <use href="#borders" stroke="#5E625F" stroke-width="1.2" stroke-dasharray="2 4"/>
-          <path d="M58.32 90.92 L57.44 78.92 L57.20 74.62 L59.24 73.74 M44.10 58.82 L43.92 49.08 L45.28 44.62 L46.40 42.31 L46.32 35.08" stroke="#A63D24" stroke-opacity="0.5" stroke-width="2" stroke-dasharray="1 5" vector-effect="non-scaling-stroke"/>
-          <path class="march" d="M59.24 73.74 L58.71 69.06 L60.37 67.08 L62.00 65.23 L62.02 64.38 L60.44 61.08 L56.32 59.92 L54.64 58.15 L53.84 58.77 L50.40 59.38 L48.96 56.00 L48.10 52.86 L46.16 53.85 L44.10 58.82" stroke="#A63D24" stroke-width="2.5" stroke-dasharray="10 7" vector-effect="non-scaling-stroke"/>
-        </g>
+                <path id="borders" d="M-10.42 -2.00 L-4.17 -5.00 L5.21 1.00 L15.62 2.00 L26.04 9.00 L31.25 11.00 L37.50 11.00 L43.75 15.00 L48.96 22.00 L56.77 28.00 L60.42 35.00 L65.62 39.00 L71.87 42.00 L76.04 36.00 L78.96 28.80 M5.73 35.60 L15.62 37.00 L18.75 34.40 L25.73 43.60 L31.25 42.00 L39.58 42.00 L41.88 40.20 L48.96 39.00 L55.21 42.00 L59.38 34.00 L56.77 28.00 M25.73 43.60 L27.08 54.00 L28.13 64.00 L34.37 66.00 L39.27 71.80 M41.88 40.20 L46.35 45.00 L47.92 53.00 L51.56 60.00 L50.00 67.00 L53.13 71.00 L56.77 75.00 L57.81 82.00 L57.81 88.00 M39.27 71.80 L43.75 73.00 L48.96 75.00 L51.04 79.00 L53.65 82.00 L52.08 87.00 L53.33 88.60 L57.81 88.00 M39.27 71.80 L39.58 73.00 L44.79 80.00 L50.00 86.00 L53.33 88.60 M57.81 88.00 L62.50 83.00 L67.71 78.00 L72.92 74.00 L76.56 79.00 L73.96 86.00 L76.04 94.00 L81.98 97.40 M39.58 73.00 L37.50 78.00 L35.42 86.00 L34.37 96.00 L36.46 108.00" stroke="#F1EEE7" stroke-width="5" vector-effect="non-scaling-stroke"/>
+                <use href="#borders" stroke="#5E625F" stroke-width="1.2" stroke-dasharray="2 4"/>
+                <path d="M55.10 104.40 L53.96 88.60 L53.65 83.00 L56.30 81.86 M36.59 62.46 L36.35 49.80 L38.12 44.00 L39.58 41.00 L39.48 31.60" stroke="#A63D24" stroke-opacity="0.5" stroke-width="2" stroke-dasharray="1 5" vector-effect="non-scaling-stroke"/>
+                <path class="march" d="M56.30 81.86 L55.61 75.78 L57.77 73.20 L59.90 70.80 L59.92 69.70 L57.86 65.40 L52.50 63.90 L50.31 61.60 L49.27 62.40 L44.79 63.20 L42.92 58.80 L41.79 54.72 L39.27 56.00 L36.59 62.46" stroke="#A63D24" stroke-width="2.5" stroke-dasharray="10 7" vector-effect="non-scaling-stroke"/>
+              </g>
       </svg>
-      <span class="lbl country" style="left:52.8%;top:7.7%">Russia</span>
-      <span class="lbl country" style="left:33.6%;top:27.7%">Georgia</span>
-      <span class="lbl country" style="left:14%;top:66%">Turkey</span>
-      <span class="lbl country" style="left:41.5%;top:47.5%">Armenia</span>
-      <span class="lbl country" style="left:69%;top:52%">Azerbaijan</span>
-      <span class="lbl country" style="left:68%;top:94%">Iran</span>
-      <span class="lbl sea" style="left:7%;top:24.6%">Black Sea</span>
-      <span class="lbl sea" style="left:89%;top:35.4%">Caspian Sea</span>
-      <span class="dot" style="left:59.24%;top:73.74%"></span><span class="lbl city" style="left:59.24%;top:73.74%">Kapan<span class="hy" lang="hy">Կապան</span></span>
-      <span class="dot" style="left:58.71%;top:69.06%"></span><span class="lbl city left" style="left:58.71%;top:69.06%">Goris<span class="hy" lang="hy">Գորիս</span></span>
-      <span class="dot" style="left:62.02%;top:64.38%"></span><span class="lbl city" style="left:62.02%;top:64.38%">Stepanakert /<br>Khankendi<span class="hy" lang="hy">Ստեփանակերտ</span></span>
-      <span class="dot" style="left:44.1%;top:58.82%"></span><span class="lbl city left" style="left:44.1%;top:58.82%">Yerevan<span class="hy" lang="hy">Երևան</span></span>
-      <span class="dot" style="left:60.44%;top:61.08%"></span><span class="lbl city up" style="left:60.44%;top:61.08%">Gandzasar<span class="hy" lang="hy">Գանձասար</span></span>
-      <span class="dot" style="left:54.64%;top:58.15%"></span><span class="lbl city down" style="left:54.64%;top:58.15%">Sotk Pass<span class="hy" lang="hy">Սոթքի լեռնանցք</span></span>
-      <span class="dot ctx" style="left:58.32%;top:90.92%"></span><span class="lbl city ctx left" style="left:58.32%;top:90.92%">Tabriz</span>
-      <span class="dot ctx" style="left:46.32%;top:35.08%"></span><span class="lbl city ctx" style="left:46.32%;top:35.08%">Tbilisi</span>
-      <span class="pin" style="left:48.1%;top:52.86%"></span><span class="lbl pin-label" style="left:48.1%;top:52.86%">Lake Sevan<span class="hy" lang="hy">Սևանա լիճ</span></span>
+      <span class="lbl country" style="left:41.67%;top:7.00%">Russia</span>
+      <span class="lbl country" style="left:20.83%;top:25.00%">Georgia</span>
+      <span class="lbl country" style="left:13.54%;top:74.00%">Turkey</span>
+      <span class="lbl country" style="left:35.42%;top:49.00%">Armenia</span>
+      <span class="lbl country" style="left:72.92%;top:61.00%">Azerbaijan</span>
+      <span class="lbl country" style="left:66.67%;top:94.00%">Iran</span>
+      <span class="lbl sea edge-l" style="left:0.5%;top:9%">Black Sea</span>
+      <span class="lbl sea edge-r" style="right:1%;top:34%">Caspian Sea</span>
+      <span class="dot" style="left:56.30%;top:81.86%"></span><span class="lbl city" style="left:56.30%;top:81.86%">Kapan</span>
+      <span class="dot" style="left:55.61%;top:75.78%"></span><span class="lbl city left" style="left:55.61%;top:75.78%">Goris</span>
+      <span class="dot" style="left:59.92%;top:69.70%"></span><span class="lbl city" style="left:59.92%;top:69.70%">Stepanakert /<br>Khankendi</span>
+      <span class="dot" style="left:57.86%;top:65.40%"></span><span class="lbl city up minor" style="left:57.86%;top:65.40%">Gandzasar</span>
+      <span class="dot" style="left:50.31%;top:61.60%"></span><span class="lbl city down minor" style="left:50.31%;top:61.60%">Sotk Pass</span>
+      <span class="dot" style="left:36.59%;top:62.46%"></span><span class="lbl city left" style="left:36.59%;top:62.46%">Yerevan</span>
+      <span class="lbl city ctx edge-b" style="left:54.06%;bottom:1%">Tabriz ↓</span>
+      <span class="dot ctx" style="left:39.48%;top:31.60%"></span><span class="lbl city ctx" style="left:39.48%;top:31.60%">Tbilisi</span>
+      <span class="pin" style="left:41.79%;top:54.72%"></span><span class="lbl pin-label" style="left:41.79%;top:54.72%">Lake Sevan</span>
     </div>
     <p class="map-note">COUNTRIES IN CAPITALS · Towns in plain type · Solid red: this entry · Faint red: the wider leg, Tabriz to Tbilisi · Routes sketched, not exact</p>
   </div>
