@@ -137,6 +137,46 @@ h1 em { font-style: italic; font-weight: 200; }
 .leg .mono { color: var(--mute); font-size: 11px; }
 .leg .serif { display: block; margin-top: 8px; font-size: clamp(26px, 3.4vw, 44px); font-weight: 300; color: #8A8780; }
 .fine { border-top: 1px solid var(--rule); padding-top: 24px; padding-bottom: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--mute); }
+.stopdot { cursor: pointer; z-index: 2; transition: transform .25s ease, background-color .25s ease, box-shadow .25s ease; }
+.stopdot::before { content: ''; position: absolute; inset: -16px; border-radius: 50%; }
+.dot.stopdot:hover, .dot.stopdot:focus-visible { transform: scale(1.5); background: var(--oxide); }
+.dot.stopdot.on { transform: scale(1.9); background: var(--oxide); box-shadow: 0 0 0 5px rgba(166,61,36,.22); }
+.pin.stopdot.on { box-shadow: 0 0 0 14px rgba(166,61,36,.28); }
+.plate { scroll-margin-top: -40px; }
+.to-map { margin-left: auto; align-self: start; padding: 10px 0; color: var(--mute); text-decoration: none; }
+.to-map:hover { color: var(--oxide-light); }
+/* stop guide that follows the reader */
+.rail { position: fixed; left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); z-index: 15; display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 16px; border-radius: 999px; background: rgba(17,18,20,.88); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: 0 6px 24px rgba(0,0,0,.35); transform: translate(-50%, 140%); transition: transform .45s cubic-bezier(.2,.7,.2,1); max-width: calc(100vw - 24px); }
+.rail.show { transform: translate(-50%, 0); }
+.rail .now { font-family: 'Newsreader', serif; font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 46vw; }
+.rail .steps { display: flex; align-items: center; }
+.rail .steps a { width: 30px; height: 44px; display: flex; align-items: center; justify-content: center; position: relative; }
+.rail .steps a + a::before { content: ''; position: absolute; right: 50%; width: 30px; top: 50%; border-top: 1px dashed rgba(241,238,231,.25); }
+.rail .steps i { position: relative; width: 8px; height: 8px; border-radius: 50%; background: rgba(241,238,231,.45); transition: transform .25s ease, background-color .25s ease; }
+.rail .steps a.on i { background: var(--oxide-light); transform: scale(1.6); }
+.rail .steps a:hover i { background: var(--paper); }
+.rail .map-btn { height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(241,238,231,.25); color: var(--paper); text-decoration: none; display: flex; align-items: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+@media (max-width: 520px) { .rail .now { display: none; } .rail .steps a { width: 26px; } }
+/* feedback */
+.feedback { padding-top: 40px; padding-bottom: 72px; }
+.fb { border-top: 1px solid var(--rule); padding-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px 64px; }
+@media (max-width: 760px) { .fb { grid-template-columns: minmax(0, 1fr); } }
+.fb h2 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-style: italic; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.05; }
+.fb .intro { margin: 14px 0 0; color: #CFCAC0; max-width: 34ch; }
+.fb form { display: grid; gap: 18px; }
+.fb fieldset { border: 0; margin: 0; padding: 0; }
+.fb legend, .fb label { display: block; margin-bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { margin: 0; font: inherit; letter-spacing: normal; text-transform: none; color: var(--paper); }
+.chips input { position: absolute; opacity: 0; pointer-events: none; }
+.chips span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid #3A3A3E; border-radius: 999px; font-size: 14px; cursor: pointer; transition: background-color .2s ease, border-color .2s ease; }
+.chips input:checked + span { background: var(--paper); color: #111214; border-color: var(--paper); }
+.chips input:focus-visible + span { outline: 2px solid var(--oxide-light); outline-offset: 2px; }
+.fb textarea, .fb input[type=email] { width: 100%; padding: 14px 16px; border: 1px solid #3A3A3E; border-radius: 4px; background: #121214; color: var(--paper); font: 16px/1.5 'Inter Tight', system-ui, sans-serif; }
+.fb textarea { min-height: 120px; resize: vertical; }
+.fb textarea:focus, .fb input[type=email]:focus { outline: none; border-color: var(--oxide-light); }
+.fb .send { justify-self: start; border: 0; cursor: pointer; }
+.fb .status { margin: 0; min-height: 1.5em; color: #CFCAC0; }
 </style>
 </head>
 <body>
@@ -173,8 +213,8 @@ h1 em { font-style: italic; font-weight: 200; }
   </div>
 </section>
 
-<section class="wrap route" aria-labelledby="route-h">
-  <div class="sec-head"><h2 id="route-h">The route</h2><span class="mono">Black Sea to the Caspian</span></div>
+<section class="wrap route" id="route" aria-labelledby="route-h">
+  <div class="sec-head"><h2 id="route-h">The route</h2><span class="mono">Tap a stop to jump to it</span></div>
   <div class="map-card reveal">
     <div class="map" role="img" aria-label="Dot map of the South Caucasus between the Black Sea and the Caspian, with country borders. The route runs from Kapan north to Goris, east to Stepanakert and Gandzasar, back west over the Sotk Pass to Lake Sevan, then down to Yerevan. Faint lines show the wider leg, in from Tabriz and out to Tbilisi.">
       <img src="assets/armenia-map.png" alt="">
@@ -194,17 +234,16 @@ h1 em { font-style: italic; font-weight: 200; }
       <span class="lbl country" style="left:66.67%;top:94.00%">Iran</span>
       <span class="lbl sea edge-l" style="left:0.5%;top:9%">Black Sea</span>
       <span class="lbl sea edge-r" style="right:1%;top:34%">Caspian Sea</span>
-      <span class="dot" style="left:56.30%;top:81.86%"></span><span class="lbl city" style="left:56.30%;top:81.86%">Kapan</span>
-      <span class="dot" style="left:55.61%;top:75.78%"></span><span class="lbl city left" style="left:55.61%;top:75.78%">Goris</span>
-      <span class="dot" style="left:59.92%;top:69.70%"></span><span class="lbl city" style="left:59.92%;top:69.70%">Stepanakert /<br>Khankendi</span>
-      <span class="dot" style="left:57.86%;top:65.40%"></span><span class="lbl city up minor" style="left:57.86%;top:65.40%">Gandzasar</span>
-      <span class="dot" style="left:50.31%;top:61.60%"></span><span class="lbl city down minor" style="left:50.31%;top:61.60%">Sotk Pass</span>
-      <span class="dot" style="left:36.59%;top:62.46%"></span><span class="lbl city left" style="left:36.59%;top:62.46%">Yerevan</span>
+      <a class="dot stopdot" href="#stop-kapan" data-stop="kapan" aria-label="Kapan: go to this stop" style="left:56.30%;top:81.86%"></a><span class="lbl city" style="left:56.30%;top:81.86%">Kapan</span>
+      <a class="dot stopdot" href="#stop-goris" data-stop="goris" aria-label="Goris: go to this stop" style="left:55.61%;top:75.78%"></a><span class="lbl city left" style="left:55.61%;top:75.78%">Goris</span>
+      <a class="dot stopdot" href="#stop-stepanakert-khankendi" data-stop="stepanakert-khankendi" aria-label="Stepanakert: go to this stop" style="left:59.92%;top:69.70%"></a><span class="lbl city" style="left:59.92%;top:69.70%">Stepanakert /<br>Khankendi</span>
+      <a class="dot stopdot" href="#stop-gandzasar" data-stop="gandzasar" aria-label="Gandzasar: go to this stop" style="left:57.86%;top:65.40%"></a><span class="lbl city up minor" style="left:57.86%;top:65.40%">Gandzasar</span>
+      <a class="dot stopdot" href="#stop-sotk-pass" data-stop="sotk-pass" aria-label="Sotk Pass: go to this stop" style="left:50.31%;top:61.60%"></a><span class="lbl city down minor" style="left:50.31%;top:61.60%">Sotk Pass</span>
+      <a class="dot stopdot" href="#stop-yerevan" data-stop="yerevan" aria-label="Yerevan: go to this stop" style="left:36.59%;top:62.46%"></a><span class="lbl city left" style="left:36.59%;top:62.46%">Yerevan</span>
       <span class="lbl city ctx edge-b" style="left:54.06%;bottom:1%">Tabriz ↓</span>
       <span class="dot ctx" style="left:39.48%;top:31.60%"></span><span class="lbl city ctx" style="left:39.48%;top:31.60%">Tbilisi</span>
-      <span class="pin" style="left:41.79%;top:54.72%"></span><span class="lbl pin-label" style="left:41.79%;top:54.72%">Lake Sevan</span>
+      <a class="pin stopdot" href="#stop-lake-sevan" data-stop="lake-sevan" aria-label="Lake Sevan: go to this stop" style="left:41.79%;top:54.72%"></a><span class="lbl pin-label" style="left:41.79%;top:54.72%">Lake Sevan</span>
     </div>
-    <p class="map-note">COUNTRIES IN CAPITALS · Towns in plain type · Solid red: this entry · Faint red: the wider leg, Tabriz to Tbilisi · Routes sketched, not exact</p>
   </div>
 </section>
 
@@ -227,6 +266,31 @@ h1 em { font-style: italic; font-weight: 200; }
   <div id="before"><span class="mono">Before · Iran</span><span class="serif">← Tabriz</span></div>
   <div id="after"><span class="mono">After · Georgia</span><span class="serif">Tbilisi →</span></div>
 </nav>
+
+<section class="wrap feedback" aria-labelledby="fb-h">
+  <div class="fb">
+    <div>
+      <h2 id="fb-h">What did you think?</h2>
+      <p class="intro">A reaction, a correction, a place I should go next. I read every note.</p>
+    </div>
+    <form id="fb-form" data-endpoint="" data-email="" novalidate>
+      <input type="hidden" name="page" value="Armenia, August 2015">
+      <fieldset>
+        <legend>Your reaction</legend>
+        <div class="chips">
+          <label><input type="radio" name="rating" value="Loved it"><span>Loved it</span></label>
+          <label><input type="radio" name="rating" value="Liked it"><span>Liked it</span></label>
+          <label><input type="radio" name="rating" value="More words please"><span>More words please</span></label>
+          <label><input type="radio" name="rating" value="Not for me"><span>Not for me</span></label>
+        </div>
+      </fieldset>
+      <div><label for="fb-msg">Anything to add</label><textarea id="fb-msg" name="message" placeholder="What stayed with you, what was missing, where to go next…"></textarea></div>
+      <div><label for="fb-email">Your email, if you'd like a reply</label><input id="fb-email" type="email" name="email" autocomplete="email" placeholder="you@example.com"></div>
+      <button class="btn send" type="submit">Send feedback</button>
+      <p class="status mono" id="fb-status" role="status" aria-live="polite" style="text-transform:none;letter-spacing:.02em"></p>
+    </form>
+  </div>
+</section>
 </main>
 
 <footer class="wrap fine">
@@ -242,6 +306,7 @@ h1 em { font-style: italic; font-weight: 200; }
   const fmt = d => { const [y, m, day] = String(d || '').split('-'); return ((day ? Number(day) + ' ' : '') + (months[Number(m) - 1] || '') + ' ' + (y || '')).trim(); };
   const range = (a, b) => { const [y1, m1, d1] = a.split('-'), [y2, m2, d2] = b.split('-');
     return y1 === y2 && m1 === m2 ? Number(d1) + '–' + Number(d2) + ' ' + months[Number(m1) - 1] + ' ' + y1 : fmt(a) + ' – ' + fmt(b); };
+  const slugify = t => String(t || '').toLowerCase().replace(/[^a-z]+/g, '-').replace(/^-|-$/g, '');
   const set = (sel, v) => document.querySelectorAll(sel).forEach(el => { if (v) el.textContent = v; });
 
   function observe(root) {
@@ -252,7 +317,7 @@ h1 em { font-style: italic; font-weight: 200; }
   }
 
   function head(n, st) {
-    return '<header class="plate-head"><span class="num">' + String(n).padStart(2, '0') + '</span><span class="place">' + esc(st.place) +
+    return '<header class="plate-head"><span class="num">' + String(n).padStart(2, '0') + '</span><span class="place" style="display:flex;gap:16px;align-items:baseline">' + esc(st.place) + '<a class="to-map mono" href="#route" data-stop="' + slugify(st.place) + '">Map ↑</a>' +
       '</span>' + (st.native ? '<span class="native" lang="hy">' + esc(st.native) + '</span>' : '') + '<span class="meta mono"><span>' + esc(st.country) + '</span><span>' + esc(st._when) + '</span></span></header>';
   }
   const img = (p, i) => '<img src="' + esc(src(p.src)) + '" alt="' + esc(p.alt) + '"' + (i ? ' loading="lazy"' : '') + '>';
@@ -307,7 +372,8 @@ h1 em { font-style: italic; font-weight: 200; }
           : '<div class="photos reveal">' + ph.map(img).join('') + '</div>' + cap;
       }
       last = kind;
-      return '<section class="plate wrap ' + kind + '">' + head(n, st) + body + '</section>';
+      const sid = slugify(st.place);
+      return '<section class="plate wrap ' + kind + '" id="stop-' + sid + '" data-stop="' + sid + '" data-name="' + esc(st.place) + '">' + head(n, st) + body + '</section>';
     }).join('');
     const diary = document.getElementById('diary');
     diary.innerHTML = html;
@@ -323,7 +389,61 @@ h1 em { font-style: italic; font-weight: 200; }
       upd();
     });
     observe(diary);
+    linkMap(diary);
   }
+
+  function linkMap(diary) {
+    const plates = [...diary.querySelectorAll('.plate')];
+    if (!plates.length) return;
+    const mapDots = [...document.querySelectorAll('.stopdot')];
+    const rail = document.createElement('nav');
+    rail.className = 'rail'; rail.setAttribute('aria-label', 'Stops on this journey');
+    rail.innerHTML = '<span class="now"></span><span class="steps">' +
+      plates.map(p => '<a href="#' + p.id + '" data-stop="' + p.dataset.stop + '" aria-label="' + esc(p.dataset.name) + '"><i></i></a>').join('') +
+      '</span><a class="map-btn" href="#route">Map</a>';
+    document.body.appendChild(rail);
+    const now = rail.querySelector('.now'), steps = [...rail.querySelectorAll('.steps a')];
+    let current = '';
+    const setActive = id => {
+      if (id === current) return; current = id;
+      mapDots.forEach(d => d.classList.toggle('on', d.dataset.stop === id));
+      steps.forEach(a => { const on = a.dataset.stop === id; a.classList.toggle('on', on); if (on) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current'); });
+      const p = plates.find(x => x.dataset.stop === id); now.textContent = p ? p.dataset.name : '';
+    };
+    // which stop is in the middle of the screen
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) setActive(e.target.dataset.stop); }), { rootMargin: '-45% 0px -50% 0px' });
+    plates.forEach(p => io.observe(p));
+    // show the guide only while reading the stops
+    const first = plates[0], last = plates[plates.length - 1];
+    const vis = () => {
+      const a = first.getBoundingClientRect().top < innerHeight * 0.6, b = last.getBoundingClientRect().bottom > innerHeight * 0.3;
+      rail.classList.toggle('show', a && b);
+    };
+    addEventListener('scroll', vis, { passive: true }); vis();
+    // from a stop back to the map: light that stop's dot
+    document.querySelectorAll('.to-map').forEach(a => a.addEventListener('click', () => setActive(a.dataset.stop)));
+  }
+
+  // feedback form: posts to the endpoint in content (e.g. Formspree) when set; otherwise opens an email draft
+  const fb = document.getElementById('fb-form');
+  if (fb) fb.addEventListener('submit', e => {
+    e.preventDefault();
+    const st = document.getElementById('fb-status'), data = new FormData(fb);
+    const endpoint = fb.dataset.endpoint, email = fb.dataset.email;
+    if (!data.get('message') && !data.get('rating')) { st.textContent = 'Pick a reaction or write a line first.'; return; }
+    if (endpoint) {
+      st.textContent = 'Sending…';
+      fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+        .then(r => { if (!r.ok) throw 0; fb.reset(); st.textContent = 'Thank you, it reached me.'; })
+        .catch(() => { st.textContent = 'That did not send. Please try again in a moment.'; });
+    } else if (email) {
+      const body = 'Reaction: ' + (data.get('rating') || '-') + '\n\n' + (data.get('message') || '') + '\n\nReply to: ' + (data.get('email') || '-');
+      location.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Feedback: Armenia, 2015') + '&body=' + encodeURIComponent(body);
+      st.textContent = 'Your email app should open with the message ready to send.';
+    } else {
+      st.textContent = 'Feedback is not connected yet.';
+    }
+  });
 
   observe(document);
   fetch('content/journeys/armenia-2015.json').then(r => r.json()).then(render).catch(() => {});
