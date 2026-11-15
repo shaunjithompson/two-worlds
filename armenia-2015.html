@@ -77,6 +77,9 @@ h1 em { font-style: italic; font-weight: 200; }
 .plate-head .place { font-family: 'Newsreader', serif; font-weight: 300; font-size: clamp(30px, 3.6vw, 48px); line-height: 1; letter-spacing: -0.01em; }
 .plate-head .meta { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--mute); }
 .plate img { display: block; width: 100%; height: auto; }
+.plate .lead-photo img { width: auto; max-width: 100%; max-height: 88vh; margin: 0 auto; }
+.plate .rest { margin-top: clamp(28px, 4vw, 56px); }
+.pair-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(10px, 1.4vw, 18px); align-items: start; }
 /* feature: edge to edge */
 .plate.feature { max-width: none; padding-left: 0; padding-right: 0; }
 .plate.feature > .plate-head, .plate.feature > .line { max-width: 1240px; margin-left: auto; margin-right: auto; padding-left: clamp(18px, 4vw, 40px); padding-right: clamp(18px, 4vw, 40px); }
@@ -232,6 +235,8 @@ h1 em { font-style: italic; font-weight: 200; }
   const esc = t => String(t ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const src = p => String(p || '').replace(/^\//, '');
   const fmt = d => { const [y, m, day] = String(d || '').split('-'); return ((day ? Number(day) + ' ' : '') + (months[Number(m) - 1] || '') + ' ' + (y || '')).trim(); };
+  const range = (a, b) => { const [y1, m1, d1] = a.split('-'), [y2, m2, d2] = b.split('-');
+    return y1 === y2 && m1 === m2 ? Number(d1) + '–' + Number(d2) + ' ' + months[Number(m1) - 1] + ' ' + y1 : fmt(a) + ' – ' + fmt(b); };
   const set = (sel, v) => document.querySelectorAll(sel).forEach(el => { if (v) el.textContent = v; });
 
   function observe(root) {
@@ -243,7 +248,7 @@ h1 em { font-style: italic; font-weight: 200; }
 
   function head(n, st) {
     return '<header class="plate-head"><span class="num">' + String(n).padStart(2, '0') + '</span><span class="place">' + esc(st.place) +
-      '</span><span class="meta mono"><span>' + esc(st.country) + '</span><span>' + esc(fmt(st.date)) + '</span></span></header>';
+      '</span><span class="meta mono"><span>' + esc(st.country) + '</span><span>' + esc(st._when) + '</span></span></header>';
   }
   const img = (p, i) => '<img src="' + esc(src(p.src)) + '" alt="' + esc(p.alt) + '"' + (i ? ' loading="lazy"' : '') + '>';
 
@@ -251,9 +256,13 @@ h1 em { font-style: italic; font-weight: 200; }
     set('[data-k="title"]', data.title); set('[data-k="subtitle"]', data.subtitle); set('[data-k="standfirst"]', data.standfirst);
     set('[data-k="leg"]', data.leg); set('[data-k="date"]', fmt(data.date));
     if (data.cover && data.cover.src) { const c = document.getElementById('cover'); c.src = src(data.cover.src); c.alt = data.cover.alt || ''; }
-    const stops = (data.stops || []).map((s, i) => ({ s, i })).sort((a, b) => {
-      const da = a.s.date || '9999', db = b.s.date || '9999'; return da === db ? a.i - b.i : (da < db ? -1 : 1);
-    }).map(x => x.s);
+    // date of a stop = its own date, else its earliest photo date
+    const dates = st => (st.photos || []).map(p => p && p.date).filter(Boolean).sort();
+    const key = st => st.date && st.date.length >= 10 ? st.date : (dates(st)[0] || st.date || '');
+    // a month-only date ("2015-08") is not before or after a full date in that month: keep written order
+    const cmp = (a, b) => { const x = key(a.s), y = key(b.s); if (!x || !y || x.startsWith(y) || y.startsWith(x)) return a.i - b.i; return x < y ? -1 : 1; };
+    const stops = (data.stops || []).map((s, i) => ({ s, i })).sort(cmp).map(x => x.s);
+    stops.forEach(st => { const ds = dates(st); st._when = ds.length > 1 && ds[0] !== ds[ds.length - 1] ? range(ds[0], ds[ds.length - 1]) : fmt(ds[0] || st.date); });
     document.getElementById('stop-count').textContent = stops.length;
     document.getElementById('stop-list').textContent = stops.map(s => s.place).join(' · ');
     if (data.music) {
@@ -273,22 +282,26 @@ h1 em { font-style: italic; font-weight: 200; }
       const ph = (st.photos || []).filter(p => p && p.src);
       if (!ph.length) return '';
       n++;
-      let kind;
-      if (ph.length >= 3) kind = 'carousel';
-      else if (ph.length === 2) kind = 'pair';
-      else { kind = singles[k % singles.length]; if (kind === last) { k++; kind = singles[k % singles.length]; } k++; }
-      last = kind;
       const cap = st.caption ? '<p class="line"><span>' + esc(st.caption) + '</span></p>' : '';
-      let body;
-      if (kind === 'carousel') {
-        body = '<div class="carousel reveal"><div class="track" tabindex="0" aria-label="' + esc(st.place) + ' photos">' +
-          ph.map(p => '<figure>' + img(p, 0) + '</figure>').join('') + '</div>' +
-          '<div class="c-ctrl"><span class="mono count">1 / ' + ph.length + '</span><span class="c-btns"><button type="button" class="prev" aria-label="Previous photo">←</button><button type="button" class="next" aria-label="Next photo">→</button></span></div></div>' + cap;
-      } else if (kind.startsWith('offset')) {
-        body = '<div class="body">' + cap + '<div class="photos reveal">' + ph.map(img).join('') + '</div></div>';
-      } else {
+      const carousel = list => '<div class="carousel reveal"><div class="track" tabindex="0" aria-label="' + esc(st.place) + ' photos">' +
+        list.map(p => '<figure>' + img(p, 0) + '</figure>').join('') + '</div>' +
+        '<div class="c-ctrl"><span class="mono count">1 / ' + list.length + '</span><span class="c-btns"><button type="button" class="prev" aria-label="Previous photo">←</button><button type="button" class="next" aria-label="Next photo">→</button></span></div></div>';
+      let kind, body;
+      if (ph.length >= 3) {
+        // lead photo large, then the rest as a pair (2) or a carousel (3+)
+        const lead = ph.find(p => p.lead) || ph[0], rest = ph.filter(p => p !== lead);
+        kind = 'lead';
+        body = '<div class="photos lead-photo reveal">' + img(lead, 0) + '</div>' + cap +
+          (rest.length === 2 ? '<div class="photos rest pair-grid reveal">' + rest.map((p, i) => img(p, 1)).join('') + '</div>' : '<div class="rest">' + carousel(rest) + '</div>');
+      } else if (ph.length === 2) {
+        kind = 'pair';
         body = '<div class="photos reveal">' + ph.map(img).join('') + '</div>' + cap;
+      } else {
+        kind = singles[k % singles.length]; if (kind === last) { k++; kind = singles[k % singles.length]; } k++;
+        body = kind.startsWith('offset') ? '<div class="body">' + cap + '<div class="photos reveal">' + ph.map(img).join('') + '</div></div>'
+          : '<div class="photos reveal">' + ph.map(img).join('') + '</div>' + cap;
       }
+      last = kind;
       return '<section class="plate wrap ' + kind + '">' + head(n, st) + body + '</section>';
     }).join('');
     const diary = document.getElementById('diary');

@@ -60,3 +60,5 @@ content:
             fields:
               - { name: src, label: Photo, type: image }
               - { name: alt, label: Description for screen readers, type: string }
+              - { name: lead, label: Use as the big lead photo, type: boolean }
+              - { name: date, label: "Date taken (YYYY-MM-DD; the camera file name P8130545 = 13 August)", type: string }
