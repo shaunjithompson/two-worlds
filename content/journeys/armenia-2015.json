@@ -4,7 +4,7 @@
   "date": "2015-08",
   "published": "2026-11-16",
   "leg": "Tabriz to Tbilisi",
-  "standfirst": "A decade on, I’m looking back at a week in August 2015 through the photographs I took: up through Syunik, east into Karabakh, back over the Sotk Pass to Lake Sevan, and on to Yerevan. Some of these places are unchanged. Some no longer exist as I saw them.",
+  "standfirst": "A look back at photos from August 2015: Kapan, Goris, Karabakh, the Sotk Pass, Lake Sevan and Yerevan.",
   "cover": {
     "src": "assets/sevan.jpg",
     "alt": "Sevanavank's stone church silhouetted at sunset above Lake Sevan",
@@ -31,7 +31,7 @@
       "place": "Kapan",
       "country": "Armenia",
       "date": "2015-08-13",
-      "caption": "The first stop, and the first photographs of the week. Kapan sits in the Voghji valley below Mount Khustup.",
+      "caption": "Kapan, in the Voghji valley below Mount Khustup.",
       "photos": [
         {
           "src": "assets/kapan-01.jpg",
@@ -56,7 +56,7 @@
       "place": "Goris",
       "country": "Armenia",
       "date": "2015-08-13",
-      "caption": "A Soviet-era square under the rock pinnacles of Old Goris. From here the road ran east through the Lachin corridor into Karabakh. The road is still there; the journey it made is not.",
+      "caption": "The main square of Goris, under the rock pinnacles of Old Goris.",
       "photos": [
         {
           "src": "assets/goris-01.jpg",
@@ -97,7 +97,7 @@
       "native": "Ստեփանակերտ",
       "country": "Karabakh",
       "date": "2015-08-14",
-      "caption": "In 2015 this was the capital of an unrecognised Armenian republic, with the 1967 monument We Are Our Mountains on the hill above. Since 2023 it has been Khankendi, under Azerbaijani control, and nearly all of its Armenian residents have left.",
+      "caption": "Stepanakert in 2015, with the 1967 monument We Are Our Mountains above the town. Since 2023 it has been Khankendi, under Azerbaijani control.",
       "photos": [
         {
           "src": "assets/step-01.jpg",
@@ -132,7 +132,7 @@
       "native": "Գանձասար",
       "country": "Karabakh",
       "date": "2015-08-15",
-      "caption": "Gandzasar monastery, consecrated in 1240. Of everything on this road, it has seen the most borders come and go.",
+      "caption": "Gandzasar monastery, consecrated in 1240.",
       "photos": [
         {
           "src": "assets/gandz-02.jpg",
@@ -151,7 +151,7 @@
       "native": "Սոթքի լեռնանցք",
       "country": "Karabakh to Armenia",
       "date": "2015-08-15",
-      "caption": "Back into Armenia over the Sotk Pass and down to Vardenis. Since 2020 the land on the far side of the pass has been Azerbaijani.",
+      "caption": "Back into Armenia over the Sotk Pass, down to Vardenis.",
       "photos": [
         {
           "src": "assets/road-01.jpg",
@@ -169,7 +169,7 @@
       "place": "Lake Sevan",
       "country": "Armenia",
       "date": "2015-08-16",
-      "caption": "Sevanavank, on a peninsula that was an island until the lake was lowered in the Soviet era. Of the whole week, this is the place I came back to, nine years later, in music.",
+      "caption": "Sevanavank, above Lake Sevan. The lake later became the subject of my score.",
       "photos": [
         {
           "src": "assets/sevan-02.jpg",
@@ -184,7 +184,7 @@
       "native": "Երևան",
       "country": "Armenia",
       "date": "2015-08-16",
-      "caption": "The end of the Armenian leg, with Ararat to the south on a clear morning. From here the road went north to Tbilisi.",
+      "caption": "Yerevan, with Ararat to the south on a clear morning.",
       "photos": [
         {
           "src": "assets/yer-07.jpg",
