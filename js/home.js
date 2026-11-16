@@ -5,29 +5,31 @@
 
   // One dot per article, by longitude and latitude in decimal degrees (west and south are negative).
   // kinds: 'music' = a piece is about this place · 'been' = a travel article · 'next' = an upcoming journey.
+  // One dot per country, by longitude and latitude in decimal degrees (west and south are negative).
+  // kinds: 'music' = a piece is about this country · 'been' = a photo essay · 'next' = an upcoming journey.
+  // Used by both the home Travel map and the atlas (atlas.html).
   var PLACES = [
     { id: 'armenia', name: 'Armenia', label: 'TRAVELLED AUGUST 2015 · PHOTO ESSAY',
       text: 'Photos from Armenia in August 2015, looked at again ten years on.',
       img: 'assets/sevan-sunset.jpg', imgs: ['assets/sevan-sunset.jpg', 'assets/kapan-01.jpg', 'assets/goris-02.jpg', 'assets/sevanavank.jpg', 'assets/yer-07.jpg'], lon: 45.0, lat: 40.2, kinds: ['been', 'music'], music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'Read the photo essay' },
     { id: 'georgia', name: 'Georgia', label: 'TRAVELLED AUGUST 2015 · PHOTO ESSAY',
-      text: 'Photos from Georgia in August 2015, from Tbilisi to the Black Sea.',
-      img: 'assets/tbilisi-cover.jpg', imgs: ['assets/tbilisi-cover.jpg', 'assets/tbilisi-06.jpg', 'assets/gori-02.jpg', 'assets/batumi-02.jpg', 'assets/batumi-01.jpg'], lon: 43.4, lat: 42.0, kinds: ['been'], music: '', musicRow: '', journey: 'georgia-2015.html', journeyText: 'Read the photo essay' },
+      text: 'Photos from Georgia in August 2015, from Tbilisi to the Black Sea. The Darial Gorge, on the road north, is the subject of Beyond the Darial Pass.',
+      img: 'assets/tbilisi-cover.jpg', imgs: ['assets/tbilisi-cover.jpg', 'assets/tbilisi-06.jpg', 'assets/gori-02.jpg', 'assets/batumi-02.jpg', 'assets/gorge.jpg'], lon: 43.6, lat: 42.1, kinds: ['been', 'music'], music: 'Overture “Beyond the Darial Pass”', musicRow: 'row-darial', journey: 'georgia-2015.html', journeyText: 'Read the photo essay' },
     { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS 2026',
       text: 'Seven weeks from Casablanca down the Atlantic edge of the Sahara, written from the road.',
       img: 'assets/dunes.jpg', lon: -7.59, lat: 33.57, kinds: ['next'], music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
-    { id: 'nazare', name: 'Nazaré', label: 'PORTUGAL · 39.60° N, 9.07° W',
-      text: 'The great Atlantic winter waves that break off Nazaré.',
-      img: 'assets/coast.jpg', lon: -9.07, lat: 39.6, kinds: ['music'], music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: false },
-    { id: 'darial', name: 'The Darial Gorge', label: 'CAUCASUS · 42.74° N, 44.62° E',
-      text: 'Dar-e Alān, the old gate through the Caucasus, painted by Aivazovsky in 1868.',
-      img: 'assets/gorge.jpg', lon: 44.62, lat: 42.74, kinds: ['music'], music: 'Overture: “Beyond the Darial Pass”', musicRow: 'row-darial', journey: false },
-    { id: 'krakow', name: 'Kraków', label: 'POLAND · 50.06° N, 19.94° E',
-      text: 'On 24 March 1794, in the Main Square, Tadeusz Kościuszko swore his oath to the nation and took up arms against the partitioning powers.',
-      img: 'assets/plain.jpg', lon: 19.94, lat: 50.06, kinds: ['music'], music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
-    { id: 'hardanger', name: 'Hardangerfjord', label: 'NORWAY · 60.10° N, 6.20° E',
-      text: 'The fjord in Tidemand and Gude\'s painting Bridal Procession on the Hardangerfjord (1848).',
-      img: 'assets/coast.jpg', lon: 6.2, lat: 60.1, kinds: ['music'], music: 'Forløp (Forløb)', musicRow: 'row-forlop', journey: false }
+    { id: 'portugal', name: 'Portugal', label: 'MUSIC · WIND BAND · 2026',
+      text: 'The Atlantic winter waves that break off Nazaré.',
+      img: 'assets/coast.jpg', lon: -8.2, lat: 39.6, kinds: ['music'], music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: false },
+    { id: 'poland', name: 'Poland', label: 'MUSIC · FLUTE AND WIND BAND · 2025',
+      text: 'On 24 March 1794, in Kraków’s Main Square, Tadeusz Kościuszko swore his oath to the nation and took up arms against the partitioning powers.',
+      img: 'assets/plain.jpg', lon: 19.4, lat: 52.0, kinds: ['music'], music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
+    { id: 'norway', name: 'Norway', label: 'MUSIC · WIND BAND · 2025',
+      text: 'The Hardangerfjord, from Tidemand and Gude’s painting Bridal Procession on the Hardangerfjord (1848).',
+      img: 'assets/coast.jpg', lon: 8.5, lat: 61.0, kinds: ['music'], music: 'Forløp (Forløb)', musicRow: 'row-forlop', journey: false }
   ];
+  // Older links named a place inside a country: send them to the country.
+  var ALIAS = { sevan: 'armenia', darial: 'georgia', nazare: 'portugal', lisbon: 'portugal', krakow: 'poland', hardanger: 'norway' };
   // The whole world, 180°W–180°E and 84°N–58°S, in map units (U per degree).
   var U = 26 / 3, LON0 = -180, LAT0 = 84, LAT1 = -58;
   var MAP_W = 360 * U, MAP_H = (LAT0 - LAT1) * U;
@@ -51,9 +53,10 @@
   var wholeBtn = document.getElementById('zoom-whole'), beforeWhole = null, wholeShown = null;
   var ICON_EXPAND = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
   var ICON_COLLAPSE = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
+  var focusId = null; // a place to open the map on (from a #place- link), else the home view
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function byId(id) { for (var i = 0; i < PLACES.length; i++) if (PLACES[i].id === id) return PLACES[i]; return PLACES[0]; }
+  function byId(id) { id = ALIAS[id] || id; for (var i = 0; i < PLACES.length; i++) if (PLACES[i].id === id) return PLACES[i]; return PLACES[0]; }
   function mapPoint(p) { return project(p.lon, p.lat); }
 
   // ---- build pins, chips and place images from PLACES ----
@@ -198,7 +201,7 @@
     if (p.musicRow) { location.href = 'index.html#' + p.musicRow; return; }
     selectPlace(p.id, true);
   }
-  window.twMap = { select: function (id) { selectPlace(id === 'sevan' ? 'armenia' : id, true); } };
+  window.twMap = { select: function (id) { focusId = ALIAS[id] || id; selectPlace(focusId, true); } };
 
   function setHot(p) {
     if (hot === p) return; hot = p; showPeek(p);
@@ -309,7 +312,7 @@
       layout();
     }
     var w = map.clientWidth, h = map.clientHeight; if (!w || !h) { wasHidden = true; return; }
-    if (wasHidden) { wasHidden = false; setView(homeView()); pulseT = now; }
+    if (wasHidden) { wasHidden = false; if (focusId) { var fo = mapPoint(byId(focusId)); setView(viewAround(fo.x, fo.y, coverS() * 2.5)); } else setView(homeView()); pulseT = now; }
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var cw = Math.round(w * dpr), ch = Math.round(h * dpr);
     if (canvas.width !== cw || canvas.height !== ch) { canvas.width = cw; canvas.height = ch; }
@@ -347,16 +350,18 @@
   setView(homeView());
   // Deep links from other pages: #music, #travel, #place-<id> (travel side, that place selected), #row-<id> (music side, that work lit)
   function fromHash() {
-    if (EMBED) return;
     var h = (location.hash || '').slice(1);
+    // The atlas: #place-<id> opens the map on that country.
+    if (document.body.classList.contains('atlas-page')) { if (h.indexOf('place-') === 0) window.twMap.select(h.slice(6)); return; }
+    if (EMBED) return;
     if (h === 'travel') setSide('travel');
     else if (h === 'music') setSide('music');
-    else if (h.indexOf('place-') === 0) { var id = h.slice(6); if (id === 'sevan') id = 'armenia'; selectPlace(id, false); setSide('travel'); }
+    else if (h.indexOf('place-') === 0) { selectPlace(ALIAS[h.slice(6)] || h.slice(6), false); setSide('travel'); }
     else if (h.indexOf('row-') === 0 && document.getElementById(h)) setSide('music', h);
     else return;
     stage.scrollIntoView({ block: 'start' });
   }
-  selectPlace('armenia', false);
+  selectPlace('georgia', false);
   setSide(stage.dataset.side || 'music');
   fromHash();
   window.addEventListener('hashchange', fromHash);

@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,200;1,6..72,300;1,6..72,400&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/map.css">
 <link rel="stylesheet" href="css/home.css">
 </head>
 <body data-side="music">
@@ -38,7 +39,7 @@
 <div class="mast">
   <img class="pan" src="assets/yer-07.jpg" alt="" aria-hidden="true" width="2000" height="1125" srcset="assets/sized/yer-07-800.webp 800w, assets/sized/yer-07-1400.webp 1400w, assets/yer-07.jpg 2000w" sizes="100vw" fetchpriority="high">
   <header class="wrap">
-    <div class="meta label"><span class="rise">Composer · Traveller · Sydney</span></div>
+    <div class="meta label"><span class="rise">Composition · Travel · Technology · Economy</span></div>
     <div class="line rule-in"></div>
     <h1><span class="rise d1">Things I’ve written,</span><span class="rise d2"><em>and places I’ve been.</em></span></h1>
   </header>
@@ -87,12 +88,27 @@
       </ol>
     </div>
   </section>
-  <section class="also-travel" aria-label="Travel, in brief">
-    <button type="button" class="wrap also card" data-pick="travel">
-      <span class="pic"><img data-latest="photo" data-sizes="(min-width: 1000px) 600px, 100vw" class="zoom-img" src="assets/tbilisi-cover.jpg" alt="" width="2400" height="1350" srcset="assets/sized/tbilisi-cover-800.webp 800w, assets/sized/tbilisi-cover-1400.webp 1400w, assets/tbilisi-cover.jpg 2400w" sizes="(min-width: 1000px) 600px, 100vw" loading="lazy" decoding="async"></span>
-      <span class="txt"><span class="label k-red">Also on this site</span><span class="big-t">Travel</span><span class="ink-soft" data-latest="line">Latest essay: Georgia (travelled 2015).</span></span>
-      <span class="go">Turn to Travel <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </button>
+  <section class="also-band also-travel" aria-labelledby="also-travel-h">
+    <div class="wrap">
+      <div class="also-top">
+        <div class="also-txt">
+          <span class="label k-red">Also on this site</span>
+          <h2 id="also-travel-h" class="big-t">Travel</h2>
+          <p>Several of these pieces begin with a place. The travel side has the photo essays from those places and a map of where each piece comes from.</p>
+          <button type="button" class="go" data-pick="travel">Turn to Travel <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <a class="also-lead card" href="georgia-2015.html" data-latest="link">
+          <span class="pic"><img data-latest="photo" data-sizes="(min-width: 1000px) 700px, 100vw" class="zoom-img" src="assets/tbilisi-cover.jpg" alt="" width="2400" height="1350" srcset="assets/sized/tbilisi-cover-800.webp 800w, assets/sized/tbilisi-cover-1400.webp 1400w, assets/tbilisi-cover.jpg 2400w" sizes="(min-width: 1000px) 700px, 100vw" loading="lazy" decoding="async"></span>
+          <span class="cap"><span class="ink-soft" data-latest="line">Latest essay: Georgia (travelled 2015).</span><span class="more">Read it <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+        </a>
+      </div>
+      <h3 class="label x-head">Where the music comes from</h3>
+      <ul class="x-list">
+        <li><a class="x-card" href="armenia-2015.html"><span class="x-pic"><img data-sizes="(min-width: 1000px) 380px, 100vw" src="assets/sevanavank.jpg" alt="" width="2000" height="1445" srcset="assets/sized/sevanavank-800.webp 800w, assets/sized/sevanavank-1400.webp 1400w, assets/sevanavank.jpg 2000w" sizes="(min-width: 1000px) 380px, 100vw" loading="lazy" decoding="async"></span><span class="label x-k">Photo essay · Armenia, 2015</span><span class="x-t">Lake Sevan, Armenia</span><span class="x-s">The place behind <i lang="fr">À la côte de la mer de Gegham</i></span></a></li>
+        <li><a class="x-card" href="georgia-2015.html"><span class="x-pic"><img data-sizes="(min-width: 1000px) 380px, 100vw" src="assets/gorge.jpg" alt="" width="1800" height="1350" srcset="assets/sized/gorge-800.webp 800w, assets/sized/gorge-1400.webp 1400w, assets/gorge.jpg 1800w" sizes="(min-width: 1000px) 380px, 100vw" loading="lazy" decoding="async"></span><span class="label x-k">Photo essay · Georgia, 2015</span><span class="x-t">The Darial Gorge, Georgia</span><span class="x-s">The place behind <i>Overture “Beyond the Darial Pass”</i></span></a></li>
+        <li><a class="x-card" href="atlas.html#place-portugal"><span class="x-pic"><img data-sizes="(min-width: 1000px) 380px, 100vw" src="assets/coast.jpg" alt="" width="1800" height="1350" srcset="assets/sized/coast-800.webp 800w, assets/sized/coast-1400.webp 1400w, assets/coast.jpg 1800w" sizes="(min-width: 1000px) 380px, 100vw" loading="lazy" decoding="async"></span><span class="label x-k">On the atlas · Portugal</span><span class="x-t">Nazaré, Portugal</span><span class="x-s">The place behind <i lang="pt">O Mar Novo: «As Vagas de Nazaré»</i></span></a></li>
+      </ul>
+    </div>
   </section>
 </div>
 
@@ -106,8 +122,8 @@
           <div class="map-layer" id="map-layer">
           </div>
           <div class="legend" aria-label="Map key">
-            <span class="lg-t">Key · one dot per article</span>
-            <span><span class="lg-sym lg-music" aria-hidden="true"></span>Music: a piece about this place</span>
+            <span class="lg-t">Key · one dot per country</span>
+            <span><span class="lg-sym lg-music" aria-hidden="true"></span>Music: a piece about this country</span>
             <span><span class="lg-sym lg-been" aria-hidden="true"></span>Travel: a photo essay</span>
             <span><span class="lg-sym lg-both" aria-hidden="true"></span>Both</span>
             <span><span class="lg-sym lg-next" aria-hidden="true"></span>Upcoming journey</span>
@@ -160,12 +176,27 @@
       </article>
     </div>
   </section>
-  <section class="also-music" aria-label="Music, in brief">
-    <button type="button" class="wrap also card" data-pick="music">
-      <span class="pic"><img data-sizes="(min-width: 1000px) 600px, 100vw" class="zoom-img" src="assets/gorge.jpg" alt="" width="1800" height="1350" srcset="assets/sized/gorge-800.webp 800w, assets/sized/gorge-1400.webp 1400w, assets/gorge.jpg 1800w" sizes="(min-width: 1000px) 600px, 100vw" loading="lazy" decoding="async"></span>
-      <span class="txt"><span class="label k-light">Also on this site</span><span class="big-m">Music</span><span class="mute">Five works, 2024–2026. Latest: <i>Overture “Beyond the Darial Pass”</i>, premiered October 2026.</span></span>
-      <span class="go">Turn to Music <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </button>
+  <section class="also-band also-music" aria-labelledby="also-music-h">
+    <div class="wrap">
+      <div class="also-top">
+        <div class="also-txt">
+          <span class="label k-light">Also on this site</span>
+          <h2 id="also-music-h" class="big-m">Music</h2>
+          <p class="mute">Five works for wind band, 2024–2026. Latest: <i>Overture “Beyond the Darial Pass”</i>, premiered October 2026.</p>
+          <button type="button" class="go" data-pick="music">Turn to Music <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <a class="also-lead card" href="beyond-the-darial-pass.html">
+          <span class="pic"><img data-sizes="(min-width: 1000px) 700px, 100vw" class="zoom-img" src="assets/gorge.jpg" alt="" width="1800" height="1350" srcset="assets/sized/gorge-800.webp 800w, assets/sized/gorge-1400.webp 1400w, assets/gorge.jpg 1800w" sizes="(min-width: 1000px) 700px, 100vw" loading="lazy" decoding="async"></span>
+          <span class="cap"><span class="mute">Latest work: <i>Overture “Beyond the Darial Pass”</i>, after Aivazovsky’s Darial Gorge.</span><span class="more">Programme note <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+        </a>
+      </div>
+      <h3 class="label x-head">Music from these places</h3>
+      <ul class="x-list">
+        <li><a class="x-card" href="a-la-cote-de-la-mer-de-gegham.html"><span class="x-pic"><img data-sizes="(min-width: 1000px) 380px, 100vw" src="assets/sevanavank.jpg" alt="" width="2000" height="1445" srcset="assets/sized/sevanavank-800.webp 800w, assets/sized/sevanavank-1400.webp 1400w, assets/sevanavank.jpg 2000w" sizes="(min-width: 1000px) 380px, 100vw" loading="lazy" decoding="async"></span><span class="label x-k">Music · Lake Sevan, Armenia</span><span class="x-t"><i lang="fr">À la côte de la mer de Gegham</i></span><span class="x-s">For wind band</span></a></li>
+        <li><a class="x-card" href="beyond-the-darial-pass.html"><span class="x-pic"><img data-sizes="(min-width: 1000px) 380px, 100vw" src="assets/gorge.jpg" alt="" width="1800" height="1350" srcset="assets/sized/gorge-800.webp 800w, assets/sized/gorge-1400.webp 1400w, assets/gorge.jpg 1800w" sizes="(min-width: 1000px) 380px, 100vw" loading="lazy" decoding="async"></span><span class="label x-k">Music · The Darial Gorge, Georgia</span><span class="x-t"><i>Overture “Beyond the Darial Pass”</i></span><span class="x-s">For wind band</span></a></li>
+        <li><a class="x-card" href="index.html#row-marNovo"><span class="x-pic"><img data-sizes="(min-width: 1000px) 380px, 100vw" src="assets/coast.jpg" alt="" width="1800" height="1350" srcset="assets/sized/coast-800.webp 800w, assets/sized/coast-1400.webp 1400w, assets/coast.jpg 1800w" sizes="(min-width: 1000px) 380px, 100vw" loading="lazy" decoding="async"></span><span class="label x-k">Music · Nazaré, Portugal</span><span class="x-t"><i lang="pt">O Mar Novo: «As Vagas de Nazaré»</i></span><span class="x-s">For wind band</span></a></li>
+      </ul>
+    </div>
   </section>
 </div>
 
@@ -257,6 +288,7 @@
   if (latest) {
     const cover = latest.querySelector('.roll img'), name = latest.querySelector('h3').textContent.trim(), yr = latest.dataset.travelled;
     document.querySelectorAll('[data-latest="photo"]').forEach(im => { im.srcset = cover.getAttribute('srcset') || ''; im.src = cover.getAttribute('src'); });
+    document.querySelectorAll('[data-latest="link"]').forEach(a => { a.href = latest.querySelector('.roll').getAttribute('href'); });
     document.querySelectorAll('[data-latest="line"]').forEach(el => { el.textContent = 'Latest essay: ' + name + (yr ? ' (travelled ' + yr + ').' : '.'); });
   }
 

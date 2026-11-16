@@ -21,10 +21,11 @@ Plain HTML, CSS and JavaScript on GitHub Pages. One small Python build script (`
 | File | Used by |
 |---|---|
 | `css/base.css` | Every page, loaded first. Colours, type scale, fonts, focus ring, skip link. **Change colours here only.** |
+| `css/map.css` | The dot map, shared by the home Travel side and `atlas.html` |
 | `css/home.css` | `index.html` |
-| `css/atlas.css` | `atlas.html` |
+| `css/atlas.css` | `atlas.html` page layout |
 | `css/essay.css` | Every photo essay |
-| `js/home.js`, `js/land.js` | Home and atlas map. Places on the map: the `PLACES` list at the top of `js/home.js` |
+| `js/home.js`, `js/land.js` | The dot map on home and atlas. One dot per country: the `PLACES` list at the top of `js/home.js` |
 | `js/essay.js` | Every photo essay: carousels, stop guide, map links, feedback form |
 
 Design rules: black ground, paper `#F1EEE7`, Japanese indigo `#21364F`, oxide red. Newsreader for display, Inter Tight for everything else, IBM Plex Mono once per page (class `mono-keep`). The class `mono` is a small Inter Tight label, despite its name.
