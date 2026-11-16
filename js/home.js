@@ -12,7 +12,7 @@
     { id: 'georgia', name: 'Georgia', label: 'TRAVELLED AUGUST 2015 · PHOTO ESSAY',
       text: 'Photos from Georgia in August 2015, from Tbilisi to the Black Sea.',
       img: 'assets/tbilisi-cover.jpg', imgs: ['assets/tbilisi-cover.jpg', 'assets/tbilisi-06.jpg', 'assets/gori-02.jpg', 'assets/batumi-02.jpg', 'assets/batumi-01.jpg'], lon: 43.4, lat: 42.0, kinds: ['been'], music: '', musicRow: '', journey: 'georgia-2015.html', journeyText: 'Read the photo essay' },
-    { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS [DATE]',
+    { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS 2026',
       text: 'Seven weeks from Casablanca down the Atlantic edge of the Sahara, written from the road.',
       img: 'assets/dunes.jpg', lon: -7.59, lat: 33.57, kinds: ['next'], music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
     { id: 'nazare', name: 'Nazaré', label: 'PORTUGAL · 39.60° N, 9.07° W',
