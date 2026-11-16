@@ -5,6 +5,9 @@
 
   // Places on the map, by longitude and latitude in decimal degrees (west and south are negative).
   var PLACES = [
+    { id: 'armenia', name: 'Armenia', label: 'PHOTO ESSAY · AUGUST 2015',
+      text: 'Kapan to Karabakh, back over the Sotk Pass to Lake Sevan, and on to Yerevan. Seven stops.',
+      img: 'assets/sevan.jpg', lon: 45.0, lat: 40.2, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'Read the photo essay' },
     { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS [DATE]',
       text: 'Seven weeks down the Atlantic edge of the Sahara, written from the road.',
       img: 'assets/dunes.jpg', lon: -17.4, lat: 14.7, music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
@@ -14,9 +17,6 @@
     { id: 'darial', name: 'The Darial Gorge', label: 'CAUCASUS · 42.74° N, 44.62° E',
       text: 'Dar-e Alān, the old gate through the Caucasus, painted by Aivazovsky in 1868.',
       img: 'assets/gorge.jpg', lon: 44.62, lat: 42.74, music: 'Overture: “Beyond the Darial Pass”', musicRow: 'row-darial', journey: false },
-    { id: 'sevan', name: 'Lake Sevan', label: 'ARMENIA · 40.33° N, 45.33° E',
-      text: 'The Gegham Sea, high in the Armenian mountains, one of the largest freshwater lakes in the Caucasus.',
-      img: 'assets/sevan.jpg', lon: 45.33, lat: 40.33, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'See the photo diary' },
     { id: 'krakow', name: 'Kraków', label: 'POLAND · 50.06° N, 19.94° E',
       text: 'On 24 March 1794, in the Main Square, Tadeusz Kościuszko swore his oath to the nation and took up arms against the partitioning powers.',
       img: 'assets/plain.jpg', lon: 19.94, lat: 50.06, music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
@@ -312,12 +312,12 @@
     var h = (location.hash || '').slice(1);
     if (h === 'travel') setSide('travel');
     else if (h === 'music') setSide('music');
-    else if (h.indexOf('place-') === 0) { selectPlace(h.slice(6), false); setSide('travel'); }
+    else if (h.indexOf('place-') === 0) { var id = h.slice(6); if (id === 'sevan') id = 'armenia'; selectPlace(id, false); setSide('travel'); }
     else if (h.indexOf('row-') === 0 && document.getElementById(h)) setSide('music', h);
     else return;
     stage.scrollIntoView({ block: 'start' });
   }
-  selectPlace('journey', false);
+  selectPlace('armenia', false);
   setSide(stage.dataset.side || 'music');
   fromHash();
   window.addEventListener('hashchange', fromHash);
