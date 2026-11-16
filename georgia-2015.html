@@ -68,11 +68,15 @@ h1 em { font-style: italic; font-weight: 200; }
 /* zoom: the full South Caucasus plate is drawn on a larger stage, and the frame shows Georgia (x 2–50%, y 5–45% of the plate) */
 .stage { position: absolute; width: 208.333%; height: 250%; left: -4.167%; top: -12.5%; }
 .stage > img, .stage > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* the essay's own country: neighbours' dots dimmed, its own drawn again at full strength */
+.stage > img { opacity: .38; }
+.home-land { filter: brightness(1.6); }
+.country.home { color: var(--paper); font-weight: 500; }
 @keyframes march { to { stroke-dashoffset: -34; } }
 .march { animation: march 1.8s linear infinite; }
 .lbl { position: absolute; white-space: nowrap; pointer-events: none; }
 .country { transform: translate(-50%, -50%); font-family: 'Inter Tight', system-ui, sans-serif; font-size: clamp(8px, 1vw, 11px); letter-spacing: .02em; color: #7D848C; background: #121417; padding: 2px 6px; }
-.sea { transform: translate(-50%, -50%); font-family: 'Newsreader', serif; font-style: italic; font-size: clamp(11px, 1.5vw, 18px); color: #6B7178; }
+.sea { transform: translate(-50%, -50%); text-align: center; line-height: 1.05; font-family: 'Newsreader', serif; font-style: italic; font-size: clamp(10px, 1.4vw, 17px); color: #6B7178; }
 .dot { position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: var(--paper); }
 .dot.ctx { background: #121417; border: 1.5px solid #8FA6C2; }
 .city { font-size: clamp(10px, 1.1vw, 12px); line-height: 1.25; color: #C9CDD1; background: rgba(12,13,15,.8); padding: 1px 5px; transform: translate(10px, -50%); }
@@ -97,9 +101,9 @@ h1 em { font-style: italic; font-weight: 200; }
 .plate.feature > .plate-head, .plate.feature > .line { max-width: 1240px; margin-left: auto; margin-right: auto; padding-left: clamp(18px, 4vw, 40px); padding-right: clamp(18px, 4vw, 40px); }
 .plate.feature > .plate-head { border-top: 0; }
 .plate.feature > .line { max-width: 1240px; font-size: clamp(22px, 2.6vw, 34px); }
-.plate.feature > .line span { display: block; max-width: 30ch; }
+.plate.feature > .line span { display: block; }
 /* inset: narrow photo, caption as a pull quote above */
-.plate.inset .line { order: -1; margin: 0 auto 32px; max-width: 24ch; text-align: center; font-size: clamp(26px, 3.4vw, 44px); line-height: 1.2; }
+.plate.inset .line { order: -1; margin: 0 auto 32px; max-width: 760px; text-align: center; font-size: clamp(26px, 3.4vw, 44px); line-height: 1.2; }
 .plate.inset .photos { max-width: 760px; margin: 0 auto; }
 .plate.inset { display: flex; flex-direction: column; }
 .plate.inset .plate-head { order: -2; }
@@ -116,7 +120,7 @@ h1 em { font-style: italic; font-weight: 200; }
 .c-btns button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid #3A3A3E; background: transparent; color: var(--paper); font-size: 18px; cursor: pointer; }
 .c-btns button:hover { border-color: var(--paper); }
 .c-btns button:disabled { opacity: .3; cursor: default; }
-.line { margin: 18px 0 0; max-width: 34ch; font-family: 'Newsreader', serif; font-style: italic; font-weight: 300; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.4; color: #D8D4CC; }
+.line { margin: 18px 0 0; max-width: none; font-family: 'Newsreader', serif; font-style: italic; font-weight: 300; font-size: clamp(18px, 1.9vw, 26px); line-height: 1.4; color: #D8D4CC; }
 .line:empty { display: none; }
 .plate.pair .photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(10px, 1.4vw, 18px); align-items: start; }
 .plate.offset .body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px clamp(24px, 4vw, 56px); align-items: end; }
@@ -225,7 +229,7 @@ h1 em { font-style: italic; font-weight: 200; }
 </div>
 
 <section class="wrap title">
-  <p class="mono-keep kicker"><span class="accent">Travelled <span data-k="date">August 2015</span></span><span>Published <span data-k="published">November 2026</span></span><span data-k="leg">Yerevan to Trabzon</span></p>
+  <p class="mono-keep kicker"><span class="accent">Travelled <span data-k="date">August 2015</span></span><span>Published <span data-k="published">November 2026</span></span></p>
   <h1 data-k="title">Georgia</h1>
   <p class="native" lang="ka" data-k="titleNative">საქართველო</p>
   <p class="subtitle" data-k="subtitle">from Tbilisi to the Black Sea</p>
@@ -233,7 +237,6 @@ h1 em { font-style: italic; font-weight: 200; }
     <p class="standfirst" data-k="standfirst">Photos from Georgia in August 2015: Tbilisi, Gori, then west to Batumi on the Black Sea, before crossing into Turkey for Trabzon.</p>
     <dl class="facts">
       <div><dt>Stops</dt><dd id="stop-count">3</dd></div>
-      <div><dt>Leg</dt><dd data-k="leg">Yerevan to Trabzon</dd></div>
       <div class="span"><dt>Route</dt><dd id="stop-list">Tbilisi · Gori · Batumi</dd></div>
       <div class="span"><dt>Photographs</dt><dd>Shaun Ji-Thompson</dd></div>
     </dl>
@@ -247,6 +250,8 @@ h1 em { font-style: italic; font-weight: 200; }
       <div class="stage">
       <img src="assets/armenia-map.png" alt="">
       <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <defs><clipPath id="home-land" clipPathUnits="userSpaceOnUse"><polygon points="-12,-2 -10.42,-2 -4.17,-5 5.21,1 15.62,2 26.04,9 31.25,11 37.5,11 43.75,15 48.96,22 56.77,28 59.38,34 55.21,42 48.96,39 41.88,40.2 39.58,42 31.25,42 25.73,43.6 18.75,34.4 15.62,37 5.73,35.6 -12,32"/></clipPath></defs>
+        <image class="home-land" href="assets/armenia-map.png" x="0" y="0" width="100" height="100" preserveAspectRatio="none" clip-path="url(#home-land)"/>
         <g fill="none" stroke-linejoin="round" stroke-linecap="round">
                 <path id="borders" d="M-10.42 -2.00 L-4.17 -5.00 L5.21 1.00 L15.62 2.00 L26.04 9.00 L31.25 11.00 L37.50 11.00 L43.75 15.00 L48.96 22.00 L56.77 28.00 L60.42 35.00 L65.62 39.00 L71.87 42.00 L76.04 36.00 L78.96 28.80 M5.73 35.60 L15.62 37.00 L18.75 34.40 L25.73 43.60 L31.25 42.00 L39.58 42.00 L41.88 40.20 L48.96 39.00 L55.21 42.00 L59.38 34.00 L56.77 28.00 M25.73 43.60 L27.08 54.00 L28.13 64.00 L34.37 66.00 L39.27 71.80 M41.88 40.20 L46.35 45.00 L47.92 53.00 L51.56 60.00 L50.00 67.00 L53.13 71.00 L56.77 75.00 L57.81 82.00 L57.81 88.00 M39.27 71.80 L43.75 73.00 L48.96 75.00 L51.04 79.00 L53.65 82.00 L52.08 87.00 L53.33 88.60 L57.81 88.00 M39.27 71.80 L39.58 73.00 L44.79 80.00 L50.00 86.00 L53.33 88.60 M57.81 88.00 L62.50 83.00 L67.71 78.00 L72.92 74.00 L76.56 79.00 L73.96 86.00 L76.04 94.00 L81.98 97.40 M39.58 73.00 L37.50 78.00 L35.42 86.00 L34.37 96.00 L36.46 108.00" stroke="#121417" stroke-width="5" vector-effect="non-scaling-stroke"/>
                 <use href="#borders" stroke="#6A7078" stroke-width="1.2" stroke-dasharray="2 4" vector-effect="non-scaling-stroke"/>
@@ -255,11 +260,11 @@ h1 em { font-style: italic; font-weight: 200; }
 </g>
       </svg>
             <span class="lbl country" style="left:31.00%;top:9.50%">Russia</span>
-<span class="lbl country" style="left:24.00%;top:31.00%">Georgia</span>
+<span class="lbl country home" style="left:24.00%;top:31.00%">Georgia</span>
 <span class="lbl country" style="left:17.00%;top:39.50%">Turkey</span>
 <span class="lbl country" style="left:28.50%;top:42.50%">Armenia</span>
 <span class="lbl country" style="left:46.50%;top:41.00%">Azerbaijan</span>
-<span class="lbl sea" style="left:5.20%;top:17.00%">Black Sea</span>
+<span class="lbl sea" style="left:4.55%;top:27.00%">Black<br>Sea</span>
 <a class="dot stopdot capital" href="#stop-tbilisi" data-stop="tbilisi" aria-label="Tbilisi, the capital: go to this stop" style="left:39.49%;top:31.60%"></a><span class="lbl city cap" style="left:39.49%;top:31.60%">Tbilisi<span class="k">Capital</span></span>
 <a class="dot stopdot" href="#stop-gori" data-stop="gori" aria-label="Gori: go to this stop" style="left:32.44%;top:26.39%"></a><span class="lbl city up" style="left:32.44%;top:26.39%">Gori</span>
 <span class="lbl city ctx minor up" style="left:17.82%;top:20.60%">Kutaisi</span>
@@ -344,7 +349,7 @@ h1 em { font-style: italic; font-weight: 200; }
 
   function render(data) {
     set('[data-k="title"]', data.title); set('[data-k="titleNative"]', data.titleNative); set('[data-k="subtitle"]', data.subtitle); set('[data-k="standfirst"]', data.standfirst);
-    set('[data-k="leg"]', data.leg); set('[data-k="date"]', fmt(data.date)); if (data.published) set('[data-k="published"]', fmt(data.published.slice(0, 7)));
+    set('[data-k="date"]', fmt(data.date)); if (data.published) set('[data-k="published"]', fmt(data.published.slice(0, 7)));
     if (data.cover && data.cover.src) { const c = document.getElementById('cover'); c.src = src(data.cover.src); c.alt = data.cover.alt || ''; }
     // date of a stop = its own date, else its earliest photo date
     const dates = st => (st.photos || []).map(p => p && p.date).filter(Boolean).sort();
