@@ -6,7 +6,7 @@
   // Places on the map, by longitude and latitude in decimal degrees (west and south are negative).
   var PLACES = [
     { id: 'armenia', name: 'Armenia', label: 'TRAVELLED AUGUST 2015 · PHOTO ESSAY',
-      text: 'A trip through Armenia, with a side visit to Nagorno-Karabakh, then a disputed territory. Photos looked at again ten years on.',
+      text: 'A route through Armenia and Nagorno-Karabakh, then a disputed territory. Photos looked at again ten years on.',
       img: 'assets/sevan.jpg', imgs: ['assets/sevan.jpg', 'assets/kapan-01.jpg', 'assets/goris-02.jpg', 'assets/step-01.jpg', 'assets/gandz-01.jpg', 'assets/road-01.jpg', 'assets/sevan-02.jpg', 'assets/yer-07.jpg'], lon: 45.0, lat: 40.2, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'Read the photo essay' },
     { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS [DATE]',
       text: 'Seven weeks down the Atlantic edge of the Sahara, written from the road.',
