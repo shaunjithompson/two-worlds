@@ -1,57 +1,66 @@
-/* Two Worlds — home page behaviour: the Music / Travel switch and the dot map. No dependencies. */
+/* Two Worlds — home page behaviour: the Music / Travel switch and the dot map. No dependencies.
+   The world's coastlines live in js/land.js, which must load first. */
 (function () {
   'use strict';
 
-  // Places on the map. x / y are percentages of the map box (lon -25..110, lat 60..-6).
-  // To add a place: x = (lon + 25) / 135 * 100, y = (60 - lat) / 66 * 100.
+  // Places on the map, by longitude and latitude in decimal degrees (west and south are negative).
   var PLACES = [
     { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS [DATE]',
       text: 'Seven weeks down the Atlantic edge of the Sahara, written from the road.',
-      img: 'assets/dunes.jpg', x: 5.63, y: 68.64, music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
+      img: 'assets/dunes.jpg', lon: -17.4, lat: 14.7, music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
     { id: 'bojador', name: 'Cape Bojador', label: 'WESTERN SAHARA · 26.13° N, 14.50° W',
       text: 'The cape Portuguese sailors feared to pass. The next journey goes by it on the road south.',
-      img: 'assets/coast.jpg', x: 7.78, y: 51.32, music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: 'morocco-to-the-gambia.html' },
+      img: 'assets/coast.jpg', lon: -14.5, lat: 26.13, music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: 'morocco-to-the-gambia.html' },
     { id: 'darial', name: 'The Darial Gorge', label: 'CAUCASUS · 42.74° N, 44.62° E',
       text: 'Dar-e Alān, the old gate through the Caucasus, painted by Aivazovsky in 1868.',
-      img: 'assets/gorge.jpg', x: 51.57, y: 26.15, music: 'Overture: “Beyond the Darial Pass”', musicRow: '', journey: false },
+      img: 'assets/gorge.jpg', lon: 44.62, lat: 42.74, music: 'Overture: “Beyond the Darial Pass”', musicRow: '', journey: false },
     { id: 'sevan', name: 'Lake Sevan', label: 'ARMENIA · 40.33° N, 45.33° E',
       text: 'The Gegham Sea, high in the Armenian mountains, one of the largest freshwater lakes in the Caucasus.',
-      img: 'assets/sevan.jpg', x: 52.10, y: 29.80, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'See the photo diary' },
+      img: 'assets/sevan.jpg', lon: 45.33, lat: 40.33, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'See the photo diary' },
     { id: 'krakow', name: 'Kraków', label: 'POLAND · 50.06° N, 19.94° E',
       text: 'On 24 March 1794, in the Main Square, Tadeusz Kościuszko swore his oath to the nation and took up arms against the partitioning powers.',
-      img: 'assets/plain.jpg', x: 33.29, y: 15.06, music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
+      img: 'assets/plain.jpg', lon: 19.94, lat: 50.06, music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
     { id: 'hardanger', name: 'Hardangerfjord', label: 'NORWAY · 60.10° N, 6.20° E',
       text: 'The fjord of Tidemand and Gude\'s Bridal Procession on the Hardangerfjord (1848), the best-loved painting of Norwegian national romanticism.',
-      img: 'assets/coast.jpg', x: 23.11, y: 2.6, music: 'Forløp (Forløb)', musicRow: 'row-forlop', journey: false }
+      img: 'assets/coast.jpg', lon: 6.2, lat: 60.1, music: 'Forløp (Forløb)', musicRow: 'row-forlop', journey: false }
   ];
-  var MAP_W = 1170, MAP_H = 572;
+  // The whole world, 180°W–180°E and 84°N–58°S, in map units (U per degree).
+  var U = 26 / 3, LON0 = -180, LAT0 = 84, LAT1 = -58;
+  var MAP_W = 360 * U, MAP_H = (LAT0 - LAT1) * U;
+  function project(lon, lat) { return { x: (lon - LON0) * U, y: (LAT0 - lat) * U }; }
   var CROSS_ICON = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg>';
 
   var stage = document.getElementById('worlds');
   var map = document.getElementById('map');
   var canvas = map.querySelector('canvas');
+  var layer = document.getElementById('map-layer');
   var chips = document.getElementById('chips');
   var imgs = document.getElementById('place-imgs');
   var musicBtn = document.getElementById('place-music');
   var journeyLink = document.getElementById('place-journey');
   var state = { side: 'music', place: 'journey' };
-  var bursts = [], mouse = null;
+  var mouse = null, pulseT = -1e9, view = { s: 1, tx: 0, ty: 0 }, anim = null;
+  var PULSE_MS = 2200, PULSE_R = 300;
+  var pts = {}, drag = null, pinch = null, hot = null;
+  var wholeBtn = document.getElementById('zoom-whole'), beforeWhole = null, wholeShown = null;
+  var ICON_EXPAND = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+  var ICON_COLLAPSE = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function byId(id) { for (var i = 0; i < PLACES.length; i++) if (PLACES[i].id === id) return PLACES[i]; return PLACES[0]; }
-  function mapPoint(p) { return { x: p.x / 100 * MAP_W, y: p.y / 100 * MAP_H }; }
+  function mapPoint(p) { return project(p.lon, p.lat); }
 
   // ---- build pins, chips and place images from PLACES ----
   PLACES.forEach(function (p) {
     var pin = document.createElement('button');
     pin.type = 'button'; pin.className = 'pin'; pin.dataset.place = p.id;
     pin.setAttribute('aria-label', p.name);
-    pin.style.left = p.x + '%'; pin.style.top = p.y + '%';
+    var pt = mapPoint(p); pin.dataset.x = pt.x; pin.dataset.y = pt.y;
     pin.appendChild(document.createElement('i'));
     var label = document.createElement('span');
     label.className = 'pin-label'; label.setAttribute('aria-hidden', 'true'); label.textContent = p.name;
-    label.style.left = p.x + '%'; label.style.top = p.y + '%';
-    map.appendChild(pin); map.appendChild(label);
+    label.dataset.for = p.id; label.dataset.x = pin.dataset.x; label.dataset.y = pin.dataset.y;
+    layer.appendChild(pin); layer.appendChild(label);
 
     var chip = document.createElement('button');
     chip.type = 'button'; chip.className = 'chip'; chip.dataset.place = p.id; chip.textContent = p.name;
@@ -77,10 +86,12 @@
     musicBtn.innerHTML = CROSS_ICON + 'The music: ' + p.music;
     journeyLink.hidden = !p.journey;
     if (p.journey) { journeyLink.href = p.journey; journeyLink.textContent = p.journeyText || 'Follow the journey'; }
-    if (ripple) { var o = mapPoint(p); bursts.push({ x: o.x, y: o.y, t: performance.now() }); }
+    pulseT = performance.now(); // one soft ring from the chosen place, then it stops
+    if (ripple) { var o = mapPoint(p); flyTo(viewAround(o.x, o.y, Math.max(view.s, coverS() * 2.5))); }
   }
 
   function setSide(side, highlightRow) {
+    if (side === 'travel' && state.side !== 'travel') pulseT = performance.now();
     state.side = side;
     stage.dataset.side = side;
     stage.querySelectorAll('.switch button').forEach(function (b) {
@@ -98,29 +109,125 @@
       setSide(go.dataset.go);
       return;
     }
+    var z = e.target.closest('[data-zoom]');
+    if (z) {
+      var n = +z.dataset.zoom;
+      if (n) { flyTo(zoomTarget(map.clientWidth / 2, map.clientHeight / 2, view.s * (n > 0 ? 1.8 : 1 / 1.8))); return; }
+      // Whole-map button is a toggle: out to the whole world, then back to where you were.
+      if (isWhole()) { flyTo(beforeWhole ? clampView({ s: clampS(beforeWhole.s), tx: beforeWhole.tx, ty: beforeWhole.ty }) : homeView()); beforeWhole = null; }
+      else { beforeWhole = { s: view.s, tx: view.tx, ty: view.ty }; flyTo(clampView({ s: minS(), tx: 0, ty: 0 })); }
+      return;
+    }
     var pl = e.target.closest('.pin, .chip');
     if (pl) { selectPlace(pl.dataset.place, true); return; }
   });
   musicBtn.addEventListener('click', function () { setSide('music', byId(state.place).musicRow); });
 
-  function toMap(e) { var r = map.getBoundingClientRect(); return { x: (e.clientX - r.left) / r.width * MAP_W, y: (e.clientY - r.top) / r.height * MAP_H }; }
-  map.addEventListener('pointermove', function (e) { mouse = toMap(e); });
-  map.addEventListener('pointerleave', function () { mouse = null; });
-  map.addEventListener('pointerdown', function (e) { var p = toMap(e); bursts.push({ x: p.x, y: p.y, t: performance.now() }); });
+  // ---- pan and zoom. view: screen = translate + map units * scale ----
+  function minS() { return Math.min(map.clientWidth / MAP_W, map.clientHeight / MAP_H); }
+  function coverS() { return Math.max(map.clientWidth / MAP_W, map.clientHeight / MAP_H); }
+  function maxS() { return coverS() * 10; }
+  function clampS(s) { return Math.max(minS(), Math.min(maxS(), s)); }
+  function clampView(t) {
+    var w = map.clientWidth, h = map.clientHeight, ww = MAP_W * t.s, wh = MAP_H * t.s;
+    t.tx = ww <= w ? (w - ww) / 2 : Math.min(0, Math.max(w - ww, t.tx));
+    t.ty = wh <= h ? (h - wh) / 2 : Math.min(0, Math.max(h - wh, t.ty));
+    return t;
+  }
+  function viewAround(X, Y, s) { s = clampS(s); return clampView({ s: s, tx: map.clientWidth / 2 - X * s, ty: map.clientHeight / 2 - Y * s }); }
+  function zoomTarget(px, py, s) { s = clampS(s); var X = (px - view.tx) / view.s, Y = (py - view.ty) / view.s; return clampView({ s: s, tx: px - X * s, ty: py - Y * s }); }
+  function sx(X) { return view.tx + X * view.s; }
+  function sy(Y) { return view.ty + Y * view.s; }
+  function isWhole() { return view.s <= minS() * 1.02; }
+  function homeView() { var c = project(25, 28); return viewAround(c.x, c.y, coverS() * 1.7); }
+  function layout() {
+    var whole = isWhole();
+    if (whole !== wholeShown) {
+      wholeShown = whole;
+      wholeBtn.innerHTML = whole ? ICON_COLLAPSE : ICON_EXPAND;
+      wholeBtn.setAttribute('aria-label', whole ? 'Zoom back in' : 'Show the whole map');
+      wholeBtn.setAttribute('aria-pressed', whole ? 'true' : 'false');
+    }
+    layer.querySelectorAll('[data-x]').forEach(function (el) { el.style.left = sx(+el.dataset.x) + 'px'; el.style.top = sy(+el.dataset.y) + 'px'; });
+  }
+  function setView(t) { view = t; layout(); }
+  function flyTo(t) { if (reduce) { anim = null; setView(t); } else anim = { a: view, b: t, t0: performance.now(), dur: 650 }; }
 
-  // ---- the dot field (same simplified coastlines that produced assets/map.png) ----
+  // Only the place dots are clickable: the nearest one within a generous radius wins.
+  function pinNear(px, py, radius) {
+    var best = null, bd = radius;
+    PLACES.forEach(function (p) { var o = mapPoint(p), d = Math.hypot(sx(o.x) - px, sy(o.y) - py); if (d < bd) { bd = d; best = p; } });
+    return best;
+  }
+  function setHot(p) {
+    if (hot === p) return; hot = p;
+    layer.querySelectorAll('.pin').forEach(function (el) { el.classList.toggle('hot', !!p && el.dataset.place === p.id); });
+    layer.querySelectorAll('.pin-label').forEach(function (el) { el.classList.toggle('show', !!p && el.dataset.for === p.id); });
+    map.classList.toggle('over-pin', !!p);
+  }
+  function local(e) { var r = map.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+
+  map.addEventListener('pointerdown', function (e) {
+    if (e.target.closest('.zoom') || e.button > 0) return;
+    var q = local(e); pts[e.pointerId] = q; anim = null;
+    try { map.setPointerCapture(e.pointerId); } catch (err) {}
+    var ids = Object.keys(pts);
+    if (ids.length === 1) drag = { x: q.x, y: q.y, tx: view.tx, ty: view.ty, moved: false, touch: e.pointerType !== 'mouse' };
+    else if (ids.length === 2) {
+      var a = pts[ids[0]], b = pts[ids[1]];
+      pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, s: view.s };
+      if (drag) drag.moved = true;
+    }
+  });
+  map.addEventListener('pointermove', function (e) {
+    var q = local(e);
+    if (e.pointerType === 'mouse') mouse = q;
+    if (pts[e.pointerId]) pts[e.pointerId] = q;
+    var ids = Object.keys(pts);
+    if (pinch && ids.length >= 2) {
+      var a = pts[ids[0]], b = pts[ids[1]];
+      setView(zoomTarget((a.x + b.x) / 2, (a.y + b.y) / 2, pinch.s * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d));
+      return;
+    }
+    if (drag) {
+      var dx = q.x - drag.x, dy = q.y - drag.y;
+      if (!drag.moved && Math.hypot(dx, dy) > 6) { drag.moved = true; map.classList.add('dragging'); setHot(null); }
+      if (drag.moved) setView(clampView({ s: view.s, tx: drag.tx + dx, ty: drag.ty + dy }));
+      return;
+    }
+    if (e.pointerType === 'mouse') setHot(pinNear(q.x, q.y, 40));
+  });
+  function endPointer(e) {
+    if (drag && !drag.moved && e.type === 'pointerup') {
+      var q = local(e), p = pinNear(q.x, q.y, drag.touch ? 56 : 40);
+      if (p) selectPlace(p.id, false);
+    }
+    delete pts[e.pointerId];
+    if (Object.keys(pts).length < 2) pinch = null;
+    if (!Object.keys(pts).length) { drag = null; map.classList.remove('dragging'); }
+  }
+  map.addEventListener('pointerup', endPointer);
+  map.addEventListener('pointercancel', endPointer);
+  map.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse' && !drag) { mouse = null; setHot(null); } });
+  // Trackpad pinch (and ctrl/cmd + scroll) zooms; plain scrolling still scrolls the page.
+  map.addEventListener('wheel', function (e) {
+    if (!e.ctrlKey && !e.metaKey) return;
+    e.preventDefault(); anim = null;
+    var q = local(e), dy = Math.max(-60, Math.min(60, e.deltaY));
+    setView(zoomTarget(q.x, q.y, view.s * Math.exp(-dy * 0.01)));
+  }, { passive: false });
+  window.addEventListener('resize', function () { setView(clampView({ s: clampS(view.s), tx: view.tx, ty: view.ty })); });
+
+  // ---- the dot field: one dot every 1.25 degrees wherever js/land.js says there is land ----
   function buildDots() {
-    var eur = [-9,37,-9.5,38.7,-9,43,-1.5,43.5,-1.2,46,-4.8,48.4,-1.6,49.6,2,51,4.5,52.5,8.5,54,8.2,57,10.5,57.7,12,56,11,54,14,54,19,54.5,21,56,24,58,30,60,110,60,110,21,108,21.5,106.5,20,106,18,108.5,16,109.3,12.5,107,10.5,105,8.6,105,10,103,11,101,12.8,100.5,13.5,100,11,99.3,9.2,101,6.8,103.4,4.5,104.2,1.4,103.4,1.5,101.3,2.9,100.3,5.5,98.5,8,98.6,10,98.5,13,97.6,16.5,95.5,16,94.3,18,92.2,21,90.5,22.5,88.5,21.8,87,21,85,19.8,82.3,16.7,80.2,15,80.3,13,79.8,10.3,78.2,8.9,77.5,8.1,76.3,9.9,74.8,12.9,73.3,17,72.8,19,72.6,21.5,70.5,20.8,69,22.3,68.5,23.5,67,24.8,62.3,25.2,57.5,25.5,56.4,27,52,27.6,50.2,30,48.5,30,48,29.3,50.2,26,51.6,24.3,54.5,24.2,56.3,26.2,56.6,24.5,58.6,23.6,59.8,22.5,57.8,19,55,17,52,16,48.7,14,45,12.8,43.3,12.7,42.7,16.5,39.2,21.5,37,25,35,28,34.9,29.5,34.3,27.8,32.6,29.9,32.3,31.2,34.5,31.5,35,33,35.8,35.5,36.2,36.6,34,36.3,32,36.1,30.6,36.8,28,36.7,27.3,37.5,26.2,39.3,26.2,40,29,41.1,31.5,41.2,35,42,38,41,41.5,41.5,41.6,42.5,39,44,37.5,45,39.3,47.2,35,46.3,33.5,46,33.5,44.5,32.5,45.3,30.7,46.5,29.6,45.2,28.6,43.8,27.9,42.5,28,41.6,27,40.6,26,40.8,24,40.8,23,40.3,22.7,39.3,24,38,23,36.4,21.6,37,21,39,19.4,41.5,19,42.3,16.5,43.5,13.6,45.6,12.3,45.3,12.5,44,14,42.3,16,41.8,18.5,40.2,17,40.5,16.6,38.9,16,38,15.7,40,14.2,40.8,12.2,41.8,10.3,43.5,8.9,44.4,7.3,43.7,5.3,43.3,3.1,42.4,2.2,41.4,0,39.5,-0.7,37.6,-2.2,36.8,-4.4,36.7,-5.6,36,-6.3,36.6,-7.4,37.2];
-    var afr = [-5.9,35.8,-2,35.2,3,36.8,8,37,10.3,37.2,11,34,10.2,33.8,11.5,33,15,32.4,19,30.3,20,32.5,23,32.6,25,31.6,29,31,31,31.5,32.3,31.2,32.5,30,33.8,27,35.5,24,37.2,21,37.3,19,38.6,18,39.5,15.5,41.5,13.5,43.3,12.3,43.2,11.5,44.5,10.4,47.5,11.2,51.2,11.9,50.8,9,48,4.5,45.5,2,42.5,-0.3,40.3,-2.5,39.3,-6,12,-6,11.8,-4.8,9.4,0.4,9.7,4,6,4.3,3.4,6.4,-0.2,5.5,-7.7,4.4,-10.8,6.3,-13.2,8.5,-13.7,9.5,-15.6,11.9,-16.6,13.45,-17.5,14.7,-16,18.1,-17,20.9,-15.9,23.7,-14.5,26.1,-12.9,27.9,-9.6,30.4,-7.6,33.6];
-    var land = [eur, afr,
-      [-5.7,50,1.4,51.3,1.7,52.7,0.3,53,-0.1,54,-1.5,55,-2,56,-1.8,57.6,-3.5,58.6,-5,58.6,-6,57,-5,55,-3,54,-4.5,53.3,-4.2,52,-5.2,51.7,-3,51.3],
-      [-10,52,-6,52,-5.5,54.5,-8,55.3,-10,54],
-      [5,60,5.5,58.8,8,58,11,59,11.5,58,12.8,56,14.3,55.5,16.5,56.5,18.8,59.5,18,60],
-      [79.8,9.6,81.8,7.5,81,6,80,6,79.7,8],
-      [95.3,5.6,98,4.3,100.4,2.3,103.7,0,104.5,-2,106,-3.5,105.8,-6,102,-6,101,-2.5,99,0.3,97,2.5],
-      [12.5,38,15.6,38.2,15.1,36.7,12.5,37.6],
-      [8.2,41.2,9.7,41,9.6,39.2,8.4,39]];
-    var cas = [47,45,50,46.6,53,46.8,53,45,51,44.5,50.5,42.5,53,41,54,39.5,53.8,37,51.5,36.7,49.5,37.5,49,39.5,49.8,40.5,47.5,42.8,46.8,44.5];
+    var LAND = window.TW_LAND || {}, WATER = window.TW_WATER || {};
+    function shapes(set) {
+      return Object.keys(set).map(function (k) {
+        var p = set[k], b = [180, 90, -180, -90];
+        for (var i = 0; i < p.length; i += 2) { b[0] = Math.min(b[0], p[i]); b[1] = Math.min(b[1], p[i + 1]); b[2] = Math.max(b[2], p[i]); b[3] = Math.max(b[3], p[i + 1]); }
+        return { p: p, b: b };
+      });
+    }
     function inside(x, y, p) {
       var c = false, n = p.length / 2;
       for (var i = 0; i < n; i++) {
@@ -129,47 +236,77 @@
       }
       return c;
     }
-    var out = [], step = 1.25, sc = MAP_W / 135, row = 0;
-    for (var lat = 60 - step / 2; lat > -6; lat -= step, row++) {
-      for (var lon = -25 + step / 2 + (row % 2 ? step / 2 : 0); lon < 110; lon += step) {
-        var on = false;
-        for (var q = 0; q < land.length && !on; q++) on = inside(lon, lat, land[q]);
-        if (on && !inside(lon, lat, cas)) out.push((lon + 25) * sc, (60 - lat) * sc);
+    function hit(list, x, y) {
+      for (var q = 0; q < list.length; q++) { var s = list[q]; if (x >= s.b[0] && x <= s.b[2] && y >= s.b[1] && y <= s.b[3] && inside(x, y, s.p)) return true; }
+      return false;
+    }
+    var land = shapes(LAND), water = shapes(WATER);
+    var out = [], step = 1.25, row = 0;
+    for (var lat = LAT0 - step / 2; lat > LAT1; lat -= step, row++) {
+      for (var lon = LON0 + step / 2 + (row % 2 ? step / 2 : 0); lon < 180; lon += step) {
+        if (hit(land, lon, lat) && !hit(water, lon, lat)) { var pt = project(lon, lat); out.push(pt.x, pt.y); }
       }
     }
     return out;
   }
   var dots = buildDots();
 
-  // Draws only the dots that are lit (near the pointer, or on a ripple) over the static map image.
+  // Routes as lon, lat pairs. Overland: Singapore, a curve control point, Lisbon. Next: Tangier down to The Gambia.
+  var ROUTE_OVERLAND = [103.82, 1.35, 50, 42, -9.14, 38.72];
+  var ROUTE_NEXT = [-5.8, 35.8, -14.5, 26.13, -16, 18.1, -17.4, 14.7, -16.6, 13.45];
+  // Colours for the map on the dark stage: resting dots, pointer glow (oxide) and the one-off ring (pale indigo).
+  var DOT = [62, 66, 71], GLOW = [232, 103, 74], RING = [143, 166, 194];
+  function rx(lon) { return sx((lon - LON0) * U); }
+  function ry(lat) { return sy((LAT0 - lat) * U); }
+
+  // Draws the whole map (dots, routes, hover glow, one-off ring) at the current pan and zoom.
   function draw(now) {
     requestAnimationFrame(draw);
-    var w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;
+    if (anim) {
+      var t = Math.min(1, (now - anim.t0) / anim.dur), e = 1 - Math.pow(1 - t, 3);
+      view = { s: anim.a.s + (anim.b.s - anim.a.s) * e, tx: anim.a.tx + (anim.b.tx - anim.a.tx) * e, ty: anim.a.ty + (anim.b.ty - anim.a.ty) * e };
+      if (t >= 1) anim = null;
+      layout();
+    }
+    var w = map.clientWidth, h = map.clientHeight; if (!w || !h) return;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var cw = Math.round(w * dpr), ch = Math.round(h * dpr);
     if (canvas.width !== cw || canvas.height !== ch) { canvas.width = cw; canvas.height = ch; }
     var g = canvas.getContext('2d');
-    g.clearRect(0, 0, cw, ch);
+    g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cw, ch);
     if (state.side !== 'travel') return;
-    var k = cw / MAP_W, o = mapPoint(byId(state.place));
-    bursts = bursts.filter(function (b) { return now - b.t < 1800; });
-    var R = reduce ? -1 : ((now % 3400) / 3400) * 440;
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var r = 2.7 * Math.pow(view.s, 0.6), o = mapPoint(byId(state.place)), ox = sx(o.x), oy = sy(o.y);
+    var pAge = (now - pulseT) / PULSE_MS;
+    var R = (reduce || pAge < 0 || pAge >= 1) ? -1 : pAge * PULSE_R;
+    var lit = [];
+    g.fillStyle = 'rgb(' + DOT.join(',') + ')'; g.beginPath();
     for (var i = 0; i < dots.length; i += 2) {
-      var x = dots[i], y = dots[i + 1], a = 0, b = 0, d, v;
-      if (mouse) { d = Math.hypot(x - mouse.x, y - mouse.y); if (d < 95) { v = 1 - d / 95; a = v * v; } }
-      if (R >= 0) { d = Math.hypot(x - o.x, y - o.y); v = 1 - Math.abs(d - R) / 24; if (v > 0) b = v * (1 - R / 440); }
-      for (var j = 0; j < bursts.length; j++) {
-        var age = (now - bursts[j].t) / 1800;
-        d = Math.hypot(x - bursts[j].x, y - bursts[j].y); v = 1 - Math.abs(d - age * 650) / 30;
-        if (v > 0) a = Math.max(a, v * (1 - age));
-      }
-      var f = Math.max(a, b); if (f < 0.03) continue;
-      var T = a >= b ? [166, 61, 36] : [33, 54, 79];
-      g.fillStyle = 'rgb(' + Math.round(142 + (T[0] - 142) * f) + ',' + Math.round(136 + (T[1] - 136) * f) + ',' + Math.round(123 + (T[2] - 123) * f) + ')';
-      g.beginPath(); g.arc(x * k, y * k, 2.7 * k * (1 + 1.5 * f), 0, 6.2832); g.fill();
+      var x = sx(dots[i]), y = sy(dots[i + 1]), a = 0, b = 0, d, v;
+      if (x < -r || y < -r || x > w + r || y > h + r) continue;
+      if (mouse && !drag) { d = Math.hypot(x - mouse.x, y - mouse.y); if (d < 90) { v = 1 - d / 90; a = 0.55 * v * v; } }
+      if (R >= 0) { d = Math.hypot(x - ox, y - oy); v = 1 - Math.abs(d - R) / 18; if (v > 0) b = 0.4 * v * (1 - pAge) * (1 - pAge); }
+      var f = Math.max(a, b);
+      if (f < 0.03) { g.moveTo(x + r, y); g.arc(x, y, r, 0, 6.2832); } else lit.push(x, y, f, a >= b ? 1 : 0);
     }
+    g.fill();
+    for (var k = 0; k < lit.length; k += 4) {
+      var f2 = lit[k + 2], T = lit[k + 3] ? GLOW : RING;
+      g.fillStyle = 'rgb(' + Math.round(DOT[0] + (T[0] - DOT[0]) * f2) + ',' + Math.round(DOT[1] + (T[1] - DOT[1]) * f2) + ',' + Math.round(DOT[2] + (T[2] - DOT[2]) * f2) + ')';
+      g.beginPath(); g.arc(lit[k], lit[k + 1], r * (1 + 0.8 * f2), 0, 6.2832); g.fill();
+    }
+    var L = ROUTE_OVERLAND, N = ROUTE_NEXT;
+    g.lineJoin = 'round'; g.lineCap = 'butt';
+    g.strokeStyle = '#8FA6C2'; g.lineWidth = 1.5; g.setLineDash([3, 5]); g.lineDashOffset = 0;
+    g.beginPath(); g.moveTo(rx(L[0]), ry(L[1])); g.quadraticCurveTo(rx(L[2]), ry(L[3]), rx(L[4]), ry(L[5])); g.stroke();
+    g.lineCap = 'round'; g.strokeStyle = '#E8674A'; g.lineWidth = 2.5; g.setLineDash([10, 7]);
+    g.lineDashOffset = reduce ? 0 : -((now % 1800) / 1800) * 34;
+    g.beginPath(); g.moveTo(rx(N[0]), ry(N[1]));
+    for (var m = 2; m < N.length; m += 2) g.lineTo(rx(N[m]), ry(N[m + 1]));
+    g.stroke(); g.setLineDash([]);
   }
 
+  setView(homeView());
   // Deep links from other pages: #music, #travel, #place-<id> (travel side, that place selected), #row-<id> (music side, that work lit)
   function fromHash() {
     var h = (location.hash || '').slice(1);
