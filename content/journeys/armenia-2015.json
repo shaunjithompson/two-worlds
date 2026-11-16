@@ -4,7 +4,7 @@
   "date": "2015-08",
   "published": "2026-11-16",
   "leg": "Tabriz to Tbilisi",
-  "standfirst": "Up through the gorges of Syunik, east into Karabakh, then back over the Sotk Pass to Lake Sevan, the high lake behind my score À la côte de la mer de Gegham, and on to Yerevan.",
+  "standfirst": "Photos from Armenia in August 2015, looked at again ten years on: Kapan and Goris in the south, Lake Sevan, and Yerevan.",
   "cover": {
     "src": "assets/sevan.jpg",
     "alt": "Sevanavank's stone church silhouetted at sunset above Lake Sevan",
@@ -31,7 +31,7 @@
       "place": "Kapan",
       "country": "Armenia",
       "date": "2015-08-13",
-      "caption": "The capital of Syunik, in the Voghji river valley below Mount Khustup.",
+      "caption": "Kapan, the main town of Syunik in southern Armenia, in the Voghji valley below Mount Khustup.",
       "photos": [
         {
           "src": "assets/kapan-01.jpg",
@@ -56,7 +56,7 @@
       "place": "Goris",
       "country": "Armenia",
       "date": "2015-08-13",
-      "caption": "A Soviet-era town square under the rock pinnacles and cave dwellings of Old Goris.",
+      "caption": "Goris, in the south of Armenia. Its Soviet-era square sits under the rock pinnacles and old cave dwellings of Old Goris.",
       "photos": [
         {
           "src": "assets/goris-01.jpg",
@@ -93,83 +93,10 @@
       "native": "Գորիս"
     },
     {
-      "place": "Stepanakert / Khankendi",
-      "native": "Ստեփանակերտ",
-      "country": "Karabakh",
-      "date": "2015-08-14",
-      "caption": "The main town of Karabakh. On the hill above it stands We Are Our Mountains, the 1967 monument locals call Tatik-Papik.",
-      "photos": [
-        {
-          "src": "assets/step-01.jpg",
-          "alt": "The red tufa monument We Are Our Mountains, two giant stone faces on a grassy hill, visitors taking photos",
-          "date": "2015-08-14",
-          "lead": true
-        },
-        {
-          "src": "assets/step-02.jpg",
-          "alt": "A lamp-lined boulevard at sunset leading to a pale stone public building",
-          "date": "2015-08-15"
-        },
-        {
-          "src": "assets/step-03.jpg",
-          "alt": "A small jewellery-repair kiosk with signs in Armenian and Russian, apartment blocks behind",
-          "date": "2015-08-15"
-        },
-        {
-          "src": "assets/step-04.jpg",
-          "alt": "A white Lada rounding a square beneath a statue on a tall plinth, cypress trees behind",
-          "date": "2015-08-15"
-        },
-        {
-          "src": "assets/step-05.jpg",
-          "alt": "A guesthouse room in morning light: striped runner on a red-painted floor, ferns, stacked bedding",
-          "date": "2015-08-15"
-        }
-      ]
-    },
-    {
-      "place": "Gandzasar",
-      "native": "Գանձասար",
-      "country": "Karabakh",
-      "date": "2015-08-15",
-      "caption": "Gandzasar monastery, whose church of St John the Baptist was consecrated in 1240.",
-      "photos": [
-        {
-          "src": "assets/gandz-02.jpg",
-          "alt": "The carved drum and conical roof of Gandzasar church against a blue sky",
-          "date": "2015-08-15"
-        },
-        {
-          "src": "assets/gandz-01.jpg",
-          "alt": "The long rubble-stone monastery wall with arched wooden doors and small windows",
-          "date": "2015-08-15"
-        }
-      ]
-    },
-    {
-      "place": "Sotk Pass",
-      "native": "Սոթքի լեռնանցք",
-      "country": "Karabakh to Armenia",
-      "date": "2015-08-15",
-      "caption": "Back over the mountains by the northern road and the Sotk Pass, down to Vardenis near the lake.",
-      "photos": [
-        {
-          "src": "assets/road-01.jpg",
-          "alt": "Cattle standing and lying on a gravel mountain road between forested slopes",
-          "date": "2015-08-15"
-        },
-        {
-          "src": "assets/road-02.jpg",
-          "alt": "Soviet apartment blocks with washing on the balconies, a wide plain and mountains behind",
-          "date": "2015-08-15"
-        }
-      ]
-    },
-    {
       "place": "Lake Sevan",
       "country": "Armenia",
       "date": "2015-08-16",
-      "caption": "Sevanavank's churches date from 874, when the peninsula was still an island.",
+      "caption": "Sevanavank, above Lake Sevan. The lake later became the subject of my score.",
       "photos": [
         {
           "src": "assets/sevan-02.jpg",
@@ -184,7 +111,7 @@
       "native": "Երևան",
       "country": "Armenia",
       "date": "2015-08-16",
-      "caption": "Armenia’s capital, built largely of pink tuff. Ararat is visible to the south on clear days.",
+      "caption": "Yerevan, with Ararat to the south on a clear morning. From here the road went north to Tbilisi.",
       "photos": [
         {
           "src": "assets/yer-07.jpg",

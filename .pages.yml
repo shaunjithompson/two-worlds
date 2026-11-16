@@ -56,6 +56,12 @@ content:
           - { name: country, label: Country, type: string }
           - { name: date, label: "Date (YYYY-MM or YYYY-MM-DD)", type: string }
           - { name: caption, label: One-line caption, type: string }
+          - name: note
+            label: Context note shown before this stop (optional)
+            type: object
+            fields:
+              - { name: title, label: Heading, type: string }
+              - { name: paras, label: Paragraphs, type: text, list: true }
           - name: photos
             label: "Photos (1 = feature, 2 = pair, 3+ = carousel)"
             type: object
