@@ -43,14 +43,14 @@
     const routeD = routeEl ? routeEl.getAttribute('d') : '';
     const rail = document.createElement('nav');
     rail.className = 'rail'; rail.setAttribute('aria-label', 'Stops on this journey');
-    rail.innerHTML = '<button type="button" class="nb prev" aria-label="Previous stop">←</button>' +
+    rail.innerHTML = '<button type="button" class="nb prev" aria-label="Previous stop">↑</button>' +
       '<span class="mini">' +
       '<svg aria-hidden="true" viewBox="' + box.join(' ') + '" preserveAspectRatio="none"><g fill="none" stroke-linejoin="round" stroke-linecap="round">' +
       '<use href="#borders" stroke="rgba(241,238,231,.4)" stroke-width="1" stroke-dasharray="none" vector-effect="non-scaling-stroke"/>' +
       '<path d="' + routeD + '" stroke="#E8674A" stroke-opacity=".6" stroke-width="1.5" vector-effect="non-scaling-stroke"/></g></svg>' +
       plates.map(p => { const d = mapDots.find(m => m.dataset.stop === p.dataset.stop); return d ? '<a href="#' + p.id + '" data-stop="' + p.dataset.stop + '"' + (d.classList.contains('capital') ? ' class="cap"' : '') + ' aria-label="' + esc(p.dataset.name) + '" style="' + at(d) + '"><i></i></a>' : ''; }).join('') +
       '</span><span class="now" aria-live="polite"><b></b><small' + (lang ? ' lang="' + lang + '"' : '') + '></small></span>' +
-      '<button type="button" class="nb next" aria-label="Next stop">→</button>' +
+      '<button type="button" class="nb next" aria-label="Next stop">↓</button>' +
       '<button type="button" class="top-btn" aria-label="Back to the top of the page">Top <span aria-hidden="true">↑</span></button>';
     document.body.appendChild(rail);
     const nowEn = rail.querySelector('.now b'), nowLocal = rail.querySelector('.now small'), steps = [...rail.querySelectorAll('.mini a')];
@@ -64,13 +64,24 @@
       nowEn.textContent = p ? p.dataset.name : ''; nowLocal.textContent = p ? p.dataset.native : '';
       prevB.disabled = i <= 0; nextB.disabled = i < 0 || i >= plates.length - 1;
     };
+    // While a ↑/↓ press is scrolling, keep the guide on the stop being travelled to (the observer would
+    // otherwise flick through every stop passed on the way), and show that stop's photos straight away.
+    let lock = false, lockT = 0;
+    const unlock = () => { lock = false; clearTimeout(lockT); };
+    addEventListener('scrollend', unlock);
     const idxOf = () => Math.max(0, plates.findIndex(x => x.dataset.stop === current));
-    const goTo = i => { const p = plates[Math.max(0, Math.min(plates.length - 1, i))]; if (!p) return; setActive(p.dataset.stop); p.scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth' }); };
+    const goTo = i => {
+      const p = plates[Math.max(0, Math.min(plates.length - 1, i))]; if (!p) return;
+      setActive(p.dataset.stop);
+      p.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+      lock = true; clearTimeout(lockT); lockT = setTimeout(unlock, 1200);
+      p.scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth' });
+    };
     prevB.addEventListener('click', () => goTo(idxOf() - 1));
     nextB.addEventListener('click', () => goTo(idxOf() + 1));
     rail.querySelector('.top-btn').addEventListener('click', () => scrollTo({ top: 0, behavior: reduce() ? 'auto' : 'smooth' }));
     // which stop is in the middle of the screen
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) setActive(e.target.dataset.stop); }), { rootMargin: '-45% 0px -50% 0px' });
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !lock) setActive(e.target.dataset.stop); }), { rootMargin: '-45% 0px -50% 0px' });
     plates.forEach(p => io.observe(p));
     // show the guide only while reading the stops
     const first = plates[0], last = plates[plates.length - 1];

@@ -34,6 +34,7 @@
 </nav>
 
 <main id="content">
+<div class="hero">
 <div class="mast">
   <img class="pan" src="assets/yer-07.jpg" alt="" aria-hidden="true" width="2000" height="1125" srcset="assets/sized/yer-07-800.webp 800w, assets/sized/yer-07-1400.webp 1400w, assets/yer-07.jpg 2000w" sizes="100vw" fetchpriority="high">
   <header class="wrap">
@@ -49,11 +50,13 @@
     <span class="txt"><span class="label k">Music</span><span class="h"><em>Compositions</em></span><span class="s">Recordings, programme notes and scores.</span></span>
   </button>
   <button type="button" class="door rise d4" data-pick="travel">
-    <span class="pic"><img data-sizes="(min-width: 1000px) 600px, 100vw" class="pan" src="assets/sevan-sunset.jpg" alt="" width="2000" height="667" srcset="assets/sized/sevan-sunset-800.webp 800w, assets/sized/sevan-sunset-1400.webp 1400w, assets/sevan-sunset.jpg 2000w" sizes="(min-width: 1000px) 600px, 100vw"></span>
-    <span class="txt"><span class="label k">Travel</span><span class="h">Journeys</span><span class="s">Latest essay: Georgia (travelled 2015). Photo essays, an atlas and the next departure.</span></span>
+    <span class="pic"><img data-latest="photo" data-sizes="(min-width: 1000px) 600px, 100vw" class="pan" src="assets/tbilisi-cover.jpg" alt="" width="2400" height="1350" srcset="assets/sized/tbilisi-cover-800.webp 800w, assets/sized/tbilisi-cover-1400.webp 1400w, assets/tbilisi-cover.jpg 2400w" sizes="(min-width: 1000px) 600px, 100vw"></span>
+    <span class="txt"><span class="label k">Travel</span><span class="h">Journeys</span><span class="s"><span data-latest="line">Latest essay: Georgia (travelled 2015).</span> Photo essays, an atlas and the next departure.</span></span>
   </button>
 </section>
+</div>
 
+<div id="sides-top" aria-hidden="true"></div>
 <div class="bar" id="sides">
   <div class="wrap">
     <span class="label now" id="now">Now reading · Music</span>
@@ -86,8 +89,8 @@
   </section>
   <section class="also-travel" aria-label="Travel, in brief">
     <button type="button" class="wrap also card" data-pick="travel">
-      <span class="pic"><img data-sizes="(min-width: 1000px) 600px, 100vw" class="zoom-img" src="assets/sevanavank.jpg" alt="" width="2000" height="1445" srcset="assets/sized/sevanavank-800.webp 800w, assets/sized/sevanavank-1400.webp 1400w, assets/sevanavank.jpg 2000w" sizes="(min-width: 1000px) 600px, 100vw" loading="lazy" decoding="async"></span>
-      <span class="txt"><span class="label k-red">Also on this site</span><span class="big-t">Travel</span><span class="ink-soft">Latest essay: Georgia (travelled 2015).</span></span>
+      <span class="pic"><img data-latest="photo" data-sizes="(min-width: 1000px) 600px, 100vw" class="zoom-img" src="assets/tbilisi-cover.jpg" alt="" width="2400" height="1350" srcset="assets/sized/tbilisi-cover-800.webp 800w, assets/sized/tbilisi-cover-1400.webp 1400w, assets/tbilisi-cover.jpg 2400w" sizes="(min-width: 1000px) 600px, 100vw" loading="lazy" decoding="async"></span>
+      <span class="txt"><span class="label k-red">Also on this site</span><span class="big-t">Travel</span><span class="ink-soft" data-latest="line">Latest essay: Georgia (travelled 2015).</span></span>
       <span class="go">Turn to Travel <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </button>
   </section>
@@ -125,7 +128,7 @@
 
 
       <div class="list-head"><h3>Essays</h3><span class="label">Newest first</span></div>
-      <article class="essay card" id="essay-georgia">
+      <article class="essay card" id="essay-georgia" data-travelled="2015">
         <a class="roll" href="georgia-2015.html" aria-label="Georgia — read the photo essay" data-names="Tbilisi|Tbilisi|Gori|Batumi|Batumi">
           <img data-sizes="(min-width: 1000px) 640px, 100vw" class="on" src="assets/tbilisi-cover.jpg" alt="Brick houses with iron balconies in Tbilisi" width="2400" height="1350" srcset="assets/sized/tbilisi-cover-800.webp 800w, assets/sized/tbilisi-cover-1400.webp 1400w, assets/tbilisi-cover.jpg 2400w" sizes="(min-width: 1000px) 640px, 100vw" loading="lazy" decoding="async">
           <img data-sizes="(min-width: 1000px) 640px, 100vw" src="assets/tbilisi-06.jpg" alt="" width="1125" height="2000" srcset="assets/sized/tbilisi-06-800.webp 800w, assets/tbilisi-06.jpg 1125w" sizes="(min-width: 1000px) 640px, 100vw" loading="lazy" decoding="async"><img data-sizes="(min-width: 1000px) 640px, 100vw" src="assets/gori-02.jpg" alt="" width="2000" height="1125" srcset="assets/sized/gori-02-800.webp 800w, assets/sized/gori-02-1400.webp 1400w, assets/gori-02.jpg 2000w" sizes="(min-width: 1000px) 640px, 100vw" loading="lazy" decoding="async"><img data-sizes="(min-width: 1000px) 640px, 100vw" src="assets/batumi-02.jpg" alt="" width="2000" height="1125" srcset="assets/sized/batumi-02-800.webp 800w, assets/sized/batumi-02-1400.webp 1400w, assets/batumi-02.jpg 2000w" sizes="(min-width: 1000px) 640px, 100vw" loading="lazy" decoding="async"><img data-sizes="(min-width: 1000px) 640px, 100vw" src="assets/batumi-01.jpg" alt="" width="2000" height="1125" srcset="assets/sized/batumi-01-800.webp 800w, assets/sized/batumi-01-1400.webp 1400w, assets/batumi-01.jpg 2000w" sizes="(min-width: 1000px) 640px, 100vw" loading="lazy" decoding="async">
@@ -140,7 +143,7 @@
           <a class="btn" href="georgia-2015.html">Read the photo essay <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </article>
-      <article class="essay card" id="essay-armenia">
+      <article class="essay card" id="essay-armenia" data-travelled="2015">
         <a class="roll" href="armenia-2015.html" aria-label="Armenia — read the photo essay" data-names="Lake Sevan|Kapan|Goris|Lake Sevan|Yerevan">
           <img data-sizes="(min-width: 1000px) 640px, 100vw" class="on" src="assets/sevan-sunset.jpg" alt="Sevanavank at sunset above Lake Sevan" width="2000" height="667" srcset="assets/sized/sevan-sunset-800.webp 800w, assets/sized/sevan-sunset-1400.webp 1400w, assets/sevan-sunset.jpg 2000w" sizes="(min-width: 1000px) 640px, 100vw" loading="lazy" decoding="async">
           <img data-sizes="(min-width: 1000px) 640px, 100vw" src="assets/kapan-01.jpg" alt="" width="1344" height="2000" srcset="assets/sized/kapan-01-800.webp 800w, assets/kapan-01.jpg 1344w" sizes="(min-width: 1000px) 640px, 100vw" loading="lazy" decoding="async"><img data-sizes="(min-width: 1000px) 640px, 100vw" src="assets/goris-02.jpg" alt="" width="2000" height="1125" srcset="assets/sized/goris-02-800.webp 800w, assets/sized/goris-02-1400.webp 1400w, assets/goris-02.jpg 2000w" sizes="(min-width: 1000px) 640px, 100vw" loading="lazy" decoding="async"><img data-sizes="(min-width: 1000px) 640px, 100vw" src="assets/sevanavank.jpg" alt="" width="2000" height="1445" srcset="assets/sized/sevanavank-800.webp 800w, assets/sized/sevanavank-1400.webp 1400w, assets/sevanavank.jpg 2000w" sizes="(min-width: 1000px) 640px, 100vw" loading="lazy" decoding="async"><img data-sizes="(min-width: 1000px) 640px, 100vw" src="assets/yer-07.jpg" alt="" width="2000" height="1125" srcset="assets/sized/yer-07-800.webp 800w, assets/sized/yer-07-1400.webp 1400w, assets/yer-07.jpg 2000w" sizes="(min-width: 1000px) 640px, 100vw" loading="lazy" decoding="async">
@@ -179,16 +182,31 @@
 {
   const body = document.body, now = document.getElementById('now'), bar = document.getElementById('sides');
   const label = { music: 'Now reading · Music', travel: 'Now reading · Travel' };
+  const marker = document.getElementById('sides-top');
+  // Each side remembers how far down it was read, so switching back returns there rather than starting over.
+  const kept = {};
   function pick(side, scroll) {
+    const was = body.dataset.side;
+    if (was && was !== side) kept[was] = scrollY - (marker.getBoundingClientRect().top + scrollY);
     body.dataset.side = side;
-    document.querySelectorAll('[data-for]').forEach(el => {
-      const on = el.dataset.for === side; el.hidden = !on;
-      if (on) el.querySelectorAll('.fade').forEach(f => { f.classList.remove('fade'); void f.offsetWidth; f.classList.add('fade'); });
-    });
+    document.querySelectorAll('main > [data-for]').forEach(el => { el.hidden = el.dataset.for !== side; });
     document.querySelectorAll('.switch button').forEach(b => b.setAttribute('aria-pressed', b.dataset.pick === side ? 'true' : 'false'));
     now.textContent = label[side];
     try { history.replaceState(null, '', '#' + side); } catch (e) {}
-    if (scroll) bar.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    if (scroll) toSides(scroll === 'instant', was === side ? null : side);
+  }
+  // The switch bar is sticky, so once it is stuck bar.scrollIntoView() does nothing. Scroll to a fixed marker
+  // just above the bar instead: the bar then sits at the top with the start of the chosen side under it.
+  function toSides(instant, side) {
+    // Back to where this side was left (if it was read past the switch), otherwise the start of the side.
+    const y = marker.getBoundingClientRect().top + scrollY + Math.max(0, (side && kept[side]) || 0);
+    const smooth = !instant && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Desktop scroll snapping would pull a remembered spot back to the top of the section, so pause it
+    // until the reader next scrolls or presses a key.
+    const root = document.documentElement; root.style.scrollSnapType = 'none';
+    const resnap = () => { root.style.scrollSnapType = ''; ['wheel', 'touchstart', 'keydown'].forEach(t => removeEventListener(t, resnap)); };
+    setTimeout(() => ['wheel', 'touchstart', 'keydown'].forEach(t => addEventListener(t, resnap, { passive: true })), 50);
+    scrollTo({ top: y, behavior: smooth ? 'smooth' : 'auto' });
   }
   document.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => pick(b.dataset.pick, true)));
 
@@ -196,7 +214,12 @@
   function fromHash() {
     const h = location.hash.slice(1);
     if (h.indexOf('place-') === 0) { pick('travel', false); if (window.twMap) twMap.select(h.slice(6)); document.getElementById('worlds').scrollIntoView({ block: 'center' }); return; }
-    if (h === 'travel' || h === 'music') { pick(h, true); return; }
+    if (h === 'travel' || h === 'music') {
+      // Arriving from another page: jump straight there, and again once images have loaded, in case anything above shifted.
+      pick(h, 'instant');
+      if (document.readyState !== 'complete') addEventListener('load', () => { if (location.hash.slice(1) === h) toSides(true); }, { once: true });
+      return;
+    }
     if (h.indexOf('row-') === 0) {
       const li = document.getElementById(h); if (!li) return;
       pick('music', false);
@@ -205,8 +228,37 @@
       try { history.replaceState(null, '', '#' + h); } catch (e) {}
     }
   }
-  fromHash();
+  // Remember where you were when you leave for another page, so Back returns to the same side and scroll height.
+  const KEY = 'tw-home-return';
+  function remember() { try { kept[body.dataset.side] = scrollY - (marker.getBoundingClientRect().top + scrollY); sessionStorage.setItem(KEY, JSON.stringify({ side: body.dataset.side, y: Math.round(scrollY), kept })); } catch (e) {} }
+  document.addEventListener('click', e => { const a = e.target.closest && e.target.closest('a[href]'); if (a && a.getAttribute('href').charAt(0) !== '#') remember(); }, true);
+  addEventListener('pagehide', remember);
+  function restore(s) {
+    const root = document.documentElement;
+    root.style.scrollSnapType = 'none'; // otherwise snapping pulls the page to the nearest section
+    Object.assign(kept, s.kept || {});
+    pick(s.side === 'travel' ? 'travel' : 'music', false);
+    const go = () => scrollTo(0, s.y);
+    go(); requestAnimationFrame(go); addEventListener('load', go, { once: true }); setTimeout(go, 350);
+    const resnap = () => { root.style.scrollSnapType = ''; ['wheel', 'touchstart', 'keydown'].forEach(t => removeEventListener(t, resnap)); };
+    ['wheel', 'touchstart', 'keydown'].forEach(t => addEventListener(t, resnap, { passive: true }));
+  }
+  try { history.scrollRestoration = 'manual'; } catch (e) {}
+  let saved = null; try { saved = JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) {}
+  const navType = ((performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || {}).type;
+  if (saved && (location.hash === '#back' || navType === 'back_forward' || navType === 'reload')) restore(saved);
+  else if (location.hash === '#back') { try { history.replaceState(null, '', location.pathname); } catch (e) {} }
+  else fromHash();
   addEventListener('hashchange', fromHash);
+
+  // "Latest essay" teasers (Travel door, 'Also on this site' band) follow whichever essay is first in the
+  // Essays list (newest published first), so adding a new essay above the others updates them too.
+  const latest = document.querySelector('#travel .essay');
+  if (latest) {
+    const cover = latest.querySelector('.roll img'), name = latest.querySelector('h3').textContent.trim(), yr = latest.dataset.travelled;
+    document.querySelectorAll('[data-latest="photo"]').forEach(im => { im.srcset = cover.getAttribute('srcset') || ''; im.src = cover.getAttribute('src'); });
+    document.querySelectorAll('[data-latest="line"]').forEach(el => { el.textContent = 'Latest essay: ' + name + (yr ? ' (travelled ' + yr + ').' : '.'); });
+  }
 
   // Rolling carousel on the essay photo: plays while hovered or focused.
   document.querySelectorAll('.roll').forEach(function (r) {

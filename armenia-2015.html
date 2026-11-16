@@ -20,19 +20,23 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/essay.css">
 <style>
-:root { --native-font: 'Noto Serif Armenian', serif; --map-ratio: 2240 / 1536; }
+:root { --native-font: 'Noto Serif Armenian', serif; --map-ratio: 1075 / 937; }
+.map { max-width: 900px; margin: 0 auto; }
+/* the full South Caucasus plate drawn larger; the frame shows Armenia (x 20–68%, y 28–89% of the plate) */
+.stage { inset: auto; width: 208.333%; height: 163.934%; left: -41.667%; top: -45.902%; }
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>
-<body data-native-lang="hy" data-mini="29.4 46.5 34 43.5" data-feedback-subject="Armenia, 2015">
+<body data-native-lang="hy" data-mini="34 50 25 36" data-feedback-subject="Armenia, 2015">
 <a class="skip" href="#content">Skip to the essay</a>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="wrap nav">
-  <a class="brand" href="index.html">Shaun Ji-Thompson</a>
+  <div class="tw-brandrow"><a class="tw-back" href="index.html#back" data-back><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back</a><a class="brand" href="index.html">Shaun Ji-Thompson</a></div>
   <nav class="nav-links" aria-label="Primary">
     <a href="index.html#music">Music</a>
     <a href="index.html#travel" aria-current="page">Travel</a>
+    <a href="atlas.html">Atlas</a>
     <a href="index.html#about">About</a>
   </nav>
 </header>
@@ -43,7 +47,7 @@
 </div>
 
 <section class="wrap title">
-  <p class="mono-keep kicker"><span class="accent">Travelled <span data-k="date">August 2015</span></span><span>Published <span data-k="published">November 2026</span></span><span data-k="leg">Tabriz to Tbilisi</span></p>
+  <p class="mono-keep kicker"><span class="accent">Travelled <span data-k="date">August 2015</span></span><span>Published <span data-k="published">November 2026</span></span></p>
   <h1 data-k="title">Armenia</h1>
   <p class="native" lang="hy" data-k="titleNative">Հայաստան</p>
   <p class="subtitle" data-k="subtitle">to the shores of Lake Sevan</p>
@@ -51,7 +55,6 @@
     <p class="standfirst" data-k="standfirst">Photos from Armenia in August 2015, looked at again ten years on: Kapan and Goris in the south, Lake Sevan, and Yerevan.</p>
     <dl class="facts">
       <div><dt>Stops</dt><dd id="stop-count">4</dd></div>
-      <div><dt>Leg</dt><dd data-k="leg">Tabriz to Tbilisi</dd></div>
       <div class="span"><dt>Route</dt><dd id="stop-list">Kapan · Goris · Lake Sevan · Yerevan</dd></div>
       <div class="span"><dt>Photographs</dt><dd>Shaun Ji-Thompson</dd></div>
     </dl>
@@ -61,31 +64,32 @@
 <section class="wrap route" id="route" aria-labelledby="route-h">
   <div class="sec-head"><h2 id="route-h">The route</h2><span class="mono" aria-hidden="true">Tap a stop to jump to it</span></div>
   <div class="map-card reveal">
-    <p class="sr-only" id="map-desc">Dot map of the South Caucasus between the Black Sea and the Caspian, with country borders. The route runs from Kapan to Goris in southern Armenia, north to Lake Sevan, then down to Yerevan. Faint lines show the wider leg, in from Tabriz and out to Tbilisi.</p>
+    <p class="sr-only" id="map-desc">Dot map of Armenia and its neighbours, with country borders. Yerevan is marked as the capital. The route runs from Kapan to Goris in southern Armenia, north to Lake Sevan, then down to Yerevan. Faint lines show the wider leg, in from Tabriz and out to Tbilisi.</p>
     <div class="map" role="group" aria-label="Route map" aria-describedby="map-desc">
+      <div class="stage">
       <img src="assets/armenia-map.png" alt="" width="2240" height="1536">
       <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <defs><clipPath id="home-land" clipPathUnits="userSpaceOnUse"><polygon points="25.73,43.6 31.25,42 39.58,42 41.88,40.2 46.35,45 47.92,53 51.56,60 50,67 53.13,71 56.77,75 57.81,82 57.81,88 53.33,88.6 52.08,87 53.65,82 51.04,79 48.96,75 43.75,73 39.27,71.8 34.37,66 28.13,64 27.08,54"/></clipPath></defs>
+        <image class="home-land" href="assets/armenia-map.png" x="0" y="0" width="100" height="100" preserveAspectRatio="none" clip-path="url(#home-land)"/>
         <g fill="none" stroke-linejoin="round" stroke-linecap="round">
                 <path id="borders" d="M-10.42 -2.00 L-4.17 -5.00 L5.21 1.00 L15.62 2.00 L26.04 9.00 L31.25 11.00 L37.50 11.00 L43.75 15.00 L48.96 22.00 L56.77 28.00 L60.42 35.00 L65.62 39.00 L71.87 42.00 L76.04 36.00 L78.96 28.80 M5.73 35.60 L15.62 37.00 L18.75 34.40 L25.73 43.60 L31.25 42.00 L39.58 42.00 L41.88 40.20 L48.96 39.00 L55.21 42.00 L59.38 34.00 L56.77 28.00 M25.73 43.60 L27.08 54.00 L28.13 64.00 L34.37 66.00 L39.27 71.80 M41.88 40.20 L46.35 45.00 L47.92 53.00 L51.56 60.00 L50.00 67.00 L53.13 71.00 L56.77 75.00 L57.81 82.00 L57.81 88.00 M39.27 71.80 L43.75 73.00 L48.96 75.00 L51.04 79.00 L53.65 82.00 L52.08 87.00 L53.33 88.60 L57.81 88.00 M39.27 71.80 L39.58 73.00 L44.79 80.00 L50.00 86.00 L53.33 88.60 M57.81 88.00 L62.50 83.00 L67.71 78.00 L72.92 74.00 L76.56 79.00 L73.96 86.00 L76.04 94.00 L81.98 97.40 M39.58 73.00 L37.50 78.00 L35.42 86.00 L34.37 96.00 L36.46 108.00" stroke="#121417" stroke-width="5" vector-effect="non-scaling-stroke"/>
-                <use href="#borders" stroke="#5A6068" stroke-width="1.2" stroke-dasharray="2 4"/>
+                <use href="#borders" stroke="#6A7078" stroke-width="1.2" stroke-dasharray="2 4" vector-effect="non-scaling-stroke"/>
                 <path d="M55.10 104.40 L53.96 88.60 L53.65 83.00 L56.30 81.86 M36.59 62.46 L36.35 49.80 L38.12 44.00 L39.58 41.00 L39.48 31.60" stroke="#E8674A" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="1 5" vector-effect="non-scaling-stroke"/>
-                <path class="march" d="M56.30 81.86 L55.61 75.78 L44.79 63.20 L41.79 54.72 L39.27 56.00 L36.59 62.46" stroke="#E8674A" stroke-width="2.5" stroke-dasharray="10 7" vector-effect="non-scaling-stroke"/>
+                <path id="route-line" class="march" d="M56.30 81.86 L55.61 75.78 L44.79 63.20 L41.79 54.72 L39.27 56.00 L36.59 62.46" stroke="#E8674A" stroke-width="2.5" stroke-dasharray="10 7" vector-effect="non-scaling-stroke"/>
               </g>
       </svg>
-      <span aria-hidden="true" class="lbl country" style="left:41.67%;top:7.00%">Russia</span>
-      <span aria-hidden="true" class="lbl country" style="left:20.83%;top:25.00%">Georgia</span>
-      <span aria-hidden="true" class="lbl country" style="left:13.54%;top:74.00%">Turkey</span>
-      <span aria-hidden="true" class="lbl country" style="left:35.42%;top:49.00%">Armenia</span>
-      <span aria-hidden="true" class="lbl country" style="left:72.92%;top:61.00%">Azerbaijan</span>
-      <span aria-hidden="true" class="lbl country" style="left:66.67%;top:94.00%">Iran</span>
-      <span aria-hidden="true" class="lbl sea edge-l" style="left:0.5%;top:9%">Black Sea</span>
-      <span aria-hidden="true" class="lbl sea edge-r" style="right:1%;top:34%">Caspian Sea</span>
+            <span aria-hidden="true" class="lbl country" style="left:30.00%;top:33.00%">Georgia</span>
+      <span aria-hidden="true" class="lbl country" style="left:23.50%;top:56.00%">Turkey</span>
+      <span aria-hidden="true" class="lbl country home" style="left:33.50%;top:50.50%">Armenia</span>
+      <span aria-hidden="true" class="lbl country" style="left:61.00%;top:50.00%">Azerbaijan</span>
+      <span aria-hidden="true" class="lbl country" style="left:63.00%;top:86.00%">Iran</span>
       <a class="dot stopdot" href="#stop-kapan" data-stop="kapan" aria-label="Kapan: go to this stop" style="left:56.30%;top:81.86%"></a><span aria-hidden="true" class="lbl city" style="left:56.30%;top:81.86%">Kapan</span>
       <a class="dot stopdot" href="#stop-goris" data-stop="goris" aria-label="Goris: go to this stop" style="left:55.61%;top:75.78%"></a><span aria-hidden="true" class="lbl city left" style="left:55.61%;top:75.78%">Goris</span>
-      <a class="dot stopdot" href="#stop-yerevan" data-stop="yerevan" aria-label="Yerevan: go to this stop" style="left:36.59%;top:62.46%"></a><span aria-hidden="true" class="lbl city left" style="left:36.59%;top:62.46%">Yerevan</span>
-      <span aria-hidden="true" class="lbl city ctx edge-b" style="left:54.06%;bottom:1%">Tabriz ↓</span>
+      <a class="dot stopdot capital" href="#stop-yerevan" data-stop="yerevan" aria-label="Yerevan, the capital: go to this stop" style="left:36.59%;top:62.46%"></a><span aria-hidden="true" class="lbl city cap left" style="left:36.59%;top:62.46%">Yerevan<span class="k">Capital</span></span>
+      <span aria-hidden="true" class="lbl city ctx up" style="left:54.80%;top:89.60%">Tabriz ↓</span>
       <span class="dot ctx" style="left:39.48%;top:31.60%"></span><span aria-hidden="true" class="lbl city ctx" style="left:39.48%;top:31.60%">Tbilisi</span>
-      <a class="pin stopdot" href="#stop-lake-sevan" data-stop="lake-sevan" aria-label="Lake Sevan: go to this stop" style="left:41.79%;top:54.72%"></a><span aria-hidden="true" class="lbl pin-label" style="left:41.79%;top:54.72%">Lake Sevan</span>
+      <a class="dot stopdot" href="#stop-lake-sevan" data-stop="lake-sevan" aria-label="Lake Sevan: go to this stop" style="left:41.79%;top:54.72%"></a><span aria-hidden="true" class="lbl city up" style="left:41.79%;top:54.72%">Lake Sevan</span>
+      </div>
     </div>
   </div>
 </section>
@@ -113,7 +117,7 @@
 </section>
 
 <nav class="wrap leg" aria-label="The rest of the leg">
-  <div id="before"><span class="mono">Before · Iran</span><span class="serif">← Tabriz</span></div>
+  <div id="before"><span class="mono">Before · Iran</span><span class="serif">Tabriz <span class="soon">· coming soon</span></span></div>
   <div id="after"><span class="mono">After · Georgia</span><a class="serif" href="georgia-2015.html">Tbilisi →</a></div>
 </nav>
 
@@ -155,5 +159,6 @@
 </footer>
 
 <script src="js/essay.js"></script>
+<script src="js/back.js"></script>
 </body>
 </html>

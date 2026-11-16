@@ -31,10 +31,11 @@
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="wrap nav">
-  <a class="brand" href="index.html">Shaun Ji-Thompson</a>
+  <div class="tw-brandrow"><a class="tw-back" href="index.html#back" data-back><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back</a><a class="brand" href="index.html">Shaun Ji-Thompson</a></div>
   <nav class="nav-links" aria-label="Primary">
     <a href="index.html#music">Music</a>
     <a href="index.html#travel" aria-current="page">Travel</a>
+    <a href="atlas.html">Atlas</a>
     <a href="index.html#about">About</a>
   </nav>
 </header>
@@ -45,7 +46,7 @@
 </div>
 
 <section class="wrap title">
-  <p class="mono-keep kicker"><span class="accent">Travelled <span data-k="date">August 2015</span></span><span>Published <span data-k="published">November 2026</span></span><span data-k="leg">Yerevan to Trabzon</span></p>
+  <p class="mono-keep kicker"><span class="accent">Travelled <span data-k="date">August 2015</span></span><span>Published <span data-k="published">November 2026</span></span></p>
   <h1 data-k="title">Georgia</h1>
   <p class="native" lang="ka" data-k="titleNative">საქართველო</p>
   <p class="subtitle" data-k="subtitle">from Tbilisi to the Black Sea</p>
@@ -53,7 +54,6 @@
     <p class="standfirst" data-k="standfirst">Photos from Georgia in August 2015: Tbilisi, Gori, then west to Batumi on the Black Sea, before crossing into Turkey for Trabzon.</p>
     <dl class="facts">
       <div><dt>Stops</dt><dd id="stop-count">3</dd></div>
-      <div><dt>Leg</dt><dd data-k="leg">Yerevan to Trabzon</dd></div>
       <div class="span"><dt>Route</dt><dd id="stop-list">Tbilisi · Gori · Batumi</dd></div>
       <div class="span"><dt>Photographs</dt><dd>Shaun Ji-Thompson</dd></div>
     </dl>
@@ -68,6 +68,8 @@
       <div class="stage">
       <img src="assets/armenia-map.png" alt="" width="2240" height="1536">
       <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <defs><clipPath id="home-land" clipPathUnits="userSpaceOnUse"><polygon points="-12,-2 -10.42,-2 -4.17,-5 5.21,1 15.62,2 26.04,9 31.25,11 37.5,11 43.75,15 48.96,22 56.77,28 59.38,34 55.21,42 48.96,39 41.88,40.2 39.58,42 31.25,42 25.73,43.6 18.75,34.4 15.62,37 5.73,35.6 -12,32"/></clipPath></defs>
+        <image class="home-land" href="assets/armenia-map.png" x="0" y="0" width="100" height="100" preserveAspectRatio="none" clip-path="url(#home-land)"/>
         <g fill="none" stroke-linejoin="round" stroke-linecap="round">
                 <path id="borders" d="M-10.42 -2.00 L-4.17 -5.00 L5.21 1.00 L15.62 2.00 L26.04 9.00 L31.25 11.00 L37.50 11.00 L43.75 15.00 L48.96 22.00 L56.77 28.00 L60.42 35.00 L65.62 39.00 L71.87 42.00 L76.04 36.00 L78.96 28.80 M5.73 35.60 L15.62 37.00 L18.75 34.40 L25.73 43.60 L31.25 42.00 L39.58 42.00 L41.88 40.20 L48.96 39.00 L55.21 42.00 L59.38 34.00 L56.77 28.00 M25.73 43.60 L27.08 54.00 L28.13 64.00 L34.37 66.00 L39.27 71.80 M41.88 40.20 L46.35 45.00 L47.92 53.00 L51.56 60.00 L50.00 67.00 L53.13 71.00 L56.77 75.00 L57.81 82.00 L57.81 88.00 M39.27 71.80 L43.75 73.00 L48.96 75.00 L51.04 79.00 L53.65 82.00 L52.08 87.00 L53.33 88.60 L57.81 88.00 M39.27 71.80 L39.58 73.00 L44.79 80.00 L50.00 86.00 L53.33 88.60 M57.81 88.00 L62.50 83.00 L67.71 78.00 L72.92 74.00 L76.56 79.00 L73.96 86.00 L76.04 94.00 L81.98 97.40 M39.58 73.00 L37.50 78.00 L35.42 86.00 L34.37 96.00 L36.46 108.00" stroke="#121417" stroke-width="5" vector-effect="non-scaling-stroke"/>
                 <use href="#borders" stroke="#6A7078" stroke-width="1.2" stroke-dasharray="2 4" vector-effect="non-scaling-stroke"/>
@@ -76,11 +78,11 @@
 </g>
       </svg>
             <span aria-hidden="true" class="lbl country" style="left:31.00%;top:9.50%">Russia</span>
-<span aria-hidden="true" class="lbl country" style="left:24.00%;top:31.00%">Georgia</span>
+<span aria-hidden="true" class="lbl country home" style="left:24.00%;top:31.00%">Georgia</span>
 <span aria-hidden="true" class="lbl country" style="left:17.00%;top:39.50%">Turkey</span>
 <span aria-hidden="true" class="lbl country" style="left:28.50%;top:42.50%">Armenia</span>
 <span aria-hidden="true" class="lbl country" style="left:46.50%;top:41.00%">Azerbaijan</span>
-<span aria-hidden="true" class="lbl sea" style="left:5.20%;top:17.00%">Black Sea</span>
+<span aria-hidden="true" class="lbl sea" style="left:4.55%;top:27.00%">Black<br>Sea</span>
 <a class="dot stopdot capital" href="#stop-tbilisi" data-stop="tbilisi" aria-label="Tbilisi, the capital: go to this stop" style="left:39.49%;top:31.60%"></a><span aria-hidden="true" class="lbl city cap" style="left:39.49%;top:31.60%">Tbilisi<span class="k">Capital</span></span>
 <a class="dot stopdot" href="#stop-gori" data-stop="gori" aria-label="Gori: go to this stop" style="left:32.44%;top:26.39%"></a><span aria-hidden="true" class="lbl city up" style="left:32.44%;top:26.39%">Gori</span>
 <span aria-hidden="true" class="lbl city ctx minor up" style="left:17.82%;top:20.60%">Kutaisi</span>
@@ -105,7 +107,7 @@
 
 <nav class="wrap leg" aria-label="The rest of the leg">
   <div id="before"><span class="mono">Before · Armenia</span><a class="serif" href="armenia-2015.html">← Yerevan</a></div>
-  <div id="after"><span class="mono">After · Turkey</span><span class="serif">Trabzon →</span></div>
+  <div id="after"><span class="mono">After · Turkey</span><span class="serif">Trabzon <span class="soon">· coming soon</span></span></div>
 </nav>
 
 <nav class="wrap more" aria-label="More from Two Worlds">
@@ -146,5 +148,6 @@
 </footer>
 
 <script src="js/essay.js"></script>
+<script src="js/back.js"></script>
 </body>
 </html>
