@@ -1,0 +1,26 @@
+# Rebuild the pages after any change to content or photos (e.g. an edit in Pages CMS),
+# so the essays, image sizes and sitemap in the HTML always match content/journeys/*.json.
+name: Build pages
+on:
+  push:
+    branches: [main]
+    paths: ['content/**', 'assets/**', 'tools/build.py', '*.html']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: build-pages
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install pillow
+      - run: python3 tools/build.py
+      - name: Commit if anything changed
+        run: |
+          git add -A
+          if git diff --cached --quiet; then echo "Nothing to rebuild"; exit 0; fi
+          git -c user.name="Two Worlds build" -c user.email="actions@users.noreply.github.com" commit -m "Rebuild pages from content [skip ci]"
+          git push

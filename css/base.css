@@ -1,0 +1,54 @@
+/* Two Worlds — shared foundation. Every page loads this first.
+   Colours, type and focus live here only; page stylesheets use the variables, never raw hex. */
+:root {
+  /* ground and text */
+  --ink: #0C0D0F;          /* black ground */
+  --ink-2: #15171A;        /* raised panel on black */
+  --paper: #F1EEE7;        /* text on black; paper ground */
+  --paper-2: #E7E2D7;      /* raised panel on paper */
+  --line: #23262A;         /* hairline on black */
+  --rule: #2A2D31;         /* divider on black */
+  --mute: #A4A8AD;         /* secondary text on black (8.1:1) */
+  --mute-2: #6E7378;       /* large numerals only on black (4.0:1) */
+  --soft: #C9CDD1;         /* body copy on images */
+  --ink-soft: #4F5350;     /* secondary text on paper (6.8:1) */
+
+  /* accents */
+  --indigo: #21364F;       /* Japanese indigo highlight */
+  --indigo-deep: #1A2C40;
+  --indigo-light: #8FA6C2; /* indigo for text on black (7.8:1) */
+  --oxide: #A63D24;        /* text on paper (5.5:1); on black only for dots/large type (3.1:1) */
+  --oxide-light: #E8674A;  /* text and marks on black (6.0:1) */
+
+  /* type: Newsreader display, Inter Tight for everything else, IBM Plex Mono once per page (.mono-keep) */
+  --serif: 'Newsreader', Georgia, serif;
+  --sans: 'Inter Tight', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* type scale: use these for new work */
+  --fs-label: 12px;
+  --fs-small: 14px;
+  --fs-body: 16px;
+  --fs-lead: 17px;
+  --fs-h3: clamp(24px, 2.6vw, 36px);
+  --fs-h2: clamp(40px, 4.6vw, 64px);
+  --fs-h1: clamp(52px, 7.4vw, 112px);
+
+  --ease: cubic-bezier(.2,.7,.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
+
+:focus-visible { outline: 2px solid var(--oxide-light); outline-offset: 3px; }
+
+.skip { position: absolute; left: 12px; top: -60px; z-index: 100; padding: 12px 16px; background: var(--paper); color: var(--ink); font: 500 15px/1 var(--sans); border-radius: 4px; text-decoration: none; transition: top .2s ease; }
+.skip:focus { top: 12px; color: var(--ink); }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.mono-keep { font-family: var(--mono); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
