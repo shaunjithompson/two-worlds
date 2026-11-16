@@ -3,147 +3,327 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shaun Ji-Thompson — Two Worlds</title>
-<meta name="description" content="Music for wind orchestra and journeys made overland, by Shaun Ji-Thompson.">
+<title>Shaun Ji-Thompson — Music and Travel</title>
+<meta name="description" content="Compositions for wind band and journeys made overland, by Shaun Ji-Thompson.">
+<meta property="og:image" content="assets/sevan.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/home.css">
-</head>
-<body>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root { --ink: #0C0D0F; --paper: #F1EEE7; --paper-2: #E7E2D7; --line: #23262A; --rule: #2A2D31; --mute: #A4A8AD; --soft: #C9CDD1; --oxide: #A63D24; --oxide-light: #E8674A; --blue: #8FA6C2; }
+* { box-sizing: border-box; min-width: 0; }
+body { margin: 0; background: var(--ink); color: var(--paper); font: 16px/1.55 'Inter Tight', system-ui, sans-serif; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; } a:hover { color: var(--oxide-light); }
+:focus-visible { outline: 2px solid var(--oxide-light); outline-offset: 3px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: clamp(20px, 4vw, 40px); padding-right: clamp(20px, 4vw, 40px); }
+.mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+.serif { font-family: 'Newsreader', Georgia, serif; }
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes drift { from { transform: scale(1.04); } to { transform: scale(1.14) translate(-2%, -1.5%); } }
+@keyframes pan { from { transform: scale(1.25) translate(4%, 2%); } to { transform: scale(1.25) translate(-4%, -2%); } }
+@keyframes fade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+@keyframes draw { from { stroke-dashoffset: 520; } to { stroke-dashoffset: 0; } }
+.rise { animation: rise 1s cubic-bezier(.2,.7,.2,1) both; } .d1 { animation-delay: .15s; } .d2 { animation-delay: .45s; } .d3 { animation-delay: .75s; } .d4 { animation-delay: 1.05s; }
+.rule-in { transform-origin: left; animation: rule 1.4s cubic-bezier(.6,0,.2,1) .3s both; }
+.drift { animation: drift 18s ease-in-out infinite alternate; } .pan { animation: pan 24s ease-in-out infinite alternate; }
+.fade { animation: fade .7s cubic-bezier(.2,.7,.2,1) both; }
+.zoom-img { transition: transform 1.4s cubic-bezier(.2,.7,.2,1); } .card:hover .zoom-img { transform: scale(1.07); }
+@media (prefers-reduced-motion: reduce) { .rise, .rule-in, .drift, .pan, .fade, .blink, .draw { animation: none !important; } .zoom-img, .door { transition: none; } }
 
-<!-- HERO -->
-<section class="hero" aria-labelledby="hero-title">
-  <nav class="nav wrap" aria-label="Primary">
-    <a class="brand" href="index.html">Shaun Ji-Thompson</a>
-    <div class="nav-links">
-      <a href="#writing">Writing</a>
-      <a href="#about">About</a>
-    </div>
-  </nav>
-  <div class="wrap hero-body">
-    <p class="mono rise">COMPOSER · FOUNDER · SYDNEY</p>
-    <h1 id="hero-title" class="rise d1">Music for wind orchestra and journeys made overland. <em>Each one leads to the other.</em></h1>
-    <p class="lede rise d2">Pick a side below. Wherever a piece of music and a place are linked, you can cross straight over.</p>
+/* nav + masthead */
+.nav { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 32px; padding-top: 28px; padding-bottom: 28px; }
+.brand { font-family: 'Newsreader', Georgia, serif; font-size: 22px; }
+.nav-links { display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 15px; }
+.nav-links a, .nav-links button { min-height: 44px; display: inline-flex; align-items: center; background: none; border: 0; color: inherit; font: inherit; cursor: pointer; padding: 0; }
+.nav-links button:hover { color: var(--oxide-light); }
+.mast { position: relative; overflow: hidden; }
+.mast > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .28; -webkit-mask-image: linear-gradient(100deg, transparent 15%, #000 70%); mask-image: linear-gradient(100deg, transparent 15%, #000 70%); }
+.mast header { position: relative; padding-top: 72px; padding-bottom: 104px; }
+.mast .meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px; color: var(--mute); }
+.mast .line { margin-top: 20px; height: 1px; background: #4C5157; }
+h1 { margin: 40px 0 0; max-width: 1080px; font-family: 'Newsreader', Georgia, serif; font-weight: 300; font-size: clamp(52px, 7.4vw, 112px); line-height: .98; letter-spacing: -.03em; }
+h1 span { display: block; }
+
+/* two doors */
+.doors { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); gap: 24px; padding-bottom: 40px; }
+.door { display: flex; flex-direction: column; background: #15171A; border: 1px solid var(--line); text-align: left; color: inherit; font: inherit; padding: 0; cursor: pointer; transition: transform .5s cubic-bezier(.2,.7,.2,1), border-color .5s ease; }
+.door:hover { transform: translateY(-6px); border-color: #4C5157; color: inherit; }
+.door .pic { height: 280px; overflow: hidden; } .door .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.door .txt { padding: 28px 32px 32px; display: flex; flex-direction: column; gap: 10px; }
+.door .k { color: var(--oxide-light); }
+.door .h { font-family: 'Newsreader', Georgia, serif; font-size: 40px; line-height: 1.05; }
+.door .s { color: var(--soft); }
+
+/* pinned switch */
+.bar { position: sticky; top: 0; z-index: 20; background: rgba(12,13,15,.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.bar .wrap { padding-top: 12px; padding-bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+.bar .now { font-size: 11px; letter-spacing: .2em; color: var(--mute); }
+.switch { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 300px); padding: 4px; border: 1px solid #4C5157; border-radius: 999px; }
+.switch .thumb { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 999px; background: var(--paper); transition: transform .55s cubic-bezier(.6,0,.2,1); }
+[data-side="travel"] .switch .thumb { transform: translateX(100%); }
+.switch button { position: relative; min-height: 44px; border: 0; border-radius: 999px; background: transparent; color: var(--paper); font: inherit; font-size: 15px; font-weight: 500; cursor: pointer; transition: color .4s ease; }
+.switch button[aria-pressed="true"] { color: var(--ink); }
+
+/* section heads */
+.sec { padding-top: 128px; padding-bottom: 136px; }
+.sec-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 64px; }
+.sec-top > div { display: flex; flex-direction: column; gap: 16px; }
+.sec-top p { margin: 0; flex: 0 1 360px; font-size: 17px; }
+h2.music { margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 300; font-style: italic; font-size: clamp(72px, 11vw, 168px); line-height: .85; letter-spacing: -.04em; }
+h2.travel { margin: 0; font-weight: 600; font-size: clamp(72px, 11vw, 168px); line-height: .85; letter-spacing: -.05em; text-transform: uppercase; }
+
+/* I · music programme */
+#music .sec-top p { color: var(--mute); }
+.prog-head { margin-top: 72px; display: flex; justify-content: space-between; font-size: 11px; letter-spacing: .2em; color: var(--mute); }
+.prog-rule { margin-top: 12px; height: 1px; background: var(--paper); }
+.prog { list-style: none; margin: 0; padding: 0; }
+.prog li { border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 0 24px; padding: 30px 0; transition: background-color .6s ease; }
+.prog li.lit { background: rgba(232,103,74,.08); }
+.prog .n { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 26px; color: #6E7378; padding-top: 6px; }
+.prog .row1 { display: flex; align-items: baseline; gap: 16px; }
+.prog .t { font-family: 'Newsreader', Georgia, serif; font-size: clamp(24px, 2.6vw, 36px); line-height: 1.1; font-style: italic; }
+.prog .dots { flex: 1 1 40px; min-width: 24px; border-bottom: 1px dotted #4C5157; transform: translateY(-6px); }
+.prog .y { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--soft); }
+.prog .row2 { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 32px; }
+.prog .ab { flex: 1 1 480px; color: var(--mute); max-width: 64ch; }
+.prog .ln { display: flex; gap: 20px; font-size: 12px; letter-spacing: .12em; color: var(--blue); opacity: .55; transition: opacity .5s ease; }
+.prog li:hover .ln, .prog li:focus-within .ln, .prog li.lit .ln { opacity: 1; }
+.prog .ln a { padding: 10px 0; }
+
+/* II · travel spread (paper) */
+.paper { background: var(--paper); color: #111214; }
+.paper a:hover { color: var(--oxide); }
+#travel .sec-top p { color: #4F5350; }
+.k-red { color: var(--oxide); }
+.next { margin-top: 72px; display: flex; flex-wrap: wrap; background: var(--paper-2); }
+.next .pic { flex: 7 1 520px; height: 560px; overflow: hidden; display: block; } .next .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.next .body { flex: 5 1 360px; padding: 48px 44px; display: flex; flex-direction: column; gap: 16px; }
+.next h3 { margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 300; font-size: clamp(36px, 4vw, 56px); line-height: 1; letter-spacing: -.02em; }
+.next p { margin: 0; font-size: 17px; color: #4F5350; }
+.blink { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--oxide); margin-right: 10px; animation: blink 2.4s ease-in-out infinite; }
+.stops { margin-top: 12px; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 0 16px; }
+.stops svg { grid-row: 1 / span 5; } .draw { stroke-dasharray: 520; animation: draw 2.6s cubic-bezier(.6,0,.2,1) .6s both; }
+.stops span { height: 57px; } .stops span:last-child { height: 30px; }
+.btn { align-self: flex-start; min-height: 48px; padding: 0 22px; display: inline-flex; align-items: center; gap: 10px; background: #111214; color: var(--paper); font-size: 15px; font-weight: 500; border: 0; cursor: pointer; }
+.paper .btn:hover { color: var(--paper); background: #2A2D31; }
+.next .btn { margin-top: auto; }
+.list-head { margin-top: 96px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; border-bottom: 1px solid #111214; padding-bottom: 12px; }
+.list-head h3 { margin: 0; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: .2em; }
+.list-head a { font-size: 12px; }
+.places { margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 40px 24px; }
+.places a { display: flex; flex-direction: column; gap: 12px; }
+.places .pic { aspect-ratio: 4 / 5; overflow: hidden; background: #DDD7CB; } .places .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.places .c { font-size: 11px; letter-spacing: .14em; color: #5E625F; }
+.places .p { font-family: 'Newsreader', Georgia, serif; font-size: 28px; line-height: 1.1; }
+.places .x { font-size: 15px; color: #4F5350; }
+.atlas-card { margin-top: 96px; position: relative; display: block; height: 320px; overflow: hidden; background: #121417; color: var(--paper); }
+.atlas-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.atlas-card .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,13,15,.92) 0%, rgba(12,13,15,.55) 45%, rgba(12,13,15,0) 75%); }
+.atlas-card .in { position: relative; height: 100%; padding: 44px; display: flex; flex-direction: column; justify-content: space-between; max-width: 560px; }
+.atlas-card .k { color: var(--blue); }
+.atlas-card .h { font-family: 'Newsreader', Georgia, serif; font-weight: 300; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.05; }
+.paper .atlas-card:hover { color: var(--paper); }
+
+/* also in this issue */
+.also { display: flex; flex-wrap: wrap; align-items: center; gap: 32px 56px; padding-top: 72px; padding-bottom: 72px; text-align: left; width: 100%; border: 0; font: inherit; cursor: pointer; background: transparent; color: inherit; }
+.also .pic { flex: 0 0 auto; width: 280px; height: 180px; overflow: hidden; } .also .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.also .txt { flex: 1 1 360px; display: flex; flex-direction: column; gap: 10px; }
+.also .go { flex: 0 0 auto; min-height: 48px; padding: 0 22px; display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; }
+.also-travel { background: var(--paper); color: #111214; } .also-travel .go { background: #111214; color: var(--paper); }
+.also-music { background: var(--ink); border-top: 1px solid var(--rule); } .also-music .go { background: var(--paper); color: var(--ink); }
+.also .big-t { font-weight: 600; font-size: clamp(44px, 5vw, 72px); line-height: .9; letter-spacing: -.05em; text-transform: uppercase; }
+.also .big-m { font-family: 'Newsreader', Georgia, serif; font-weight: 300; font-style: italic; font-size: clamp(48px, 5.4vw, 80px); line-height: .9; letter-spacing: -.04em; }
+[hidden] { display: none !important; }
+
+/* writing + footer */
+#writing { border-top: 1px solid var(--rule); }
+#writing .wrap { padding-top: 112px; padding-bottom: 96px; display: flex; flex-wrap: wrap; gap: 32px 72px; }
+#writing .l { flex: 1 1 280px; display: flex; flex-direction: column; gap: 14px; }
+#writing h2 { margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 300; font-size: clamp(40px, 4.6vw, 64px); letter-spacing: -.02em; }
+#writing .l p { margin: 0; color: var(--mute); }
+#writing ul { flex: 2 1 560px; list-style: none; margin: 0; padding: 0; border-top: 1px solid #3A3E43; }
+#writing li { border-bottom: 1px solid #3A3E43; } #writing li a { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 32px; padding: 22px 0; }
+#writing .et { font-family: 'Newsreader', Georgia, serif; font-size: 26px; } #writing small { font-size: 14px; color: var(--mute); }
+footer { padding-top: 96px; padding-bottom: 48px; }
+footer .me { margin: 0; max-width: 820px; font-family: 'Newsreader', Georgia, serif; font-weight: 300; font-size: clamp(30px, 3.6vw, 48px); line-height: 1.15; letter-spacing: -.02em; }
+footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; font-size: 14px; color: var(--mute); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+</head>
+<body data-side="music">
+
+<nav class="wrap nav" aria-label="Primary">
+  <a class="brand" href="index.html">Shaun Ji-Thompson</a>
+  <div class="nav-links">
+    <button type="button" data-pick="music">Music</button>
+    <button type="button" data-pick="travel">Travel</button>
+    <a href="atlas.html">Atlas</a>
+    <a href="#writing">Writing</a>
+    <a href="#about">About</a>
   </div>
+</nav>
+
+<div class="mast">
+  <img class="pan" src="assets/yer-07.jpg" alt="" aria-hidden="true">
+  <header class="wrap">
+    <div class="meta mono"><span class="rise">Composer · Traveller · Sydney</span><span class="rise d1">Issue 01 · November 2026</span></div>
+    <div class="line rule-in"></div>
+    <h1><span class="rise d1">Things I’ve written,</span><span class="rise d2"><em>and places I’ve been.</em></span></h1>
+  </header>
+</div>
+
+<section class="wrap doors" aria-label="Two ways in">
+  <button type="button" class="door rise d3" data-pick="music">
+    <span class="pic"><img class="drift" src="assets/gorge.jpg" alt=""></span>
+    <span class="txt"><span class="mono k">I · Music</span><span class="h"><em>Compositions</em></span><span class="s">Recordings, programme notes and scores.</span></span>
+  </button>
+  <button type="button" class="door rise d4" data-pick="travel">
+    <span class="pic"><img class="pan" src="assets/sevan.jpg" alt=""></span>
+    <span class="txt"><span class="mono k">II · Travel</span><span class="h">Journeys</span><span class="s">Photo essays, an atlas and the next departure.</span></span>
+  </button>
 </section>
 
-<!-- THE TWO WORLDS -->
-<section id="worlds" data-side="music" aria-labelledby="worlds-h">
-  <div class="wrap stage">
-    <h2 id="worlds-h" class="sr-only">Music and travel</h2>
-
+<div class="bar" id="sides">
+  <div class="wrap">
+    <span class="mono now" id="now">Now reading · Section I · Music</span>
     <div class="switch" role="group" aria-label="Choose a side">
       <span class="thumb" aria-hidden="true"></span>
-      <button type="button" data-go="music" aria-pressed="true">Music</button>
-      <button type="button" data-go="travel" aria-pressed="false">Travel</button>
-    </div>
-
-    <div class="sides">
-
-      <!-- MUSIC SIDE -->
-      <div class="side music">
-        <div class="feature">
-          <img src="assets/gorge.jpg" alt="Placeholder landscape">
-          <div>
-            <div class="mono accent">LATEST · PREMIERED OCTOBER 2026</div>
-            <h3 class="title">Overture: <em>“Beyond the Darial Pass”</em></h3>
-            <p class="body">For wind band, after Aivazovsky's 1868 painting of the gorge in the Caucasus.</p>
-            <div class="actions">
-              <a class="btn light" href="beyond-the-darial-pass.html"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>Listen</a>
-              <button type="button" class="cross" data-go="travel" data-place="darial"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg><img src="assets/gorge.jpg" alt="">The place: Darial Gorge</button>
-            </div>
-          </div>
-        </div>
-        <ul class="rows">
-          <li id="row-marNovo">
-            <span><a class="work" href="https://www.youtube.com/watch?v=zOkrFVbamSI" target="_blank" rel="noopener"><em>O Mar Novo: «As Vagas de Nazaré»</em></a><p class="about">The Atlantic of the Portuguese navigators: the great winter waves that break at Nazaré, and the caravels that sailed south past Cape Bojador, off the edge of the known map.</p><small>2026 · <a class="listen" href="https://www.youtube.com/watch?v=zOkrFVbamSI" target="_blank" rel="noopener">Watch the performance ↗</a></small></span>
-            <button type="button" class="cross" data-go="travel" data-place="bojador"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg><img src="assets/coast.jpg" alt="">The place: Cape Bojador, on the next journey</button>
-          </li>
-          <li id="row-kosciuszko">
-            <span><a class="work" href="#worlds"><em>Koncert „Elegia Kościuszki”</em></a><p class="about">A solo flute sings an elegy for Tadeusz Kościuszko, the Polish general who fought for freedom on two continents, carried over the slow tread of the wind band.</p><small>2025</small></span>
-            <button type="button" class="cross" data-go="travel" data-place="krakow"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg><img src="assets/plain.jpg" alt="">The place: Kraków, the Main Square</button>
-          </li>
-          <li id="row-forlop">
-            <span><a class="work" href="https://www.youtube.com/watch?v=5hfHdJyn6ks" target="_blank" rel="noopener"><em>Forløp (Forløb)</em></a><p class="about">After Tidemand and Gude's <em>Bridal Procession on the Hardangerfjord</em> (1848): a wedding party rowing across still, mirrored water, the mountains of western Norway rising steep on either side.</p><small>2025 · <a class="listen" href="https://www.youtube.com/watch?v=5hfHdJyn6ks" target="_blank" rel="noopener">Watch the performance ↗</a></small></span>
-            <button type="button" class="cross" data-go="travel" data-place="hardanger"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg><img src="assets/coast.jpg" alt="">The place: The Hardangerfjord</button>
-          </li>
-          <li id="row-gegham">
-            <span><a class="work" href="a-la-cote-de-la-mer-de-gegham.html"><em>À la côte de la mer de Gegham</em></a><p class="about">Lake Sevan, the Gegham Sea, lies almost 1,900 metres up in the Armenian highlands, ringed by bare mountains. Lone winds call across the water, freely and very softly, before the full band rises like weather off the shore.</p><small>2024 · <a class="listen" href="https://www.youtube.com/watch?v=kwXetq1aLH4" target="_blank" rel="noopener">Watch the performance ↗</a> · <a class="listen" href="a-la-cote-de-la-mer-de-gegham.html">Buy the score</a></small></span>
-            <button type="button" class="cross" data-go="travel" data-place="sevan"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg><img src="assets/sevan.jpg" alt="">The place: Lake Sevan</button>
-          </li>
-        </ul>
-      </div>
-
-      <!-- TRAVEL SIDE -->
-      <div class="side travel">
-        <div class="travel-grid">
-          <div class="map-col">
-            <div class="chips" id="chips"></div>
-            <div class="map" id="map">
-              <canvas aria-hidden="true"></canvas>
-              <div class="map-layer" id="map-layer">
-                <span class="city-dot" data-x="1480.8" data-y="392.4"></span><span class="city" data-x="1480.8" data-y="392.4" style="transform:translate(10px,-130%)">Lisbon</span>
-                <span class="city-dot" data-x="2459.8" data-y="716.3"></span><span class="city" data-x="2459.8" data-y="716.3" style="transform:translate(-110%,-50%)">Singapore</span>
-                <!-- pins are added by js/home.js from the PLACES list -->
-              </div>
-              <div class="zoom">
-                <button type="button" data-zoom="1" aria-label="Zoom in">+</button>
-                <button type="button" data-zoom="-1" aria-label="Zoom out">&minus;</button>
-                <button type="button" data-zoom="0" id="zoom-whole" aria-label="Show the whole map"></button>
-              </div>
-            </div>
-            <p class="caption">Drag to explore &middot; + / &minus; or pinch to zoom &middot; click a dot to open a place. Red: the next journey. Dashed: Singapore to Lisbon overland. Both are sketches, not exact routes.</p>
-          </div>
-          <div class="place" aria-live="polite">
-            <div class="place-imgs" id="place-imgs"></div>
-            <div class="place-info">
-            <div class="mono accent-dark" id="place-label"></div>
-            <h3 class="title small" id="place-name"></h3>
-            <p class="body dark" id="place-text"></p>
-            <div class="actions">
-              <button type="button" class="cross solid" id="place-music" hidden></button>
-              <a class="btn dark" id="place-journey" href="morocco-to-the-gambia.html" hidden>Follow the journey</a>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <button type="button" data-pick="music" aria-pressed="true">I · Music</button>
+      <button type="button" data-pick="travel" aria-pressed="false">II · Travel</button>
     </div>
   </div>
-</section>
+</div>
 
-<!-- WRITING -->
-<section id="writing" class="paper" aria-labelledby="writing-h">
-  <div class="wrap section">
-    <h2 id="writing-h" class="h2">Writing</h2>
-    <p class="intro">What I'm working out about AI agents, advertising markets and building products.</p>
-    <ul class="list">
-      <li><a href="#writing"><span>[Essay title]</span><small>Agents and advertising · [DATE]</small></a></li>
-      <li><a href="#writing"><span>[Essay title]</span><small>Economics · [DATE]</small></a></li>
-      <li><a href="#writing"><span>[Essay title]</span><small>Product · [DATE]</small></a></li>
+<!-- I · MUSIC -->
+<div data-for="music">
+  <section id="music" class="fade" aria-labelledby="music-h">
+    <div class="wrap sec">
+      <div class="sec-top">
+        <div><span class="mono k-red" style="color:var(--oxide-light)">Section I</span><h2 id="music-h" class="music">Music</h2></div>
+        <p>Five works for wind band, 2024–2026, with recordings, programme notes and scores.</p>
+      </div>
+      <div class="mono prog-head"><span>Programme</span><span>Year</span></div>
+      <div class="prog-rule rule-in"></div>
+      <ol class="prog">
+        <li id="row-darial"><span class="n">I</span><div><div class="row1"><a class="t" href="beyond-the-darial-pass.html">Overture: “Beyond the Darial Pass”</a><span class="dots" aria-hidden="true"></span><span class="y">2026</span></div><div class="row2"><span class="ab">After Aivazovsky’s 1868 painting of the Darial Gorge. Premiered October 2026.</span><span class="mono ln"><a href="beyond-the-darial-pass.html">Programme note →</a></span></div></div></li>
+        <li id="row-marNovo"><span class="n">II</span><div><div class="row1"><a class="t" href="https://www.youtube.com/watch?v=zOkrFVbamSI" target="_blank" rel="noopener">O Mar Novo: «As Vagas de Nazaré»</a><span class="dots" aria-hidden="true"></span><span class="y">2026</span></div><div class="row2"><span class="ab">On the Portuguese navigators: the winter waves at Nazaré and the caravels that sailed south past Cape Bojador.</span><span class="mono ln"><a href="https://www.youtube.com/watch?v=zOkrFVbamSI" target="_blank" rel="noopener">Listen ↗</a></span></div></div></li>
+        <li id="row-kosciuszko"><span class="n">III</span><div><div class="row1"><span class="t">Koncert „Elegia Kościuszki”</span><span class="dots" aria-hidden="true"></span><span class="y">2025</span></div><div class="row2"><span class="ab">An elegy for solo flute and wind band for Tadeusz Kościuszko, the Polish general who fought in the American and Polish wars of independence.</span><span class="mono ln"><span>Recording to come</span></span></div></div></li>
+        <li id="row-forlop"><span class="n">IV</span><div><div class="row1"><a class="t" href="https://www.youtube.com/watch?v=5hfHdJyn6ks" target="_blank" rel="noopener">Forløp (Forløb)</a><span class="dots" aria-hidden="true"></span><span class="y">2025</span></div><div class="row2"><span class="ab">After Tidemand and Gude’s <em>Bridal Procession on the Hardangerfjord</em> (1848), which shows a wedding party crossing the fjord by boat.</span><span class="mono ln"><a href="https://www.youtube.com/watch?v=5hfHdJyn6ks" target="_blank" rel="noopener">Listen ↗</a></span></div></div></li>
+        <li id="row-gegham"><span class="n">V</span><div><div class="row1"><a class="t" href="a-la-cote-de-la-mer-de-gegham.html" lang="fr">À la côte de la mer de Gegham</a><span class="dots" aria-hidden="true"></span><span class="y">2024</span></div><div class="row2"><span class="ab">Lake Sevan, the Gegham Sea, lies about 1,900 metres up in the Armenian highlands. The piece opens with soft, free solo lines in the winds before the full band enters.</span><span class="mono ln"><a href="https://www.youtube.com/watch?v=kwXetq1aLH4" target="_blank" rel="noopener">Listen ↗</a><a href="a-la-cote-de-la-mer-de-gegham.html">Score →</a></span></div></div></li>
+      </ol>
+    </div>
+  </section>
+  <section class="also-travel" aria-label="Travel, in brief">
+    <button type="button" class="wrap also card" data-pick="travel">
+      <span class="pic"><img class="zoom-img" src="assets/sevan-02.jpg" alt=""></span>
+      <span class="txt"><span class="mono k-red">Also in this issue · Section II</span><span class="big-t">Travel</span><span style="color:#4F5350">Latest: Armenia, August 2015. Next: Morocco to The Gambia, departing [DATE].</span></span>
+      <span class="go">Turn to Travel <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </button>
+  </section>
+</div>
+
+<!-- II · TRAVEL -->
+<div data-for="travel" hidden>
+  <section id="travel" class="paper fade" aria-labelledby="travel-h">
+    <div class="wrap sec">
+      <div class="sec-top">
+        <div><span class="mono k-red">Section II</span><h2 id="travel-h" class="travel">Travel</h2></div>
+        <p>More than sixty countries so far, mostly overland. Photo essays from the road, an atlas, and the next departure.</p>
+      </div>
+
+      <article class="next card">
+        <a class="pic" href="armenia-2015.html"><img class="zoom-img" src="assets/sevan.jpg" alt="Sevanavank at sunset above Lake Sevan"></a>
+        <div class="body">
+          <span class="mono k-red">Latest · August 2015</span>
+          <h3>Armenia</h3>
+          <p>Kapan to Karabakh, back over the Sotk Pass to Lake Sevan, and on to Yerevan. A photo essay in seven stops.</p>
+          <div class="stops">
+            <svg aria-hidden="true" width="28" height="250" viewBox="0 0 28 250" fill="none"><path class="draw" d="M14 12 V238" stroke="#A63D24" stroke-width="2"/><circle cx="14" cy="12" r="5" fill="#A63D24"/><circle cx="14" cy="68" r="4" fill="#111214"/><circle cx="14" cy="125" r="4" fill="#111214"/><circle cx="14" cy="182" r="4" fill="#111214"/><circle cx="14" cy="238" r="4" fill="#111214"/></svg>
+            <span>Kapan</span><span>Goris</span><span>Stepanakert / Khankendi</span><span>Lake Sevan</span><span>Yerevan</span>
+          </div>
+          <a class="btn" href="armenia-2015.html">Read the photo essay <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
+
+      <div class="list-head"><h3>Places · Armenia 2015</h3><a class="mono" href="armenia-2015.html">All seven stops →</a></div>
+      <div class="places">
+        <a class="card" href="armenia-2015.html#stop-goris"><span class="pic"><img class="zoom-img" src="assets/goris-02.jpg" alt="The main square of Goris under its rock pinnacles" loading="lazy"></span><span class="mono c">39.51° N · 46.34° E</span><span class="p">Goris</span><span class="x">A Soviet-era square under the rock pinnacles of Old Goris.</span></a>
+        <a class="card" href="armenia-2015.html#stop-stepanakert-khankendi"><span class="pic"><img class="zoom-img" src="assets/step-01.jpg" alt="The We Are Our Mountains monument above Stepanakert" loading="lazy"></span><span class="mono c">39.82° N · 46.75° E</span><span class="p">Stepanakert</span><span class="x">The main town of Karabakh and the 1967 monument above it.</span></a>
+        <a class="card" href="armenia-2015.html#stop-lake-sevan"><span class="pic"><img class="zoom-img" src="assets/sevan-02.jpg" alt="Sevanavank church above Lake Sevan" loading="lazy"></span><span class="mono c">40.56° N · 45.01° E</span><span class="p">Lake Sevan</span><span class="x">Sevanavank, on a peninsula that was an island until the lake was lowered.</span></a>
+        <a class="card" href="armenia-2015.html#stop-yerevan"><span class="pic"><img class="zoom-img" src="assets/yer-07.jpg" alt="Ararat from the top of the Cascade in Yerevan" loading="lazy"></span><span class="mono c">40.18° N · 44.51° E</span><span class="p">Yerevan</span><span class="x">The capital, with Ararat to the south on clear days.</span></a>
+      </div>
+
+      <div class="list-head"><h3>Next</h3><a class="mono" href="morocco-to-the-gambia.html">The plan →</a></div>
+      <a class="places-next card" href="morocco-to-the-gambia.html" style="margin-top:24px;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:baseline">
+        <span class="serif" style="font-size:32px;font-weight:300">Morocco to The Gambia</span><span class="mono k-red"><span class="blink"></span>Departs [DATE]</span><span style="color:#4F5350;flex-basis:100%">Seven weeks down the Atlantic coast of the Sahara, written from the road.</span>
+      </a>
+
+      <a class="atlas-card card" href="atlas.html">
+        <img class="zoom-img" src="assets/atlas-card.jpg" alt="" aria-hidden="true">
+        <span class="shade"></span>
+        <span class="in"><span class="mono k">The atlas</span><span><span class="h" style="display:block">Singapore to Lisbon, and everywhere since</span><span style="display:inline-flex;gap:10px;margin-top:10px;color:var(--soft)">Open the map <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></span>
+      </a>
+    </div>
+  </section>
+  <section class="also-music" aria-label="Music, in brief">
+    <button type="button" class="wrap also card" data-pick="music">
+      <span class="pic"><img class="zoom-img" src="assets/gorge.jpg" alt=""></span>
+      <span class="txt"><span class="mono" style="color:var(--oxide-light)">Also in this issue · Section I</span><span class="big-m">Music</span><span style="color:var(--mute)">Five works, 2024–2026. Latest: Overture “Beyond the Darial Pass”, premiered October 2026.</span></span>
+      <span class="go">Turn to Music <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </button>
+  </section>
+</div>
+
+<section id="writing" aria-labelledby="writing-h">
+  <div class="wrap">
+    <div class="l"><span class="mono" style="color:var(--mute)">Also</span><h2 id="writing-h">Writing</h2><p>What I’m working out about AI agents, advertising markets and building products.</p></div>
+    <ul>
+      <li><a href="#writing"><span class="et">[Essay title]</span><small>Agents and advertising · [DATE]</small></a></li>
+      <li><a href="#writing"><span class="et">[Essay title]</span><small>Economics · [DATE]</small></a></li>
     </ul>
   </div>
 </section>
 
-<!-- ABOUT + CONTACT -->
-<footer id="about" class="footer">
-  <div class="wrap">
-    <h2 class="about">I'm Shaun. I spent years building products in advertising and banking, and I'm now starting a company.</h2>
-    <div class="actions">
-      <a class="btn light big" href="#about">Get in touch</a>
-      <a class="btn outline big" href="#about">Read the full story</a>
-    </div>
-    <form class="signup" onsubmit="return false">
-      <label for="nl">Occasional letters: new music, essays and dispatches.</label>
-      <div><input id="nl" type="email" placeholder="you@example.com"><button type="submit">Subscribe</button></div>
-    </form>
-    <div class="fine"><span>Shaun Ji-Thompson · Sydney</span><span>[EMAIL] · [LINKEDIN]</span></div>
-  </div>
+<footer id="about" class="wrap">
+  <p class="me">I’m Shaun. I compose for wind band, and I travel overland where I can.</p>
+  <div class="fine"><span>Shaun Ji-Thompson · Sydney</span><span>[EMAIL] · [LINKEDIN]</span></div>
 </footer>
 
-<script src="js/land.js"></script>
-<script src="js/home.js"></script>
+<script>
+{
+  const body = document.body, now = document.getElementById('now'), bar = document.getElementById('sides');
+  const label = { music: 'Now reading · Section I · Music', travel: 'Now reading · Section II · Travel' };
+  function pick(side, scroll) {
+    body.dataset.side = side;
+    document.querySelectorAll('[data-for]').forEach(el => {
+      const on = el.dataset.for === side; el.hidden = !on;
+      if (on) el.querySelectorAll('.fade').forEach(f => { f.classList.remove('fade'); void f.offsetWidth; f.classList.add('fade'); });
+    });
+    document.querySelectorAll('.switch button').forEach(b => b.setAttribute('aria-pressed', b.dataset.pick === side ? 'true' : 'false'));
+    now.textContent = label[side];
+    try { history.replaceState(null, '', '#' + side); } catch (e) {}
+    if (scroll) bar.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  }
+  document.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => pick(b.dataset.pick, true)));
+
+  // Links from other pages: #music, #travel, #row-<id> (music, that work lit), #place-<id> (the atlas)
+  function fromHash() {
+    const h = location.hash.slice(1);
+    if (h.indexOf('place-') === 0) { location.replace('atlas.html#' + h); return; }
+    if (h === 'travel' || h === 'music') { pick(h, true); return; }
+    if (h.indexOf('row-') === 0) {
+      const li = document.getElementById(h); if (!li) return;
+      pick('music', false);
+      document.querySelectorAll('.prog li.lit').forEach(x => x.classList.remove('lit'));
+      li.classList.add('lit'); li.scrollIntoView({ block: 'center' });
+      try { history.replaceState(null, '', '#' + h); } catch (e) {}
+    }
+  }
+  fromHash();
+  addEventListener('hashchange', fromHash);
+}
+</script>
 </body>
 </html>
