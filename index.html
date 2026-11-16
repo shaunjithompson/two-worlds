@@ -311,15 +311,15 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
       <article class="essay card" id="essay-armenia">
         <a class="roll" href="armenia-2015.html" aria-label="Armenia — read the photo essay">
           <img class="on" src="assets/sevan.jpg" alt="Sevanavank at sunset above Lake Sevan">
-          <img src="assets/kapan-01.jpg" alt="" loading="lazy"><img src="assets/goris-02.jpg" alt="" loading="lazy"><img src="assets/step-01.jpg" alt="" loading="lazy"><img src="assets/gandz-01.jpg" alt="" loading="lazy"><img src="assets/road-01.jpg" alt="" loading="lazy"><img src="assets/sevan-02.jpg" alt="" loading="lazy"><img src="assets/yer-07.jpg" alt="" loading="lazy">
+          <img src="assets/kapan-01.jpg" alt="" loading="lazy"><img src="assets/goris-02.jpg" alt="" loading="lazy"><img src="assets/sevan-02.jpg" alt="" loading="lazy"><img src="assets/yer-07.jpg" alt="" loading="lazy">
           <span class="roll-dots" aria-hidden="true"></span>
           <span class="roll-cap mono" aria-hidden="true">Lake Sevan</span>
         </a>
         <div class="body">
           <span class="mono k-red">Latest essay · Published Nov 2026 · Travelled Aug 2015</span>
           <h3>Armenia</h3>
-          <p>A route through Armenia and Nagorno-Karabakh in August 2015, when Karabakh was a disputed territory. The photos, looked at again ten years on.</p>
-          <p class="stopline mono">Kapan · Goris · Stepanakert · Gandzasar · Sotk Pass · Lake Sevan · Yerevan</p>
+          <p>Photos from Armenia in August 2015, looked at again ten years on.</p>
+          <p class="stopline mono">Kapan · Goris · Lake Sevan · Yerevan</p>
           <a class="btn" href="armenia-2015.html">Read the photo essay <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </article>
@@ -387,7 +387,7 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
   // Rolling carousel on the essay photo: plays while hovered or focused.
   document.querySelectorAll('.roll').forEach(function (r) {
     const ims = r.querySelectorAll('img'), dots = r.querySelector('.roll-dots'), cap = r.querySelector('.roll-cap');
-    const names = ['Lake Sevan', 'Kapan', 'Goris', 'Stepanakert', 'Gandzasar', 'Sotk Pass', 'Lake Sevan', 'Yerevan'];
+    const names = ['Lake Sevan', 'Kapan', 'Goris', 'Lake Sevan', 'Yerevan'];
     ims.forEach((_, k) => dots.appendChild(document.createElement('i'))); dots.children[0].classList.add('on');
     let i = 0, t = null;
     const go = n => { ims[i].classList.remove('on'); dots.children[i].classList.remove('on'); i = n % ims.length; ims[i].classList.add('on'); dots.children[i].classList.add('on'); cap.textContent = names[i] || ''; };
