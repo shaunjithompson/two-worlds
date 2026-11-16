@@ -202,6 +202,8 @@ h2.travel { margin: 0; font-weight: 600; font-size: clamp(72px, 11vw, 168px); li
 .essay p { margin: 0; font-size: 17px; color: #4F5350; }
 .essay .stopline { line-height: 1.9; color: #5E625F; }
 .essay .btn { margin-top: auto; }
+/* stacked (phones, narrow windows): a shorter landscape photo so the title and button show on the same screen */
+@media (max-width: 900px) { .roll { flex-basis: 100%; height: auto; aspect-ratio: 3 / 2; } .essay .body { padding: 28px 24px 32px; } }
 @media (prefers-reduced-motion: reduce) { .roll img { transition: none; } }
 
 /* also on this site */
