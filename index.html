@@ -130,6 +130,57 @@ h2.travel { margin: 0; font-weight: 600; font-size: clamp(72px, 11vw, 168px); li
 .side-note-wrap p { flex: none; margin: 0; font-size: 17px; color: #4F5350; }
 .upnext { align-self: flex-start; display: inline-flex; flex-direction: column; gap: 4px; padding: 10px 14px; border: 1px solid #CFC8BA; font-size: 14px; }
 .upnext .mono { font-size: 10px; }
+/* map hover preview: rolling photo carousel */
+.peek { position: absolute; z-index: 5; width: 240px; transform: translate(22px, -50%) scale(.96); background: #F1EEE7; color: #111214; box-shadow: 0 18px 40px rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .35s cubic-bezier(.2,.7,.2,1); }
+.peek.show { opacity: 1; transform: translate(22px, -50%); }
+.peek.left { transform: translate(calc(-100% - 22px), -50%) scale(.96); } .peek.left.show { transform: translate(calc(-100% - 22px), -50%); }
+.peek.below { transform: translate(-50%, 26px) scale(.96); } .peek.below.show { transform: translate(-50%, 26px); }
+.peek-imgs { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #DDD7CB; }
+.peek-imgs img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity .6s ease, transform 2.6s ease; }
+.peek-imgs img.on { opacity: 1; transform: none; }
+.peek-dots { position: absolute; left: 10px; right: 10px; top: 10px; display: flex; gap: 3px; }
+.peek-dots i { flex: 1; height: 2px; background: rgba(255,255,255,.35); } .peek-dots i.on { background: #fff; }
+.peek-txt { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 2px; }
+.peek-txt b { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 20px; line-height: 1.1; }
+.peek-txt span { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .12em; color: #A63D24; }
+.peek-txt em { font-style: normal; font-size: 12px; color: #4F5350; } .peek-txt em:empty { display: none; }
+.pin-label.show { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .peek, .peek-imgs img { transition: none; } }
+
+/* travel: map first */
+.map-wrap { margin-top: 64px; }
+.map { position: relative; width: 100%; height: clamp(380px, 64vh, 680px); overflow: hidden; background: #121417; border: 1px solid #23262A; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.map.dragging { cursor: grabbing; } .map.over-pin { cursor: pointer; }
+.map > canvas, .map-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.zoom { position: absolute; right: 14px; bottom: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 6; }
+.zoom button { width: 44px; height: 44px; border: 1px solid #4C5157; border-radius: 50%; background: var(--ink); color: var(--paper); font: inherit; font-size: 20px; line-height: 1; cursor: pointer; }
+.zoom button:hover, .zoom button[aria-pressed="true"] { background: var(--paper); color: var(--ink); }
+.city-dot { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--blue); }
+.city { position: absolute; font-size: 12px; color: var(--soft); background: rgba(12,13,15,.8); padding: 1px 5px; white-space: nowrap; }
+.pin { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; background: transparent; pointer-events: none; display: flex; align-items: center; justify-content: center; }
+.pin i { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--paper); transition: width .35s ease, height .35s ease, background-color .35s ease, box-shadow .35s ease; }
+.pin.hot i { width: 16px; height: 16px; box-shadow: 0 0 0 8px rgba(241,238,231,.14); }
+.pin[aria-pressed="true"] i { width: 18px; height: 18px; background: var(--oxide-light); box-shadow: 0 0 0 10px rgba(232,103,74,.25); }
+.pin-label { position: absolute; transform: translate(20px, -50%); padding: 5px 12px; border-radius: 999px; background: var(--paper); color: var(--ink); font-size: 13px; white-space: nowrap; pointer-events: none; opacity: 0; }
+.pin:focus-visible + .pin-label { opacity: 1; }
+.map-cap { margin: 10px 0 0; font-size: 12px; color: #6B6F6C; } .map-cap a { border-bottom: 1px solid currentColor; }
+
+/* essay entry with a rolling carousel on hover */
+.essay { margin-top: 28px; display: flex; flex-wrap: wrap; background: var(--paper-2); }
+.roll { flex: 7 1 520px; position: relative; height: 520px; overflow: hidden; display: block; background: #DDD7CB; }
+.roll img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity .9s ease, transform 4s ease; }
+.roll img.on { opacity: 1; transform: none; }
+.roll-dots { position: absolute; left: 16px; right: 16px; top: 16px; display: flex; gap: 4px; opacity: 0; transition: opacity .4s ease; }
+.roll-dots i { flex: 1; height: 2px; background: rgba(255,255,255,.35); } .roll-dots i.on { background: #fff; }
+.roll-cap { position: absolute; left: 16px; bottom: 16px; padding: 4px 8px; background: rgba(12,13,15,.7); color: var(--paper); font-size: 10px; opacity: 0; transition: opacity .4s ease; }
+.roll.playing .roll-dots, .roll.playing .roll-cap { opacity: 1; }
+.essay .body { flex: 5 1 360px; padding: 44px 40px; display: flex; flex-direction: column; gap: 16px; }
+.essay h3 { margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 300; font-size: clamp(40px, 4.4vw, 64px); line-height: 1; letter-spacing: -.02em; }
+.essay p { margin: 0; font-size: 17px; color: #4F5350; }
+.essay .stopline { font-size: 11px; letter-spacing: .1em; line-height: 1.9; color: #5E625F; }
+.essay .btn { margin-top: auto; }
+@media (prefers-reduced-motion: reduce) { .roll img { transition: none; } }
+
 /* also in this issue */
 .also { display: flex; flex-wrap: wrap; align-items: center; gap: 32px 56px; padding-top: 72px; padding-bottom: 72px; text-align: left; width: 100%; border: 0; font: inherit; cursor: pointer; background: transparent; color: inherit; }
 .also .pic { flex: 0 0 auto; width: 280px; height: 180px; overflow: hidden; } .also .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -238,33 +289,38 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
           <a class="upnext" href="morocco-to-the-gambia.html"><span class="mono k-red"><span class="blink"></span>Up next · [DATE]</span><span>Morocco to The Gambia →</span></a></div>
       </div>
 
-      <article class="next card">
-        <a class="pic" href="armenia-2015.html"><img class="zoom-img" src="assets/sevan.jpg" alt="Sevanavank at sunset above Lake Sevan"></a>
+      <div class="map-wrap" id="worlds" data-side="travel">
+        <div class="map" id="map">
+          <canvas aria-hidden="true"></canvas>
+          <div class="map-layer" id="map-layer">
+            <span class="city-dot" data-x="1480.8" data-y="392.4"></span><span class="city" data-x="1480.8" data-y="392.4" style="transform:translate(10px,-130%)">Lisbon</span>
+            <span class="city-dot" data-x="2459.8" data-y="716.3"></span><span class="city" data-x="2459.8" data-y="716.3" style="transform:translate(-110%,-50%)">Singapore</span>
+          </div>
+          <div class="zoom">
+            <button type="button" data-zoom="1" aria-label="Zoom in">+</button>
+            <button type="button" data-zoom="-1" aria-label="Zoom out">&minus;</button>
+            <button type="button" data-zoom="0" id="zoom-whole" aria-label="Show the whole map"></button>
+          </div>
+        </div>
+        <p class="map-cap">Hover a dot for photos · click to open · drag and pinch to explore · <a href="atlas.html">Full-screen atlas →</a></p>
+      </div>
+
+      <div class="list-head"><h3>Essays</h3><span class="mono">Newest first</span></div>
+      <article class="essay card" id="essay-armenia">
+        <a class="roll" href="armenia-2015.html" aria-label="Armenia — read the photo essay">
+          <img class="on" src="assets/sevan.jpg" alt="Sevanavank at sunset above Lake Sevan">
+          <img src="assets/kapan-01.jpg" alt="" loading="lazy"><img src="assets/goris-02.jpg" alt="" loading="lazy"><img src="assets/step-01.jpg" alt="" loading="lazy"><img src="assets/gandz-01.jpg" alt="" loading="lazy"><img src="assets/road-01.jpg" alt="" loading="lazy"><img src="assets/sevan-02.jpg" alt="" loading="lazy"><img src="assets/yer-07.jpg" alt="" loading="lazy">
+          <span class="roll-dots" aria-hidden="true"></span>
+          <span class="roll-cap mono" aria-hidden="true">Lake Sevan</span>
+        </a>
         <div class="body">
           <span class="mono k-red">Latest essay · Published Nov 2026 · Travelled Aug 2015</span>
           <h3>Armenia</h3>
           <p>Kapan to Karabakh, back over the Sotk Pass to Lake Sevan, and on to Yerevan. A photo essay in seven stops.</p>
-          <div class="stops">
-            <svg aria-hidden="true" width="28" height="250" viewBox="0 0 28 250" fill="none"><path class="draw" d="M14 12 V238" stroke="#A63D24" stroke-width="2"/><circle cx="14" cy="12" r="5" fill="#A63D24"/><circle cx="14" cy="68" r="4" fill="#111214"/><circle cx="14" cy="125" r="4" fill="#111214"/><circle cx="14" cy="182" r="4" fill="#111214"/><circle cx="14" cy="238" r="4" fill="#111214"/></svg>
-            <span>Kapan</span><span>Goris</span><span>Stepanakert / Khankendi</span><span>Lake Sevan</span><span>Yerevan</span>
-          </div>
+          <p class="stopline mono">Kapan · Goris · Stepanakert · Gandzasar · Sotk Pass · Lake Sevan · Yerevan</p>
           <a class="btn" href="armenia-2015.html">Read the photo essay <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </article>
-
-      <div class="list-head"><h3>Places · Armenia 2015</h3><a class="mono" href="armenia-2015.html">All seven stops →</a></div>
-      <div class="places">
-        <a class="card" href="armenia-2015.html#stop-goris"><span class="pic"><img class="zoom-img" src="assets/goris-02.jpg" alt="The main square of Goris under its rock pinnacles" loading="lazy"></span><span class="mono c">39.51° N · 46.34° E</span><span class="p">Goris</span><span class="x">A Soviet-era square under the rock pinnacles of Old Goris.</span></a>
-        <a class="card" href="armenia-2015.html#stop-stepanakert-khankendi"><span class="pic"><img class="zoom-img" src="assets/step-01.jpg" alt="The We Are Our Mountains monument above Stepanakert" loading="lazy"></span><span class="mono c">39.82° N · 46.75° E</span><span class="p">Stepanakert</span><span class="x">The main town of Karabakh and the 1967 monument above it.</span></a>
-        <a class="card" href="armenia-2015.html#stop-lake-sevan"><span class="pic"><img class="zoom-img" src="assets/sevan-02.jpg" alt="Sevanavank church above Lake Sevan" loading="lazy"></span><span class="mono c">40.56° N · 45.01° E</span><span class="p">Lake Sevan</span><span class="x">Sevanavank, on a peninsula that was an island until the lake was lowered.</span></a>
-        <a class="card" href="armenia-2015.html#stop-yerevan"><span class="pic"><img class="zoom-img" src="assets/yer-07.jpg" alt="Ararat from the top of the Cascade in Yerevan" loading="lazy"></span><span class="mono c">40.18° N · 44.51° E</span><span class="p">Yerevan</span><span class="x">The capital, with Ararat to the south on clear days.</span></a>
-      </div>
-
-      <a class="atlas-card card" href="atlas.html">
-        <img class="zoom-img" src="assets/atlas-card.jpg" alt="" aria-hidden="true">
-        <span class="shade"></span>
-        <span class="in"><span class="mono k">The atlas</span><span><span class="h" style="display:block">Singapore to Lisbon, and everywhere since</span><span style="display:inline-flex;gap:10px;margin-top:10px;color:var(--soft)">Open the map <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></span>
-      </a>
     </div>
   </section>
   <section class="also-music" aria-label="Music, in brief">
@@ -291,6 +347,8 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
   <div class="fine"><span>Shaun Ji-Thompson · Sydney</span><span>[EMAIL] · [LINKEDIN]</span></div>
 </footer>
 
+<script src="js/land.js"></script>
+<script src="js/home.js"></script>
 <script>
 {
   const body = document.body, now = document.getElementById('now'), bar = document.getElementById('sides');
@@ -311,7 +369,7 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
   // Links from other pages: #music, #travel, #row-<id> (music, that work lit), #place-<id> (the atlas)
   function fromHash() {
     const h = location.hash.slice(1);
-    if (h.indexOf('place-') === 0) { location.replace('atlas.html#' + h); return; }
+    if (h.indexOf('place-') === 0) { pick('travel', false); if (window.twMap) twMap.select(h.slice(6)); document.getElementById('worlds').scrollIntoView({ block: 'center' }); return; }
     if (h === 'travel' || h === 'music') { pick(h, true); return; }
     if (h.indexOf('row-') === 0) {
       const li = document.getElementById(h); if (!li) return;
@@ -323,6 +381,21 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
   }
   fromHash();
   addEventListener('hashchange', fromHash);
+
+  // Rolling carousel on the essay photo: plays while hovered or focused.
+  document.querySelectorAll('.roll').forEach(function (r) {
+    const ims = r.querySelectorAll('img'), dots = r.querySelector('.roll-dots'), cap = r.querySelector('.roll-cap');
+    const names = ['Lake Sevan', 'Kapan', 'Goris', 'Stepanakert', 'Gandzasar', 'Sotk Pass', 'Lake Sevan', 'Yerevan'];
+    ims.forEach((_, k) => dots.appendChild(document.createElement('i'))); dots.children[0].classList.add('on');
+    let i = 0, t = null;
+    const go = n => { ims[i].classList.remove('on'); dots.children[i].classList.remove('on'); i = n % ims.length; ims[i].classList.add('on'); dots.children[i].classList.add('on'); cap.textContent = names[i] || ''; };
+    const play = () => { if (t || matchMedia('(prefers-reduced-motion: reduce)').matches) return; r.classList.add('playing'); ims.forEach(im => im.loading = 'eager'); go(i + 1); t = setInterval(() => go(i + 1), 1400); };
+    const stop = () => { clearInterval(t); t = null; r.classList.remove('playing'); };
+    r.addEventListener('mouseenter', play); r.addEventListener('mouseleave', stop);
+    r.addEventListener('focus', play); r.addEventListener('blur', stop);
+    // Phones have no hover: roll once it scrolls into view.
+    if (!matchMedia('(hover: hover)').matches && 'IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? play() : stop()), { threshold: .6 }).observe(r);
+  });
 }
 </script>
 </body>
