@@ -126,6 +126,10 @@ h2.travel { margin: 0; font-weight: 600; font-size: clamp(72px, 11vw, 168px); li
 .atlas-card .h { font-family: 'Newsreader', Georgia, serif; font-weight: 300; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.05; }
 .paper .atlas-card:hover { color: var(--paper); }
 
+.side-note-wrap { flex: 0 1 360px; display: flex; flex-direction: column; gap: 20px; }
+.side-note-wrap p { flex: none; margin: 0; font-size: 17px; color: #4F5350; }
+.upnext { align-self: flex-start; display: inline-flex; flex-direction: column; gap: 4px; padding: 10px 14px; border: 1px solid #CFC8BA; font-size: 14px; }
+.upnext .mono { font-size: 10px; }
 /* also in this issue */
 .also { display: flex; flex-wrap: wrap; align-items: center; gap: 32px 56px; padding-top: 72px; padding-bottom: 72px; text-align: left; width: 100%; border: 0; font: inherit; cursor: pointer; background: transparent; color: inherit; }
 .also .pic { flex: 0 0 auto; width: 280px; height: 180px; overflow: hidden; } .also .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -218,7 +222,7 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
   <section class="also-travel" aria-label="Travel, in brief">
     <button type="button" class="wrap also card" data-pick="travel">
       <span class="pic"><img class="zoom-img" src="assets/sevan-02.jpg" alt=""></span>
-      <span class="txt"><span class="mono k-red">Also in this issue · Section II</span><span class="big-t">Travel</span><span style="color:#4F5350">Latest essay: Armenia (travelled 2015). Next: Morocco to The Gambia, departing [DATE].</span></span>
+      <span class="txt"><span class="mono k-red">Also in this issue · Section II</span><span class="big-t">Travel</span><span style="color:#4F5350">Latest essay: Armenia (travelled 2015).</span></span>
       <span class="go">Turn to Travel <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </button>
   </section>
@@ -230,7 +234,8 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
     <div class="wrap sec">
       <div class="sec-top">
         <div><span class="mono k-red">Section II</span><h2 id="travel-h" class="travel">Travel</h2></div>
-        <p>More than sixty countries so far, mostly overland. Photo essays from the road, an atlas, and the next departure.</p>
+        <div class="side-note-wrap"><p>More than sixty countries so far, mostly overland. Photo essays from the road and an atlas of where I’ve been.</p>
+          <a class="upnext" href="morocco-to-the-gambia.html"><span class="mono k-red"><span class="blink"></span>Up next · [DATE]</span><span>Morocco to The Gambia →</span></a></div>
       </div>
 
       <article class="next card">
@@ -254,11 +259,6 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
         <a class="card" href="armenia-2015.html#stop-lake-sevan"><span class="pic"><img class="zoom-img" src="assets/sevan-02.jpg" alt="Sevanavank church above Lake Sevan" loading="lazy"></span><span class="mono c">40.56° N · 45.01° E</span><span class="p">Lake Sevan</span><span class="x">Sevanavank, on a peninsula that was an island until the lake was lowered.</span></a>
         <a class="card" href="armenia-2015.html#stop-yerevan"><span class="pic"><img class="zoom-img" src="assets/yer-07.jpg" alt="Ararat from the top of the Cascade in Yerevan" loading="lazy"></span><span class="mono c">40.18° N · 44.51° E</span><span class="p">Yerevan</span><span class="x">The capital, with Ararat to the south on clear days.</span></a>
       </div>
-
-      <div class="list-head"><h3>Next</h3><a class="mono" href="morocco-to-the-gambia.html">The plan →</a></div>
-      <a class="places-next card" href="morocco-to-the-gambia.html" style="margin-top:24px;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:baseline">
-        <span class="serif" style="font-size:32px;font-weight:300">Morocco to The Gambia</span><span class="mono k-red"><span class="blink"></span>Departs [DATE]</span><span style="color:#4F5350;flex-basis:100%">Seven weeks down the Atlantic coast of the Sahara, written from the road.</span>
-      </a>
 
       <a class="atlas-card card" href="atlas.html">
         <img class="zoom-img" src="assets/atlas-card.jpg" alt="" aria-hidden="true">
