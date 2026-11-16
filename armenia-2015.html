@@ -61,23 +61,23 @@ h1 em { font-style: italic; font-weight: 200; }
 .sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 22px; }
 .sec-head h2 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-style: italic; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.05; }
 .sec-head .mono { color: var(--mute); }
-.map-card { background: var(--paper); color: #111214; padding: clamp(12px, 2.5vw, 32px); }
+.map-card { background: #121417; border: 1px solid #23262A; color: #C9CDD1; padding: clamp(12px, 2.5vw, 32px); }
 .map { position: relative; width: 100%; aspect-ratio: 2240 / 1536; overflow: hidden; }
 .map > img, .map > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 @keyframes march { to { stroke-dashoffset: -34; } }
 .march { animation: march 1.8s linear infinite; }
 .lbl { position: absolute; white-space: nowrap; pointer-events: none; }
-.country { transform: translate(-50%, -50%); font-family: 'IBM Plex Mono', monospace; font-size: clamp(8px, 1vw, 11px); letter-spacing: 0.24em; text-transform: uppercase; color: #3F423F; background: var(--paper); padding: 2px 6px; }
-.sea { transform: translate(-50%, -50%); font-family: 'Newsreader', serif; font-style: italic; font-size: clamp(11px, 1.5vw, 18px); color: #5E625F; }
-.dot { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--indigo); }
-.dot.ctx { background: var(--paper); border: 1.5px solid #5E625F; }
-.city { font-size: clamp(10px, 1.1vw, 12px); line-height: 1.25; color: var(--indigo); background: var(--paper); padding: 1px 5px; transform: translate(10px, -50%); }
+.country { transform: translate(-50%, -50%); font-family: 'IBM Plex Mono', monospace; font-size: clamp(8px, 1vw, 11px); letter-spacing: 0.24em; text-transform: uppercase; color: #7D848C; background: #121417; padding: 2px 6px; }
+.sea { transform: translate(-50%, -50%); font-family: 'Newsreader', serif; font-style: italic; font-size: clamp(11px, 1.5vw, 18px); color: #6B7178; }
+.dot { position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: var(--paper); }
+.dot.ctx { background: #121417; border: 1.5px solid #8FA6C2; }
+.city { font-size: clamp(10px, 1.1vw, 12px); line-height: 1.25; color: #C9CDD1; background: rgba(12,13,15,.8); padding: 1px 5px; transform: translate(10px, -50%); }
 .city.left { transform: translate(calc(-100% - 10px), -50%); }
-.city.ctx { color: #5E625F; font-style: italic; }
-.pin { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: var(--oxide); box-shadow: 0 0 0 clamp(4px, 0.8vw, 9px) rgba(166,61,36,.22); }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(166,61,36,.45); } 100% { box-shadow: 0 0 0 22px rgba(166,61,36,0); } }
-.pin::after { content: ''; position: absolute; inset: 0; border-radius: 50%; animation: pulse 2.4s ease-out infinite; }
-.pin-label { transform: translate(18px, -150%); padding: 4px 11px; border-radius: 999px; background: #111214; color: var(--paper); font-size: clamp(11px, 1.2vw, 13px); }
+.city.ctx { color: #8FA6C2; font-style: italic; }
+.pin { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: var(--oxide-light); box-shadow: 0 0 0 clamp(4px, 0.8vw, 9px) rgba(232,103,74,.25); }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(232,103,74,.4); } 100% { box-shadow: 0 0 0 20px rgba(232,103,74,0); } }
+.pin::after { content: ''; position: absolute; inset: 0; border-radius: 50%; animation: pulse 2.2s ease-out 3; }
+.pin-label { transform: translate(18px, -150%); padding: 4px 11px; border-radius: 999px; background: var(--paper); color: var(--ink); font-size: clamp(11px, 1.2vw, 13px); }
 .map-note { margin: 14px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.6; color: #5E625F; }
 .plate { padding-top: clamp(96px, 12vw, 170px); }
 .plate-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 20px; align-items: end; margin-bottom: 24px; padding-top: 22px; border-top: 1px solid var(--rule); }
@@ -139,9 +139,9 @@ h1 em { font-style: italic; font-weight: 200; }
 .fine { border-top: 1px solid var(--rule); padding-top: 24px; padding-bottom: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--mute); }
 .stopdot { cursor: pointer; z-index: 2; transition: transform .25s ease, background-color .25s ease, box-shadow .25s ease; }
 .stopdot::before { content: ''; position: absolute; inset: -16px; border-radius: 50%; }
-.dot.stopdot:hover, .dot.stopdot:focus-visible { transform: scale(1.5); background: var(--oxide); }
-.dot.stopdot.on { transform: scale(1.9); background: var(--oxide); box-shadow: 0 0 0 5px rgba(166,61,36,.22); }
-.pin.stopdot.on { box-shadow: 0 0 0 14px rgba(166,61,36,.28); }
+.dot.stopdot:hover, .dot.stopdot:focus-visible { transform: scale(1.5); background: var(--oxide-light); }
+.dot.stopdot.on { transform: scale(1.9); background: var(--oxide-light); box-shadow: 0 0 0 5px rgba(232,103,74,.25); }
+.pin.stopdot.on { box-shadow: 0 0 0 14px rgba(232,103,74,.28); }
 .plate { scroll-margin-top: -40px; }
 .to-map { margin-left: auto; align-self: start; padding: 10px 0; color: var(--mute); text-decoration: none; }
 .to-map:hover { color: var(--oxide-light); }
@@ -225,10 +225,10 @@ h1 em { font-style: italic; font-weight: 200; }
       <img src="assets/armenia-map.png" alt="">
       <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
         <g fill="none" stroke-linejoin="round" stroke-linecap="round">
-                <path id="borders" d="M-10.42 -2.00 L-4.17 -5.00 L5.21 1.00 L15.62 2.00 L26.04 9.00 L31.25 11.00 L37.50 11.00 L43.75 15.00 L48.96 22.00 L56.77 28.00 L60.42 35.00 L65.62 39.00 L71.87 42.00 L76.04 36.00 L78.96 28.80 M5.73 35.60 L15.62 37.00 L18.75 34.40 L25.73 43.60 L31.25 42.00 L39.58 42.00 L41.88 40.20 L48.96 39.00 L55.21 42.00 L59.38 34.00 L56.77 28.00 M25.73 43.60 L27.08 54.00 L28.13 64.00 L34.37 66.00 L39.27 71.80 M41.88 40.20 L46.35 45.00 L47.92 53.00 L51.56 60.00 L50.00 67.00 L53.13 71.00 L56.77 75.00 L57.81 82.00 L57.81 88.00 M39.27 71.80 L43.75 73.00 L48.96 75.00 L51.04 79.00 L53.65 82.00 L52.08 87.00 L53.33 88.60 L57.81 88.00 M39.27 71.80 L39.58 73.00 L44.79 80.00 L50.00 86.00 L53.33 88.60 M57.81 88.00 L62.50 83.00 L67.71 78.00 L72.92 74.00 L76.56 79.00 L73.96 86.00 L76.04 94.00 L81.98 97.40 M39.58 73.00 L37.50 78.00 L35.42 86.00 L34.37 96.00 L36.46 108.00" stroke="#F1EEE7" stroke-width="5" vector-effect="non-scaling-stroke"/>
-                <use href="#borders" stroke="#5E625F" stroke-width="1.2" stroke-dasharray="2 4"/>
-                <path d="M55.10 104.40 L53.96 88.60 L53.65 83.00 L56.30 81.86 M36.59 62.46 L36.35 49.80 L38.12 44.00 L39.58 41.00 L39.48 31.60" stroke="#A63D24" stroke-opacity="0.5" stroke-width="2" stroke-dasharray="1 5" vector-effect="non-scaling-stroke"/>
-                <path class="march" d="M56.30 81.86 L55.61 75.78 L57.77 73.20 L59.90 70.80 L59.92 69.70 L57.86 65.40 L52.50 63.90 L50.31 61.60 L49.27 62.40 L44.79 63.20 L42.92 58.80 L41.79 54.72 L39.27 56.00 L36.59 62.46" stroke="#A63D24" stroke-width="2.5" stroke-dasharray="10 7" vector-effect="non-scaling-stroke"/>
+                <path id="borders" d="M-10.42 -2.00 L-4.17 -5.00 L5.21 1.00 L15.62 2.00 L26.04 9.00 L31.25 11.00 L37.50 11.00 L43.75 15.00 L48.96 22.00 L56.77 28.00 L60.42 35.00 L65.62 39.00 L71.87 42.00 L76.04 36.00 L78.96 28.80 M5.73 35.60 L15.62 37.00 L18.75 34.40 L25.73 43.60 L31.25 42.00 L39.58 42.00 L41.88 40.20 L48.96 39.00 L55.21 42.00 L59.38 34.00 L56.77 28.00 M25.73 43.60 L27.08 54.00 L28.13 64.00 L34.37 66.00 L39.27 71.80 M41.88 40.20 L46.35 45.00 L47.92 53.00 L51.56 60.00 L50.00 67.00 L53.13 71.00 L56.77 75.00 L57.81 82.00 L57.81 88.00 M39.27 71.80 L43.75 73.00 L48.96 75.00 L51.04 79.00 L53.65 82.00 L52.08 87.00 L53.33 88.60 L57.81 88.00 M39.27 71.80 L39.58 73.00 L44.79 80.00 L50.00 86.00 L53.33 88.60 M57.81 88.00 L62.50 83.00 L67.71 78.00 L72.92 74.00 L76.56 79.00 L73.96 86.00 L76.04 94.00 L81.98 97.40 M39.58 73.00 L37.50 78.00 L35.42 86.00 L34.37 96.00 L36.46 108.00" stroke="#121417" stroke-width="5" vector-effect="non-scaling-stroke"/>
+                <use href="#borders" stroke="#5A6068" stroke-width="1.2" stroke-dasharray="2 4"/>
+                <path d="M55.10 104.40 L53.96 88.60 L53.65 83.00 L56.30 81.86 M36.59 62.46 L36.35 49.80 L38.12 44.00 L39.58 41.00 L39.48 31.60" stroke="#E8674A" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="1 5" vector-effect="non-scaling-stroke"/>
+                <path class="march" d="M56.30 81.86 L55.61 75.78 L57.77 73.20 L59.90 70.80 L59.92 69.70 L57.86 65.40 L52.50 63.90 L50.31 61.60 L49.27 62.40 L44.79 63.20 L42.92 58.80 L41.79 54.72 L39.27 56.00 L36.59 62.46" stroke="#E8674A" stroke-width="2.5" stroke-dasharray="10 7" vector-effect="non-scaling-stroke"/>
               </g>
       </svg>
       <span class="lbl country" style="left:41.67%;top:7.00%">Russia</span>
@@ -273,7 +273,7 @@ h1 em { font-style: italic; font-weight: 200; }
 </nav>
 
 <nav class="wrap more" aria-label="More from Two Worlds">
-  <a href="index.html#place-sevan"><span class="mono">Travel</span><span class="serif">Back to the atlas</span></a>
+  <a href="atlas.html#place-sevan"><span class="mono">Travel</span><span class="serif">Back to the atlas</span></a>
   <a href="index.html#row-gegham"><span class="mono">Music</span><span class="serif">All works and scores</span></a>
   <a href="index.html"><span class="mono">Home</span><span class="serif">Shaun Ji-Thompson</span></a>
 </nav>

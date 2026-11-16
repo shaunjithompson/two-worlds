@@ -9,11 +9,11 @@
       text: 'Seven weeks down the Atlantic edge of the Sahara, written from the road.',
       img: 'assets/dunes.jpg', lon: -17.4, lat: 14.7, music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
     { id: 'bojador', name: 'Cape Bojador', label: 'WESTERN SAHARA · 26.13° N, 14.50° W',
-      text: 'The cape Portuguese sailors feared to pass. The next journey goes by it on the road south.',
+      text: 'A cape on the Western Sahara coast, first rounded by a Portuguese ship in 1434. The next journey passes it on the road south.',
       img: 'assets/coast.jpg', lon: -14.5, lat: 26.13, music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: 'morocco-to-the-gambia.html' },
     { id: 'darial', name: 'The Darial Gorge', label: 'CAUCASUS · 42.74° N, 44.62° E',
       text: 'Dar-e Alān, the old gate through the Caucasus, painted by Aivazovsky in 1868.',
-      img: 'assets/gorge.jpg', lon: 44.62, lat: 42.74, music: 'Overture: “Beyond the Darial Pass”', musicRow: '', journey: false },
+      img: 'assets/gorge.jpg', lon: 44.62, lat: 42.74, music: 'Overture: “Beyond the Darial Pass”', musicRow: 'row-darial', journey: false },
     { id: 'sevan', name: 'Lake Sevan', label: 'ARMENIA · 40.33° N, 45.33° E',
       text: 'The Gegham Sea, high in the Armenian mountains, one of the largest freshwater lakes in the Caucasus.',
       img: 'assets/sevan.jpg', lon: 45.33, lat: 40.33, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'See the photo diary' },
@@ -21,7 +21,7 @@
       text: 'On 24 March 1794, in the Main Square, Tadeusz Kościuszko swore his oath to the nation and took up arms against the partitioning powers.',
       img: 'assets/plain.jpg', lon: 19.94, lat: 50.06, music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
     { id: 'hardanger', name: 'Hardangerfjord', label: 'NORWAY · 60.10° N, 6.20° E',
-      text: 'The fjord of Tidemand and Gude\'s Bridal Procession on the Hardangerfjord (1848), the best-loved painting of Norwegian national romanticism.',
+      text: 'The fjord in Tidemand and Gude\'s painting Bridal Procession on the Hardangerfjord (1848).',
       img: 'assets/coast.jpg', lon: 6.2, lat: 60.1, music: 'Forløp (Forløb)', musicRow: 'row-forlop', journey: false }
   ];
   // The whole world, 180°W–180°E and 84°N–58°S, in map units (U per degree).
@@ -121,7 +121,7 @@
     var pl = e.target.closest('.pin, .chip');
     if (pl) { selectPlace(pl.dataset.place, true); return; }
   });
-  musicBtn.addEventListener('click', function () { setSide('music', byId(state.place).musicRow); });
+  musicBtn.addEventListener('click', function () { location.href = 'index.html#' + (byId(state.place).musicRow || 'music'); });
 
   // ---- pan and zoom. view: screen = translate + map units * scale ----
   function minS() { return Math.min(map.clientWidth / MAP_W, map.clientHeight / MAP_H); }
@@ -318,7 +318,7 @@
     stage.scrollIntoView({ block: 'start' });
   }
   selectPlace('journey', false);
-  setSide('music');
+  setSide(stage.dataset.side || 'music');
   fromHash();
   window.addEventListener('hashchange', fromHash);
   requestAnimationFrame(draw);
