@@ -7,7 +7,7 @@
   var PLACES = [
     { id: 'armenia', name: 'Armenia', label: 'TRAVELLED AUGUST 2015 · PHOTO ESSAY',
       text: 'Kapan to Karabakh, back over the Sotk Pass to Lake Sevan, and on to Yerevan. Seven stops.',
-      img: 'assets/sevan.jpg', lon: 45.0, lat: 40.2, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'Read the photo essay' },
+      img: 'assets/sevan.jpg', imgs: ['assets/sevan.jpg', 'assets/kapan-01.jpg', 'assets/goris-02.jpg', 'assets/step-01.jpg', 'assets/gandz-01.jpg', 'assets/road-01.jpg', 'assets/sevan-02.jpg', 'assets/yer-07.jpg'], lon: 45.0, lat: 40.2, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'Read the photo essay' },
     { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS [DATE]',
       text: 'Seven weeks down the Atlantic edge of the Sahara, written from the road.',
       img: 'assets/dunes.jpg', lon: -17.4, lat: 14.7, music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
@@ -30,7 +30,9 @@
   function project(lon, lat) { return { x: (lon - LON0) * U, y: (LAT0 - lat) * U }; }
   var CROSS_ICON = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg>';
 
-  var stage = document.getElementById('worlds');
+  var stage = document.getElementById('worlds') || document.body;
+  // EMBED: the map sits on the home page's Travel section with no side panel; a click opens the place instead.
+  var EMBED = !document.getElementById('place-name');
   var map = document.getElementById('map');
   var canvas = map.querySelector('canvas');
   var layer = document.getElementById('map-layer');
@@ -41,7 +43,7 @@
   var state = { side: 'music', place: 'journey' };
   var mouse = null, pulseT = -1e9, view = { s: 1, tx: 0, ty: 0 }, anim = null;
   var PULSE_MS = 2200, PULSE_R = 300;
-  var pts = {}, drag = null, pinch = null, hot = null;
+  var pts = {}, drag = null, pinch = null, hot = null, wasHidden = true;
   var wholeBtn = document.getElementById('zoom-whole'), beforeWhole = null, wholeShown = null;
   var ICON_EXPAND = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
   var ICON_COLLAPSE = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
@@ -64,11 +66,11 @@
 
     var chip = document.createElement('button');
     chip.type = 'button'; chip.className = 'chip'; chip.dataset.place = p.id; chip.textContent = p.name;
-    chips.appendChild(chip);
+    if (chips) chips.appendChild(chip);
 
     var im = document.createElement('img');
     im.src = p.img; im.alt = ''; im.dataset.place = p.id;
-    imgs.appendChild(im);
+    if (imgs) imgs.appendChild(im);
   });
 
   function selectPlace(id, ripple) {
@@ -79,6 +81,7 @@
       if (el.matches('.pin, .chip')) el.setAttribute('aria-pressed', on ? 'true' : 'false');
       if (el.tagName === 'IMG' && el.parentNode === imgs) el.classList.toggle('on', on);
     });
+    if (EMBED) { pulseT = performance.now(); if (ripple) { var o0 = mapPoint(p); flyTo(viewAround(o0.x, o0.y, Math.max(view.s, coverS() * 2.5))); } return; }
     document.getElementById('place-label').textContent = p.label;
     document.getElementById('place-name').textContent = p.name;
     document.getElementById('place-text').textContent = p.text;
@@ -119,9 +122,9 @@
       return;
     }
     var pl = e.target.closest('.pin, .chip');
-    if (pl) { selectPlace(pl.dataset.place, true); return; }
+    if (pl) { if (EMBED && pl.classList.contains('pin')) openPlace(byId(pl.dataset.place)); else selectPlace(pl.dataset.place, true); return; }
   });
-  musicBtn.addEventListener('click', function () { location.href = 'index.html#' + (byId(state.place).musicRow || 'music'); });
+  if (musicBtn) musicBtn.addEventListener('click', function () { location.href = 'index.html#' + (byId(state.place).musicRow || 'music'); });
 
   // ---- pan and zoom. view: screen = translate + map units * scale ----
   function minS() { return Math.min(map.clientWidth / MAP_W, map.clientHeight / MAP_H); }
@@ -159,8 +162,37 @@
     PLACES.forEach(function (p) { var o = mapPoint(p), d = Math.hypot(sx(o.x) - px, sy(o.y) - py); if (d < bd) { bd = d; best = p; } });
     return best;
   }
+  // ---- hover preview: a small rolling photo carousel beside the dot ----
+  var peek = document.createElement('div'), peekTimer = null, peekI = 0;
+  peek.className = 'peek'; peek.setAttribute('aria-hidden', 'true');
+  layer.appendChild(peek);
+  function showPeek(p) {
+    clearInterval(peekTimer); peekTimer = null;
+    if (!p) { peek.classList.remove('show'); return; }
+    var list = p.imgs || [p.img], o = mapPoint(p);
+    peek.dataset.x = o.x; peek.dataset.y = o.y;
+    peek.style.left = sx(o.x) + 'px'; peek.style.top = sy(o.y) + 'px';
+    peek.classList.toggle('left', sx(o.x) > map.clientWidth - 280);
+    peek.classList.toggle('below', sy(o.y) < 200);
+    peek.innerHTML = '<div class="peek-imgs">' + list.map(function (src, i) { return '<img src="' + src + '" alt=""' + (i ? '' : ' class="on"') + '>'; }).join('') + '</div>' +
+      (list.length > 1 ? '<div class="peek-dots">' + list.map(function (_, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</div>' : '') +
+      '<div class="peek-txt"><b>' + p.name + '</b><span>' + p.label + '</span><em>' + (p.journey ? (p.journeyText || 'Follow the journey') : p.music ? 'The music: ' + p.music : '') + '</em></div>';
+    peek.classList.add('show'); peekI = 0;
+    if (list.length > 1 && !reduce) peekTimer = setInterval(function () {
+      var ims = peek.querySelectorAll('.peek-imgs img'), ds = peek.querySelectorAll('.peek-dots i');
+      ims[peekI].classList.remove('on'); ds[peekI].classList.remove('on');
+      peekI = (peekI + 1) % ims.length; ims[peekI].classList.add('on'); ds[peekI].classList.add('on');
+    }, 1300);
+  }
+  function openPlace(p) {
+    if (p.journey) { location.href = p.journey; return; }
+    if (p.musicRow) { location.href = 'index.html#' + p.musicRow; return; }
+    selectPlace(p.id, true);
+  }
+  window.twMap = { select: function (id) { selectPlace(id === 'sevan' ? 'armenia' : id, true); } };
+
   function setHot(p) {
-    if (hot === p) return; hot = p;
+    if (hot === p) return; hot = p; showPeek(p);
     layer.querySelectorAll('.pin').forEach(function (el) { el.classList.toggle('hot', !!p && el.dataset.place === p.id); });
     layer.querySelectorAll('.pin-label').forEach(function (el) { el.classList.toggle('show', !!p && el.dataset.for === p.id); });
     map.classList.toggle('over-pin', !!p);
@@ -200,7 +232,7 @@
   function endPointer(e) {
     if (drag && !drag.moved && e.type === 'pointerup') {
       var q = local(e), p = pinNear(q.x, q.y, drag.touch ? 56 : 40);
-      if (p) selectPlace(p.id, false);
+      if (p) { if (EMBED) openPlace(p); else selectPlace(p.id, false); }
     }
     delete pts[e.pointerId];
     if (Object.keys(pts).length < 2) pinch = null;
@@ -268,7 +300,8 @@
       if (t >= 1) anim = null;
       layout();
     }
-    var w = map.clientWidth, h = map.clientHeight; if (!w || !h) return;
+    var w = map.clientWidth, h = map.clientHeight; if (!w || !h) { wasHidden = true; return; }
+    if (wasHidden) { wasHidden = false; setView(homeView()); pulseT = now; }
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var cw = Math.round(w * dpr), ch = Math.round(h * dpr);
     if (canvas.width !== cw || canvas.height !== ch) { canvas.width = cw; canvas.height = ch; }
@@ -309,6 +342,7 @@
   setView(homeView());
   // Deep links from other pages: #music, #travel, #place-<id> (travel side, that place selected), #row-<id> (music side, that work lit)
   function fromHash() {
+    if (EMBED) return;
     var h = (location.hash || '').slice(1);
     if (h === 'travel') setSide('travel');
     else if (h === 'music') setSide('music');
