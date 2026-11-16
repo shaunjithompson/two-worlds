@@ -14,7 +14,8 @@ content:
       - { name: title, label: Title, type: string }
       - { name: titleNative, label: Title in the local script, type: string }
       - { name: subtitle, label: Subtitle (sells the music), type: string }
-      - { name: date, label: "Date (YYYY-MM or YYYY-MM-DD)", type: string }
+      - { name: date, label: "Travelled (YYYY-MM or YYYY-MM-DD) — orders the atlas and the route", type: string }
+      - { name: published, label: "Published (YYYY-MM-DD) — orders Latest on the home page", type: string }
       - { name: leg, label: Part of which leg, type: string }
       - { name: standfirst, label: Standfirst, type: text }
       - name: cover

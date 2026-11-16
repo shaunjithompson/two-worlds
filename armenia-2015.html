@@ -203,7 +203,7 @@ h1 em { font-style: italic; font-weight: 200; }
 </div>
 
 <section class="wrap title">
-  <p class="mono kicker"><span class="accent" data-k="date">August 2015</span><span data-k="leg">Tabriz to Tbilisi</span></p>
+  <p class="mono kicker"><span class="accent">Travelled <span data-k="date">August 2015</span></span><span>Published <span data-k="published">November 2026</span></span><span data-k="leg">Tabriz to Tbilisi</span></p>
   <h1 data-k="title">Armenia</h1>
   <p class="native" lang="hy" data-k="titleNative">Հայաստան</p>
   <p class="subtitle" data-k="subtitle">to the shores of Lake Sevan</p>
@@ -273,7 +273,7 @@ h1 em { font-style: italic; font-weight: 200; }
 </nav>
 
 <nav class="wrap more" aria-label="More from Two Worlds">
-  <a href="atlas.html#place-sevan"><span class="mono">Travel</span><span class="serif">Back to the atlas</span></a>
+  <a href="atlas.html#place-armenia"><span class="mono">Travel</span><span class="serif">Back to the atlas</span></a>
   <a href="index.html#row-gegham"><span class="mono">Music</span><span class="serif">All works and scores</span></a>
   <a href="index.html"><span class="mono">Home</span><span class="serif">Shaun Ji-Thompson</span></a>
 </nav>
@@ -335,7 +335,7 @@ h1 em { font-style: italic; font-weight: 200; }
 
   function render(data) {
     set('[data-k="title"]', data.title); set('[data-k="titleNative"]', data.titleNative); set('[data-k="subtitle"]', data.subtitle); set('[data-k="standfirst"]', data.standfirst);
-    set('[data-k="leg"]', data.leg); set('[data-k="date"]', fmt(data.date));
+    set('[data-k="leg"]', data.leg); set('[data-k="date"]', fmt(data.date)); if (data.published) set('[data-k="published"]', fmt(data.published.slice(0, 7)));
     if (data.cover && data.cover.src) { const c = document.getElementById('cover'); c.src = src(data.cover.src); c.alt = data.cover.alt || ''; }
     // date of a stop = its own date, else its earliest photo date
     const dates = st => (st.photos || []).map(p => p && p.date).filter(Boolean).sort();
