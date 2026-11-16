@@ -7,7 +7,7 @@
   var PLACES = [
     { id: 'armenia', name: 'Armenia', label: 'TRAVELLED AUGUST 2015 · PHOTO ESSAY',
       text: 'Photos from Armenia in August 2015, looked at again ten years on.',
-      img: 'assets/sevan.jpg', imgs: ['assets/sevan.jpg', 'assets/kapan-01.jpg', 'assets/goris-02.jpg', 'assets/sevan-02.jpg', 'assets/yer-07.jpg'], lon: 45.0, lat: 40.2, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'Read the photo essay' },
+      img: 'assets/sevan-sunset.jpg', imgs: ['assets/sevan-sunset.jpg', 'assets/kapan-01.jpg', 'assets/goris-02.jpg', 'assets/sevanavank.jpg', 'assets/yer-07.jpg'], lon: 45.0, lat: 40.2, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'Read the photo essay' },
     { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS [DATE]',
       text: 'Seven weeks down the Atlantic edge of the Sahara, written from the road.',
       img: 'assets/dunes.jpg', lon: -17.4, lat: 14.7, music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },

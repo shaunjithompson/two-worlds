@@ -6,7 +6,7 @@
   "leg": "Tabriz to Tbilisi",
   "standfirst": "Photos from Armenia in August 2015, looked at again ten years on: Kapan and Goris in the south, Lake Sevan, and Yerevan.",
   "cover": {
-    "src": "assets/sevan.jpg",
+    "src": "assets/sevan-sunset.jpg",
     "alt": "Sevanavank's stone church silhouetted at sunset above Lake Sevan",
     "date": "2015-08-16"
   },
@@ -99,8 +99,8 @@
       "caption": "Sevanavank, above Lake Sevan. The lake later became the subject of my score.",
       "photos": [
         {
-          "src": "assets/sevan-02.jpg",
-          "alt": "Sevanavank's church above Lake Sevan in evening light, a man walking towards a camera on a tripod",
+          "src": "assets/sevanavank.jpg",
+          "alt": "Sevanavank's church above Lake Sevan in evening light",
           "date": "2015-08-16"
         }
       ],
