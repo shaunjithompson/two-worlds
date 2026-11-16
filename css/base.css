@@ -52,3 +52,9 @@ img { max-width: 100%; height: auto; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* back button + brand (inner pages, js/back.js) */
+.tw-brandrow { display: flex; align-items: center; gap: 6px 18px; flex-wrap: wrap; }
+.tw-back { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px 0 10px; margin-left: -10px; border-radius: 999px; font: 500 14px/1 var(--sans); color: inherit; text-decoration: none; opacity: .75; transition: opacity .2s ease, background-color .2s ease; }
+.tw-back:hover { opacity: 1; background: rgba(127,127,127,.14); }
+.tw-back svg { flex: none; }

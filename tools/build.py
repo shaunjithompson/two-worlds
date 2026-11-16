@@ -187,9 +187,9 @@ def build_essay(slug):
         v = data.get(k)
         if not v:
             continue
-        inner = (f'<span class="mono">{word} · {esc(v.get("country"))}</span>' +
-                 (f'<a class="serif" href="{esc(v["url"])}">' if v.get('url') else '<span class="serif">') +
-                 pre + esc(v.get('place')) + post + ('</a>' if v.get('url') else '</span>'))
+        inner = f'<span class="mono">{word} · {esc(v.get("country"))}</span>' + (
+            f'<a class="serif" href="{esc(v["url"])}">{pre}{esc(v.get("place"))}{post}</a>' if v.get('url')
+            else f'<span class="serif">{esc(v.get("place"))} <span class="soon">· coming soon</span></span>')
         s = re.sub(r'(<div id="' + k + r'">).*?(</div>)', lambda mm: mm.group(1) + inner + mm.group(2), s, flags=re.S)
     html_, n = diary(data, lang)
     s = re.sub(r'(<!-- diary:start -->).*?(<!-- diary:end -->)', lambda mm: mm.group(1) + '\n' + html_ + '\n' + mm.group(2), s, flags=re.S)
