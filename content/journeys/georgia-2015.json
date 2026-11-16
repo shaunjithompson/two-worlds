@@ -1,0 +1,116 @@
+{
+  "title": "Georgia",
+  "titleNative": "საქართველო",
+  "subtitle": "from Tbilisi to the Black Sea",
+  "date": "2015-08",
+  "published": "2026-11-16",
+  "leg": "Yerevan to Trabzon",
+  "standfirst": "Photos from Georgia in August 2015: Tbilisi, Gori, then west to Batumi on the Black Sea, before crossing into Turkey for Trabzon.",
+  "cover": {
+    "src": "assets/tbilisi-cover.jpg",
+    "alt": "Brick houses with iron balconies in Tbilisi, lit by late sun",
+    "date": "2015-08-19"
+  },
+  "before": {
+    "place": "Yerevan",
+    "country": "Armenia",
+    "url": "armenia-2015.html"
+  },
+  "after": {
+    "place": "Trabzon",
+    "country": "Turkey",
+    "url": ""
+  },
+  "stops": [
+    {
+      "place": "Tbilisi",
+      "native": "თბილისი",
+      "country": "Georgia",
+      "date": "2015-08-19",
+      "caption": "Tbilisi, on the Mtkvari river. Brick houses with iron balconies on the streets, wooden galleries round the courtyards behind them.",
+      "photos": [
+        {
+          "src": "assets/tbilisi-01.jpg",
+          "alt": "A row of brick houses with wrought-iron balconies and a satellite dish, trees to the right",
+          "lead": true,
+          "date": "2015-08-19"
+        },
+        {
+          "src": "assets/tbilisi-02.jpg",
+          "alt": "A workshop doorway in a peeling wall, a hand-painted list of repairs in red Georgian script beside it",
+          "date": "2015-08-19"
+        },
+        {
+          "src": "assets/tbilisi-03.jpg",
+          "alt": "A vaulted stone arcade, blank canvases and paints laid out on the steps",
+          "date": "2015-08-20"
+        },
+        {
+          "src": "assets/tbilisi-04.jpg",
+          "alt": "A painter at an easel between stone columns, paintings for sale propped along the steps",
+          "date": "2015-08-20"
+        },
+        {
+          "src": "assets/tbilisi-05.jpg",
+          "alt": "Crates of black grapes and plums, lined with Georgian newspaper",
+          "date": "2015-08-21"
+        },
+        {
+          "src": "assets/tbilisi-06.jpg",
+          "alt": "Weathered wooden galleries and brick walls around a Tbilisi courtyard",
+          "date": "2015-08-21"
+        }
+      ]
+    },
+    {
+      "place": "Gori",
+      "native": "გორი",
+      "country": "Georgia",
+      "date": "2015-08-22",
+      "caption": "Gori, on the plain of Shida Kartli. Stalin was born here; the house he grew up in and his railway carriage stand in the museum grounds.",
+      "photos": [
+        {
+          "src": "assets/gori-01.jpg",
+          "alt": "The wooden door and window of Stalin's childhood house, a Russian plaque naming it a house-museum",
+          "lead": true,
+          "date": "2015-08-22"
+        },
+        {
+          "src": "assets/gori-02.jpg",
+          "alt": "The green side of a Soviet railway carriage, the USSR emblem between curtained windows",
+          "date": "2015-08-22"
+        },
+        {
+          "src": "assets/gori-03.jpg",
+          "alt": "A road sign in Georgian and English pointing left to Gori and right to Sveneti, poplars behind",
+          "date": "2015-08-22"
+        }
+      ]
+    },
+    {
+      "place": "Batumi",
+      "native": "ბათუმი",
+      "country": "Georgia",
+      "date": "2015-08-23",
+      "caption": "Batumi, on the Black Sea a few kilometres from the Turkish border. Low pastel streets in the old town, Soviet blocks behind, a pebble beach in front.",
+      "photos": [
+        {
+          "src": "assets/batumi-01.jpg",
+          "alt": "A pebble beach with umbrellas and sun loungers along a flat blue Black Sea",
+          "date": "2015-08-23"
+        },
+        {
+          "src": "assets/batumi-02.jpg",
+          "alt": "A cobbled old-town street of pink houses leading to the Alphabetic Tower",
+          "lead": true,
+          "date": "2015-08-23"
+        },
+        {
+          "src": "assets/batumi-03.jpg",
+          "alt": "Three Soviet apartment blocks with blue and green balconies under a mackerel sky",
+          "date": "2015-08-24"
+        }
+      ]
+    }
+  ]
+}
