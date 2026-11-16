@@ -3,29 +3,30 @@
 (function () {
   'use strict';
 
-  // Places on the map, by longitude and latitude in decimal degrees (west and south are negative).
+  // One dot per article, by longitude and latitude in decimal degrees (west and south are negative).
+  // kinds: 'music' = a piece is about this place · 'been' = a travel article · 'next' = an upcoming journey.
   var PLACES = [
     { id: 'armenia', name: 'Armenia', label: 'TRAVELLED AUGUST 2015 · PHOTO ESSAY',
       text: 'Photos from Armenia in August 2015, looked at again ten years on.',
-      img: 'assets/sevan-sunset.jpg', imgs: ['assets/sevan-sunset.jpg', 'assets/kapan-01.jpg', 'assets/goris-02.jpg', 'assets/sevanavank.jpg', 'assets/yer-07.jpg'], lon: 45.0, lat: 40.2, music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'Read the photo essay' },
+      img: 'assets/sevan-sunset.jpg', imgs: ['assets/sevan-sunset.jpg', 'assets/kapan-01.jpg', 'assets/goris-02.jpg', 'assets/sevanavank.jpg', 'assets/yer-07.jpg'], lon: 45.0, lat: 40.2, kinds: ['been', 'music'], music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'Read the photo essay' },
     { id: 'georgia', name: 'Georgia', label: 'TRAVELLED AUGUST 2015 · PHOTO ESSAY',
       text: 'Photos from Georgia in August 2015, from Tbilisi to the Black Sea.',
-      img: 'assets/tbilisi-cover.jpg', imgs: ['assets/tbilisi-cover.jpg', 'assets/tbilisi-06.jpg', 'assets/gori-02.jpg', 'assets/batumi-02.jpg', 'assets/batumi-01.jpg'], lon: 43.4, lat: 42.0, music: '', musicRow: '', journey: 'georgia-2015.html', journeyText: 'Read the photo essay' },
+      img: 'assets/tbilisi-cover.jpg', imgs: ['assets/tbilisi-cover.jpg', 'assets/tbilisi-06.jpg', 'assets/gori-02.jpg', 'assets/batumi-02.jpg', 'assets/batumi-01.jpg'], lon: 43.4, lat: 42.0, kinds: ['been'], music: '', musicRow: '', journey: 'georgia-2015.html', journeyText: 'Read the photo essay' },
     { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS [DATE]',
-      text: 'Seven weeks down the Atlantic edge of the Sahara, written from the road.',
-      img: 'assets/dunes.jpg', lon: -17.4, lat: 14.7, music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
-    { id: 'bojador', name: 'Cape Bojador', label: 'WESTERN SAHARA · 26.13° N, 14.50° W',
-      text: 'A cape on the Western Sahara coast, first rounded by a Portuguese ship in 1434. The next journey passes it on the road south.',
-      img: 'assets/coast.jpg', lon: -14.5, lat: 26.13, music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: 'morocco-to-the-gambia.html' },
+      text: 'Seven weeks from Casablanca down the Atlantic edge of the Sahara, written from the road.',
+      img: 'assets/dunes.jpg', lon: -7.59, lat: 33.57, kinds: ['next'], music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
+    { id: 'nazare', name: 'Nazaré', label: 'PORTUGAL · 39.60° N, 9.07° W',
+      text: 'The great Atlantic winter waves that break off Nazaré.',
+      img: 'assets/coast.jpg', lon: -9.07, lat: 39.6, kinds: ['music'], music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: false },
     { id: 'darial', name: 'The Darial Gorge', label: 'CAUCASUS · 42.74° N, 44.62° E',
       text: 'Dar-e Alān, the old gate through the Caucasus, painted by Aivazovsky in 1868.',
-      img: 'assets/gorge.jpg', lon: 44.62, lat: 42.74, music: 'Overture: “Beyond the Darial Pass”', musicRow: 'row-darial', journey: false },
+      img: 'assets/gorge.jpg', lon: 44.62, lat: 42.74, kinds: ['music'], music: 'Overture: “Beyond the Darial Pass”', musicRow: 'row-darial', journey: false },
     { id: 'krakow', name: 'Kraków', label: 'POLAND · 50.06° N, 19.94° E',
       text: 'On 24 March 1794, in the Main Square, Tadeusz Kościuszko swore his oath to the nation and took up arms against the partitioning powers.',
-      img: 'assets/plain.jpg', lon: 19.94, lat: 50.06, music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
+      img: 'assets/plain.jpg', lon: 19.94, lat: 50.06, kinds: ['music'], music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
     { id: 'hardanger', name: 'Hardangerfjord', label: 'NORWAY · 60.10° N, 6.20° E',
       text: 'The fjord in Tidemand and Gude\'s painting Bridal Procession on the Hardangerfjord (1848).',
-      img: 'assets/coast.jpg', lon: 6.2, lat: 60.1, music: 'Forløp (Forløb)', musicRow: 'row-forlop', journey: false }
+      img: 'assets/coast.jpg', lon: 6.2, lat: 60.1, kinds: ['music'], music: 'Forløp (Forløb)', musicRow: 'row-forlop', journey: false }
   ];
   // The whole world, 180°W–180°E and 84°N–58°S, in map units (U per degree).
   var U = 26 / 3, LON0 = -180, LAT0 = 84, LAT1 = -58;
@@ -58,8 +59,8 @@
   // ---- build pins, chips and place images from PLACES ----
   PLACES.forEach(function (p) {
     var pin = document.createElement('button');
-    pin.type = 'button'; pin.className = 'pin'; pin.dataset.place = p.id;
-    pin.setAttribute('aria-label', p.name);
+    pin.type = 'button'; pin.className = 'pin' + p.kinds.map(function (k) { return ' k-' + k; }).join(''); pin.dataset.place = p.id;
+    pin.setAttribute('aria-label', p.name + ' (' + p.kinds.map(function (k) { return { music: 'music', been: 'travel', next: 'upcoming' }[k]; }).join(', ') + ')');
     var pt = mapPoint(p); pin.dataset.x = pt.x; pin.dataset.y = pt.y;
     pin.appendChild(document.createElement('i'));
     var label = document.createElement('span');
@@ -286,9 +287,8 @@
   }
   var dots = buildDots();
 
-  // Routes as lon, lat pairs. Overland: Singapore, a curve control point, Lisbon. Next: Tangier down to The Gambia.
-  var ROUTE_OVERLAND = [103.82, 1.35, 50, 42, -9.14, 38.72];
-  var ROUTE_NEXT = [-5.8, 35.8, -14.5, 26.13, -16, 18.1, -17.4, 14.7, -16.6, 13.45];
+  // The upcoming journey as lon, lat pairs: Casablanca down the coast to The Gambia. Drawn faintly so the articles lead.
+  var ROUTE_NEXT = [-7.59, 33.57, -9.6, 30.4, -14.5, 26.13, -16, 18.1, -17.4, 14.7, -16.6, 13.45];
   // Colours for the map on the dark stage: resting dots, pointer glow (oxide) and the one-off ring (pale indigo).
   var DOT = [62, 66, 71], GLOW = [232, 103, 74], RING = [143, 166, 194];
   function rx(lon) { return sx((lon - LON0) * U); }
@@ -331,12 +331,9 @@
       g.fillStyle = 'rgb(' + Math.round(DOT[0] + (T[0] - DOT[0]) * f2) + ',' + Math.round(DOT[1] + (T[1] - DOT[1]) * f2) + ',' + Math.round(DOT[2] + (T[2] - DOT[2]) * f2) + ')';
       g.beginPath(); g.arc(lit[k], lit[k + 1], r * (1 + 0.8 * f2), 0, 6.2832); g.fill();
     }
-    var L = ROUTE_OVERLAND, N = ROUTE_NEXT;
-    g.lineJoin = 'round'; g.lineCap = 'butt';
-    g.strokeStyle = '#8FA6C2'; g.lineWidth = 1.5; g.setLineDash([3, 5]); g.lineDashOffset = 0;
-    g.beginPath(); g.moveTo(rx(L[0]), ry(L[1])); g.quadraticCurveTo(rx(L[2]), ry(L[3]), rx(L[4]), ry(L[5])); g.stroke();
-    g.lineCap = 'round'; g.strokeStyle = '#E8674A'; g.lineWidth = 2.5; g.setLineDash([10, 7]);
-    g.lineDashOffset = reduce ? 0 : -((now % 1800) / 1800) * 34;
+    var N = ROUTE_NEXT;
+    g.lineJoin = 'round'; g.lineCap = 'round';
+    g.strokeStyle = 'rgba(232,103,74,0.45)'; g.lineWidth = 1.25; g.setLineDash([2, 5]); g.lineDashOffset = 0;
     g.beginPath(); g.moveTo(rx(N[0]), ry(N[1]));
     for (var m = 2; m < N.length; m += 2) g.lineTo(rx(N[m]), ry(N[m + 1]));
     g.stroke(); g.setLineDash([]);
