@@ -60,6 +60,7 @@ h1 span { display: block; }
 .door .s { color: var(--soft); }
 
 /* pinned switch */
+#music, #travel { scroll-margin-top: 72px; }
 .bar { position: sticky; top: 0; z-index: 20; background: rgba(12,13,15,.86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .bar .wrap { padding-top: 12px; padding-bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
 .bar .now { color: var(--mute); }
@@ -158,7 +159,7 @@ h2.travel { margin: 0; font-weight: 600; font-size: clamp(72px, 11vw, 168px); li
 .map.dragging { cursor: grabbing; } .map.over-pin { cursor: pointer; }
 .map > canvas, .map-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .zoom { position: absolute; right: 14px; bottom: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 6; }
-.zoom button { width: 44px; height: 44px; border: 1px solid #4C5157; border-radius: 50%; background: var(--ink); color: var(--paper); font: inherit; font-size: 20px; line-height: 1; cursor: pointer; }
+.zoom button { -webkit-user-select: none; user-select: none; touch-action: manipulation; width: 44px; height: 44px; border: 1px solid #4C5157; border-radius: 50%; background: var(--ink); color: var(--paper); font: inherit; font-size: 20px; line-height: 1; cursor: pointer; }
 .zoom button:hover, .zoom button[aria-pressed="true"] { background: var(--paper); color: var(--ink); }
 .city-dot { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--blue); }
 .city { position: absolute; font-size: 12px; color: var(--soft); background: rgba(12,13,15,.8); padding: 1px 5px; white-space: nowrap; }
@@ -262,6 +263,7 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
   </button>
 </section>
 
+<div id="sides-top" aria-hidden="true"></div>
 <div class="bar" id="sides">
   <div class="wrap">
     <span class="label now" id="now">Now reading · Music</span>
@@ -395,16 +397,27 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
 {
   const body = document.body, now = document.getElementById('now'), bar = document.getElementById('sides');
   const label = { music: 'Now reading · Music', travel: 'Now reading · Travel' };
+  const marker = document.getElementById('sides-top');
+  // Each side remembers how far down it was read, so switching back returns there rather than starting over.
+  const kept = {};
   function pick(side, scroll) {
+    const was = body.dataset.side;
+    if (was && was !== side) kept[was] = scrollY - (marker.getBoundingClientRect().top + scrollY);
     body.dataset.side = side;
-    document.querySelectorAll('[data-for]').forEach(el => {
-      const on = el.dataset.for === side; el.hidden = !on;
-      if (on) el.querySelectorAll('.fade').forEach(f => { f.classList.remove('fade'); void f.offsetWidth; f.classList.add('fade'); });
-    });
+    document.querySelectorAll('[data-for]').forEach(el => { el.hidden = el.dataset.for !== side; });
     document.querySelectorAll('.switch button').forEach(b => b.setAttribute('aria-pressed', b.dataset.pick === side ? 'true' : 'false'));
     now.textContent = label[side];
     try { history.replaceState(null, '', '#' + side); } catch (e) {}
-    if (scroll) bar.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    if (scroll) toSides(scroll === 'instant', was === side ? null : side);
+  }
+  // The switch bar is sticky, so once it is stuck bar.scrollIntoView() does nothing and the page stays
+  // wherever it was on the other side. Scroll to a fixed marker just above the bar instead: the bar then
+  // sits at the top with the start of the chosen side directly under it.
+  function toSides(instant, side) {
+    // Back to where this side was left (if it was read past the switch), otherwise the start of the side.
+    const y = marker.getBoundingClientRect().top + scrollY + Math.max(0, (side && kept[side]) || 0);
+    const smooth = !instant && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    scrollTo({ top: y, behavior: smooth ? 'smooth' : 'auto' });
   }
   document.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => pick(b.dataset.pick, true)));
 
@@ -412,7 +425,13 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
   function fromHash() {
     const h = location.hash.slice(1);
     if (h.indexOf('place-') === 0) { pick('travel', false); if (window.twMap) twMap.select(h.slice(6)); document.getElementById('worlds').scrollIntoView({ block: 'center' }); return; }
-    if (h === 'travel' || h === 'music') { pick(h, true); return; }
+    if (h === 'travel' || h === 'music') {
+      // Arriving from another page: jump straight there (no smooth scroll racing the browser's own anchor jump),
+      // and again once images have loaded, in case anything above shifted.
+      pick(h, 'instant');
+      if (document.readyState !== 'complete') addEventListener('load', () => { if (location.hash.slice(1) === h) toSides(true); }, { once: true });
+      return;
+    }
     if (h.indexOf('row-') === 0) {
       const li = document.getElementById(h); if (!li) return;
       pick('music', false);

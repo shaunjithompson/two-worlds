@@ -128,6 +128,11 @@
     var pl = e.target.closest('.pin, .chip');
     if (pl) { if (EMBED && pl.classList.contains('pin')) openPlace(byId(pl.dataset.place)); else selectPlace(pl.dataset.place, true); return; }
   });
+  // Double-clicking any zoom button returns the map to the zoom it opened at.
+  document.addEventListener('dblclick', function (e) {
+    if (!e.target.closest('[data-zoom]')) return;
+    e.preventDefault(); beforeWhole = null; flyTo(homeView());
+  });
   if (musicBtn) musicBtn.addEventListener('click', function () { location.href = 'index.html#' + (byId(state.place).musicRow || 'music'); });
 
   // ---- pan and zoom. view: screen = translate + map units * scale ----
