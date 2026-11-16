@@ -63,8 +63,10 @@ h1 em { font-style: italic; font-weight: 200; }
 .sec-head h2 { margin: 0; font-family: 'Newsreader', serif; font-weight: 300; font-style: italic; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.05; }
 .sec-head .mono { color: var(--mute); }
 .map-card { background: #121417; border: 1px solid #23262A; color: #C9CDD1; padding: clamp(12px, 2.5vw, 32px); }
-.map { position: relative; width: 100%; aspect-ratio: 2240 / 1536; overflow: hidden; }
-.map > img, .map > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map { position: relative; width: 100%; max-width: 900px; margin: 0 auto; aspect-ratio: 1075 / 937; overflow: hidden; }
+/* zoom: the full South Caucasus plate is drawn on a larger stage, and the frame shows Armenia (x 20–68%, y 28–89% of the plate) */
+.stage { position: absolute; width: 208.333%; height: 163.934%; left: -41.667%; top: -45.902%; }
+.stage > img, .stage > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 @keyframes march { to { stroke-dashoffset: -34; } }
 .march { animation: march 1.8s linear infinite; }
 .lbl { position: absolute; white-space: nowrap; pointer-events: none; }
@@ -140,24 +142,36 @@ h1 em { font-style: italic; font-weight: 200; }
 .fine { border-top: 1px solid var(--rule); padding-top: 24px; padding-bottom: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--mute); }
 .stopdot { cursor: pointer; z-index: 2; transition: transform .25s ease, background-color .25s ease, box-shadow .25s ease; }
 .stopdot::before { content: ''; position: absolute; inset: -16px; border-radius: 50%; }
-.dot.stopdot:hover, .dot.stopdot:focus-visible { transform: scale(1.5); background: var(--oxide-light); }
-.dot.stopdot.on { transform: scale(1.9); background: var(--oxide-light); box-shadow: 0 0 0 5px rgba(232,103,74,.25); }
-.pin.stopdot.on { box-shadow: 0 0 0 14px rgba(232,103,74,.28); }
+.dot.stopdot:hover, .dot.stopdot:focus-visible { background: var(--oxide-light); }
+.dot.stopdot.on { background: var(--oxide-light); }
+.dot.capital { width: 15px; height: 15px; margin: -7.5px 0 0 -7.5px; background: radial-gradient(circle, var(--paper) 30%, #121417 34%); border: 2px solid var(--paper); }
+.dot.capital.on, .dot.capital:hover, .dot.capital:focus-visible { background: radial-gradient(circle, var(--oxide-light) 30%, #121417 34%); border-color: var(--oxide-light); }
+.city.cap { font-size: clamp(13px, 1.5vw, 16px); font-weight: 500; color: var(--paper); padding: 2px 7px; }
+.city.cap .k { display: block; font-family: 'Inter Tight', system-ui, sans-serif; font-size: 10px; font-weight: 400; letter-spacing: .02em; color: #8A8F96; }
 .plate { scroll-margin-top: -40px; }
 .to-map { margin-left: auto; align-self: start; padding: 10px 0; color: var(--mute); text-decoration: none; }
 .to-map:hover { color: var(--oxide-light); }
 /* stop guide that follows the reader */
-.rail { position: fixed; left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); z-index: 15; display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 16px; border-radius: 999px; background: rgba(17,18,20,.88); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: 0 6px 24px rgba(0,0,0,.35); transform: translate(-50%, 140%); transition: transform .45s cubic-bezier(.2,.7,.2,1); max-width: calc(100vw - 24px); }
+.rail { position: fixed; left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); z-index: 15; display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 999px; background: rgba(17,18,20,.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: 0 6px 24px rgba(0,0,0,.35); transform: translate(-50%, 140%); transition: transform .45s cubic-bezier(.2,.7,.2,1); max-width: calc(100vw - 20px); }
 .rail.show { transform: translate(-50%, 0); }
-.rail .now { font-family: 'Newsreader', serif; font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 46vw; }
-.rail .steps { display: flex; align-items: center; }
-.rail .steps a { width: 30px; height: 44px; display: flex; align-items: center; justify-content: center; position: relative; }
-.rail .steps a + a::before { content: ''; position: absolute; right: 50%; width: 30px; top: 50%; border-top: 1px dashed rgba(241,238,231,.25); }
-.rail .steps i { position: relative; width: 8px; height: 8px; border-radius: 50%; background: rgba(241,238,231,.45); transition: transform .25s ease, background-color .25s ease; }
-.rail .steps a.on i { background: var(--oxide-light); transform: scale(1.6); }
-.rail .steps a:hover i { background: var(--paper); }
-.rail .map-btn { height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(241,238,231,.25); color: var(--paper); text-decoration: none; display: flex; align-items: center; font-family: 'Inter Tight', system-ui, sans-serif; font-size: 11px; letter-spacing: .02em; }
-@media (max-width: 520px) { .rail .now { display: none; } .rail .steps a { width: 26px; } }
+.rail .nb { width: 44px; height: 44px; flex: 0 0 auto; border-radius: 50%; border: 0; background: transparent; color: var(--paper); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.rail .nb:hover { background: rgba(241,238,231,.08); }
+.rail .nb:disabled { opacity: .25; cursor: default; background: transparent; }
+.rail .nb:focus-visible, .rail .top-btn:focus-visible { outline: 2px solid var(--oxide-light); outline-offset: 2px; }
+.rail .now { display: flex; flex-direction: column; justify-content: center; min-width: 0; width: clamp(92px, 26vw, 150px); padding: 0 4px; line-height: 1.15; }
+.rail .now b { font-family: 'Newsreader', serif; font-weight: 400; font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rail .now small { font-family: 'Noto Serif Armenian', serif; font-size: 12px; color: #8A8780; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.rail .mini { position: relative; width: 64px; height: 56px; flex: 0 0 auto; }
+.rail .mini svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
+.rail .mini a { position: absolute; width: 24px; height: 24px; margin: -12px 0 0 -12px; display: flex; align-items: center; justify-content: center; }
+.rail .mini i { width: 6px; height: 6px; border-radius: 50%; background: rgba(241,238,231,.5); transition: background-color .25s ease; }
+.rail .mini a.cap i { width: 9px; height: 9px; background: radial-gradient(circle, rgba(241,238,231,.85) 32%, transparent 36%); border: 1.5px solid rgba(241,238,231,.85); }
+.rail .mini a.on i { background: var(--oxide-light); }
+.rail .mini a.cap.on i { background: radial-gradient(circle, var(--oxide-light) 32%, transparent 36%); border-color: var(--oxide-light); }
+.rail .mini a:hover i { background: var(--paper); }
+.rail .top-btn { height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(241,238,231,.25); background: transparent; color: var(--paper); cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: 'Inter Tight', system-ui, sans-serif; font-size: 12px; letter-spacing: .02em; }
+.rail .top-btn:hover { border-color: var(--paper); }
+@media (max-width: 420px) { .rail { gap: 2px; padding: 4px 6px; } .rail .nb { width: 40px; } .rail .mini { width: 54px; height: 48px; } .rail .now { width: 92px; } .rail .top-btn { padding: 0 11px; } }
 /* feedback */
 .feedback { padding-top: 40px; padding-bottom: 72px; }
 .fb { border-top: 1px solid var(--rule); padding-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px 64px; }
@@ -187,16 +201,18 @@ h1 em { font-style: italic; font-weight: 200; }
 .context .mono { margin: 0 0 8px; font-size: 12px; color: #8FA6C2; }
 .context h3 { margin: 0 0 14px; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15; }
 .context p:not(.mono) { margin: 0 0 12px; font-size: 16px; line-height: 1.6; color: #C9CDD1; max-width: 64ch; }
+.soon { font-size: .6em; color: var(--mute); white-space: nowrap; }
 </style>
 </head>
 <body>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="wrap nav">
-  <a class="brand" href="index.html">Shaun Ji-Thompson</a>
+  <div class="tw-brandrow"><a class="tw-back" href="index.html#back" data-back><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back</a><a class="brand" href="index.html">Shaun Ji-Thompson</a></div>
   <nav class="nav-links" aria-label="Primary">
     <a href="index.html#music">Music</a>
     <a href="index.html#travel" aria-current="page">Travel</a>
+    <a href="atlas.html">Atlas</a>
     <a href="index.html#writing">Writing</a>
     <a href="index.html#about">About</a>
   </nav>
@@ -226,30 +242,29 @@ h1 em { font-style: italic; font-weight: 200; }
 <section class="wrap route" id="route" aria-labelledby="route-h">
   <div class="sec-head"><h2 id="route-h">The route</h2><span class="mono">Tap a stop to jump to it</span></div>
   <div class="map-card reveal">
-    <div class="map" role="img" aria-label="Dot map of the South Caucasus between the Black Sea and the Caspian, with country borders. The route runs from Kapan to Goris in southern Armenia, north to Lake Sevan, then down to Yerevan. Faint lines show the wider leg, in from Tabriz and out to Tbilisi.">
+    <div class="map" role="img" aria-label="Dot map of Armenia and its neighbours, with country borders. Yerevan is marked as the capital. The route runs from Kapan to Goris in southern Armenia, north to Lake Sevan, then down to Yerevan. Faint lines show the wider leg, in from Tabriz and out to Tbilisi.">
+      <div class="stage">
       <img src="assets/armenia-map.png" alt="">
       <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
         <g fill="none" stroke-linejoin="round" stroke-linecap="round">
                 <path id="borders" d="M-10.42 -2.00 L-4.17 -5.00 L5.21 1.00 L15.62 2.00 L26.04 9.00 L31.25 11.00 L37.50 11.00 L43.75 15.00 L48.96 22.00 L56.77 28.00 L60.42 35.00 L65.62 39.00 L71.87 42.00 L76.04 36.00 L78.96 28.80 M5.73 35.60 L15.62 37.00 L18.75 34.40 L25.73 43.60 L31.25 42.00 L39.58 42.00 L41.88 40.20 L48.96 39.00 L55.21 42.00 L59.38 34.00 L56.77 28.00 M25.73 43.60 L27.08 54.00 L28.13 64.00 L34.37 66.00 L39.27 71.80 M41.88 40.20 L46.35 45.00 L47.92 53.00 L51.56 60.00 L50.00 67.00 L53.13 71.00 L56.77 75.00 L57.81 82.00 L57.81 88.00 M39.27 71.80 L43.75 73.00 L48.96 75.00 L51.04 79.00 L53.65 82.00 L52.08 87.00 L53.33 88.60 L57.81 88.00 M39.27 71.80 L39.58 73.00 L44.79 80.00 L50.00 86.00 L53.33 88.60 M57.81 88.00 L62.50 83.00 L67.71 78.00 L72.92 74.00 L76.56 79.00 L73.96 86.00 L76.04 94.00 L81.98 97.40 M39.58 73.00 L37.50 78.00 L35.42 86.00 L34.37 96.00 L36.46 108.00" stroke="#121417" stroke-width="5" vector-effect="non-scaling-stroke"/>
-                <use href="#borders" stroke="#5A6068" stroke-width="1.2" stroke-dasharray="2 4"/>
+                <use href="#borders" stroke="#6A7078" stroke-width="1.2" stroke-dasharray="2 4" vector-effect="non-scaling-stroke"/>
                 <path d="M55.10 104.40 L53.96 88.60 L53.65 83.00 L56.30 81.86 M36.59 62.46 L36.35 49.80 L38.12 44.00 L39.58 41.00 L39.48 31.60" stroke="#E8674A" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="1 5" vector-effect="non-scaling-stroke"/>
-                <path class="march" d="M56.30 81.86 L55.61 75.78 L44.79 63.20 L41.79 54.72 L39.27 56.00 L36.59 62.46" stroke="#E8674A" stroke-width="2.5" stroke-dasharray="10 7" vector-effect="non-scaling-stroke"/>
+                <path id="route-line" class="march" d="M56.30 81.86 L55.61 75.78 L44.79 63.20 L41.79 54.72 L39.27 56.00 L36.59 62.46" stroke="#E8674A" stroke-width="2.5" stroke-dasharray="10 7" vector-effect="non-scaling-stroke"/>
               </g>
       </svg>
-      <span class="lbl country" style="left:41.67%;top:7.00%">Russia</span>
-      <span class="lbl country" style="left:20.83%;top:25.00%">Georgia</span>
-      <span class="lbl country" style="left:13.54%;top:74.00%">Turkey</span>
-      <span class="lbl country" style="left:35.42%;top:49.00%">Armenia</span>
-      <span class="lbl country" style="left:72.92%;top:61.00%">Azerbaijan</span>
-      <span class="lbl country" style="left:66.67%;top:94.00%">Iran</span>
-      <span class="lbl sea edge-l" style="left:0.5%;top:9%">Black Sea</span>
-      <span class="lbl sea edge-r" style="right:1%;top:34%">Caspian Sea</span>
+            <span class="lbl country" style="left:30.00%;top:33.00%">Georgia</span>
+      <span class="lbl country" style="left:23.50%;top:56.00%">Turkey</span>
+      <span class="lbl country" style="left:33.50%;top:50.50%">Armenia</span>
+      <span class="lbl country" style="left:61.00%;top:50.00%">Azerbaijan</span>
+      <span class="lbl country" style="left:63.00%;top:86.00%">Iran</span>
       <a class="dot stopdot" href="#stop-kapan" data-stop="kapan" aria-label="Kapan: go to this stop" style="left:56.30%;top:81.86%"></a><span class="lbl city" style="left:56.30%;top:81.86%">Kapan</span>
       <a class="dot stopdot" href="#stop-goris" data-stop="goris" aria-label="Goris: go to this stop" style="left:55.61%;top:75.78%"></a><span class="lbl city left" style="left:55.61%;top:75.78%">Goris</span>
-      <a class="dot stopdot" href="#stop-yerevan" data-stop="yerevan" aria-label="Yerevan: go to this stop" style="left:36.59%;top:62.46%"></a><span class="lbl city left" style="left:36.59%;top:62.46%">Yerevan</span>
-      <span class="lbl city ctx edge-b" style="left:54.06%;bottom:1%">Tabriz ↓</span>
+      <a class="dot stopdot capital" href="#stop-yerevan" data-stop="yerevan" aria-label="Yerevan, the capital: go to this stop" style="left:36.59%;top:62.46%"></a><span class="lbl city cap left" style="left:36.59%;top:62.46%">Yerevan<span class="k">Capital</span></span>
+      <span class="lbl city ctx up" style="left:54.80%;top:89.60%">Tabriz ↓</span>
       <span class="dot ctx" style="left:39.48%;top:31.60%"></span><span class="lbl city ctx" style="left:39.48%;top:31.60%">Tbilisi</span>
-      <a class="pin stopdot" href="#stop-lake-sevan" data-stop="lake-sevan" aria-label="Lake Sevan: go to this stop" style="left:41.79%;top:54.72%"></a><span class="lbl pin-label" style="left:41.79%;top:54.72%">Lake Sevan</span>
+      <a class="dot stopdot" href="#stop-lake-sevan" data-stop="lake-sevan" aria-label="Lake Sevan: go to this stop" style="left:41.79%;top:54.72%"></a><span class="lbl city up" style="left:41.79%;top:54.72%">Lake Sevan</span>
+      </div>
     </div>
   </div>
 </section>
@@ -270,7 +285,7 @@ h1 em { font-style: italic; font-weight: 200; }
 </section>
 
 <nav class="wrap leg" aria-label="The rest of the leg">
-  <div id="before"><span class="mono">Before · Iran</span><span class="serif">← Tabriz</span></div>
+  <div id="before"><span class="mono">Before · Iran</span><span class="serif">Tabriz <span class="soon">· coming soon</span></span></div>
   <div id="after"><span class="mono">After · Georgia</span><span class="serif">Tbilisi →</span></div>
 </nav>
 
@@ -356,7 +371,8 @@ h1 em { font-style: italic; font-weight: 200; }
     [['before', '← ', ''], ['after', '', ' →']].forEach(([k, pre, post]) => {
       const v = data[k], el = document.getElementById(k); if (!v || !el) return;
       el.innerHTML = '<span class="mono">' + (k === 'before' ? 'Before' : 'After') + ' · ' + esc(v.country) + '</span>' +
-        (v.url ? '<a class="serif" href="' + esc(v.url) + '">' : '<span class="serif">') + pre + esc(v.place) + post + (v.url ? '</a>' : '</span>');
+        (v.url ? '<a class="serif" href="' + esc(v.url) + '">' + pre + esc(v.place) + post + '</a>'
+               : '<span class="serif">' + esc(v.place) + ' <span class="soon">· coming soon</span></span>');
     });
 
     const singles = ['feature', 'offset', 'inset', 'offset flip'];
@@ -387,7 +403,7 @@ h1 em { font-style: italic; font-weight: 200; }
       last = kind;
       const sid = slugify(st.place);
       const note = st.note && st.note.paras ? '<aside class="context wrap reveal"><p class="mono">Context</p><h3>' + esc(st.note.title || '') + '</h3>' + st.note.paras.map(t => '<p>' + esc(t) + '</p>').join('') + '</aside>' : '';
-      return note + '<section class="plate wrap ' + kind + '" id="stop-' + sid + '" data-stop="' + sid + '" data-name="' + esc(st.place) + '">' + head(n, st) + body + '</section>';
+      return note + '<section class="plate wrap ' + kind + '" id="stop-' + sid + '" data-stop="' + sid + '" data-name="' + esc(st.place) + '" data-native="' + esc(st.native || '') + '">' + head(n, st) + body + '</section>';
     }).join('');
     const diary = document.getElementById('diary');
     diary.innerHTML = html;
@@ -404,6 +420,7 @@ h1 em { font-style: italic; font-weight: 200; }
     });
     observe(diary);
     linkMap(diary);
+    pin();
   }
 
   function linkMap(diary) {
@@ -412,20 +429,51 @@ h1 em { font-style: italic; font-weight: 200; }
     const mapDots = [...document.querySelectorAll('.stopdot')];
     const rail = document.createElement('nav');
     rail.className = 'rail'; rail.setAttribute('aria-label', 'Stops on this journey');
-    rail.innerHTML = '<span class="now"></span><span class="steps">' +
-      plates.map(p => '<a href="#' + p.id + '" data-stop="' + p.dataset.stop + '" aria-label="' + esc(p.dataset.name) + '"><i></i></a>').join('') +
-      '</span><a class="map-btn" href="#route">Map</a>';
+    // the guide: previous / mini map / place (English, then local name) / next / top
+    const box = { x: 34, y: 50, w: 25, h: 36 };
+    const pos = el => ({ x: parseFloat(el.style.left), y: parseFloat(el.style.top) });
+    const at = el => { const p = pos(el); return 'left:' + ((p.x - box.x) / box.w * 100).toFixed(2) + '%;top:' + ((p.y - box.y) / box.h * 100).toFixed(2) + '%'; };
+    const routeD = (document.getElementById('route-line') || {}).getAttribute?.('d') || '';
+    rail.innerHTML = '<button type="button" class="nb prev" aria-label="Previous stop">↑</button>' +
+      '<span class="mini">' +
+      '<svg aria-hidden="true" viewBox="' + [box.x, box.y, box.w, box.h].join(' ') + '" preserveAspectRatio="none"><g fill="none" stroke-linejoin="round" stroke-linecap="round">' +
+      '<use href="#borders" stroke="rgba(241,238,231,.4)" stroke-width="1" stroke-dasharray="none" vector-effect="non-scaling-stroke"/>' +
+      '<path d="' + routeD + '" stroke="#E8674A" stroke-opacity=".6" stroke-width="1.5" vector-effect="non-scaling-stroke"/></g></svg>' +
+      plates.map(p => { const d = mapDots.find(m => m.dataset.stop === p.dataset.stop); return d ? '<a href="#' + p.id + '" data-stop="' + p.dataset.stop + '"' + (d.classList.contains('capital') ? ' class="cap"' : '') + ' aria-label="' + esc(p.dataset.name) + '" style="' + at(d) + '"><i></i></a>' : ''; }).join('') +
+      '</span><span class="now" aria-live="polite"><b></b><small lang="hy"></small></span>' +
+      '<button type="button" class="nb next" aria-label="Next stop">↓</button>' +
+      '<button type="button" class="top-btn" aria-label="Back to the top of the page">Top <span aria-hidden="true">↑</span></button>';
     document.body.appendChild(rail);
-    const now = rail.querySelector('.now'), steps = [...rail.querySelectorAll('.steps a')];
+    const nowEn = rail.querySelector('.now b'), nowHy = rail.querySelector('.now small'), steps = [...rail.querySelectorAll('.mini a')];
+    const prevB = rail.querySelector('.prev'), nextB = rail.querySelector('.next');
+    // While a ↑/↓ press is scrolling, keep the guide on the stop being travelled to (the observer would
+    // otherwise flick through every stop passed on the way), and show that stop's photos straight away
+    // instead of fading them in after arrival.
+    let lock = false, lockT = 0;
+    const unlock = () => { lock = false; clearTimeout(lockT); };
+    addEventListener('scrollend', unlock);
+    const idxOf = () => Math.max(0, plates.findIndex(x => x.dataset.stop === current));
+    const goTo = i => {
+      const p = plates[Math.max(0, Math.min(plates.length - 1, i))]; if (!p) return;
+      setActive(p.dataset.stop);
+      p.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+      lock = true; clearTimeout(lockT); lockT = setTimeout(unlock, 1200);
+      p.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    };
+    prevB.addEventListener('click', () => goTo(idxOf() - 1));
+    nextB.addEventListener('click', () => goTo(idxOf() + 1));
+    rail.querySelector('.top-btn').addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
     let current = '';
     const setActive = id => {
       if (id === current) return; current = id;
       mapDots.forEach(d => d.classList.toggle('on', d.dataset.stop === id));
       steps.forEach(a => { const on = a.dataset.stop === id; a.classList.toggle('on', on); if (on) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current'); });
-      const p = plates.find(x => x.dataset.stop === id); now.textContent = p ? p.dataset.name : '';
+      const p = plates.find(x => x.dataset.stop === id), i = plates.indexOf(p);
+      nowEn.textContent = p ? p.dataset.name : ''; nowHy.textContent = p ? p.dataset.native : '';
+      prevB.disabled = i <= 0; nextB.disabled = i < 0 || i >= plates.length - 1;
     };
     // which stop is in the middle of the screen
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) setActive(e.target.dataset.stop); }), { rootMargin: '-45% 0px -50% 0px' });
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !lock) setActive(e.target.dataset.stop); }), { rootMargin: '-45% 0px -50% 0px' });
     plates.forEach(p => io.observe(p));
     // show the guide only while reading the stops
     const first = plates[0], last = plates[plates.length - 1];
@@ -459,6 +507,30 @@ h1 em { font-style: italic; font-weight: 200; }
     }
   });
 
+  // Always open the essay at the top. In-page links scroll without writing a #hash into the address,
+  // so a stale #stop-… can't send the next visit to the bottom of the page.
+  try { history.scrollRestoration = 'manual'; } catch (e) {}
+  const known = ['route'];
+  if (location.hash && !known.includes(location.hash.slice(1))) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
+  // The site viewer can carry the previous page's scroll position over, and photos loading can shift it.
+  // Until the reader scrolls or taps themselves, hold the page at the top.
+  let held = true;
+  const release = () => { held = false; };
+  ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(t => addEventListener(t, release, { once: true, passive: true }));
+  const pin = () => { if (held && scrollY !== 0) scrollTo(0, 0); };
+  addEventListener('scroll', pin, { passive: true });
+  addEventListener('load', pin); addEventListener('pageshow', pin);
+  setTimeout(() => { pin(); held = false; removeEventListener('scroll', pin); }, 3000);
+  pin();
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const t = document.getElementById(a.getAttribute('href').slice(1));
+    if (!t) return;
+    e.preventDefault();
+    t.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  });
+
   observe(document);
   fetch('content/journeys/armenia-2015.json').then(r => r.json()).then(render).catch(() => {});
 
@@ -467,5 +539,6 @@ h1 em { font-style: italic; font-weight: 200; }
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 }
 </script>
+<script src="js/back.js"></script>
 </body>
 </html>

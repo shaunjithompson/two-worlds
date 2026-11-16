@@ -64,7 +64,7 @@
     var pt = mapPoint(p); pin.dataset.x = pt.x; pin.dataset.y = pt.y;
     pin.appendChild(document.createElement('i'));
     var label = document.createElement('span');
-    label.className = 'pin-label'; label.setAttribute('aria-hidden', 'true'); label.textContent = p.name;
+    label.className = 'pin-label'; label.setAttribute('aria-hidden', 'true'); label.textContent = p.kinds.indexOf('next') >= 0 ? 'Up next: ' + p.name : p.name;
     label.dataset.for = p.id; label.dataset.x = pin.dataset.x; label.dataset.y = pin.dataset.y;
     layer.appendChild(pin); layer.appendChild(label);
 

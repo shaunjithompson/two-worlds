@@ -202,17 +202,19 @@ h1 em { font-style: italic; font-weight: 200; }
 .context .mono { margin: 0 0 8px; font-size: 12px; color: #8FA6C2; }
 .context h3 { margin: 0 0 14px; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15; }
 .context p:not(.mono) { margin: 0 0 12px; font-size: 16px; line-height: 1.6; color: #C9CDD1; max-width: 64ch; }
+.soon { font-size: .6em; color: var(--mute); white-space: nowrap; }
 </style>
 </head>
 <body>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="wrap nav">
-  <a class="brand" href="index.html">Shaun Ji-Thompson</a>
+  <div class="tw-brandrow"><a class="tw-back" href="index.html#back" data-back><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back</a><a class="brand" href="index.html">Shaun Ji-Thompson</a></div>
   <nav class="nav-links" aria-label="Primary">
     <a href="index.html#music">Music</a>
     <a href="index.html#travel" aria-current="page">Travel</a>
-        <a href="index.html#writing">Writing</a>
+    <a href="atlas.html">Atlas</a>
+    <a href="index.html#writing">Writing</a>
     <a href="index.html#about">About</a>
   </nav>
 </header>
@@ -276,7 +278,7 @@ h1 em { font-style: italic; font-weight: 200; }
 
 <nav class="wrap leg" aria-label="The rest of the leg">
   <div id="before"><span class="mono">Before · Armenia</span><span class="serif">← Yerevan</span></div>
-  <div id="after"><span class="mono">After · Turkey</span><span class="serif">Trabzon →</span></div>
+  <div id="after"><span class="mono">After · Turkey</span><span class="serif">Trabzon <span class="soon">· coming soon</span></span></div>
 </nav>
 
 <nav class="wrap more" aria-label="More from Two Worlds">
@@ -361,7 +363,8 @@ h1 em { font-style: italic; font-weight: 200; }
     [['before', '← ', ''], ['after', '', ' →']].forEach(([k, pre, post]) => {
       const v = data[k], el = document.getElementById(k); if (!v || !el) return;
       el.innerHTML = '<span class="mono">' + (k === 'before' ? 'Before' : 'After') + ' · ' + esc(v.country) + '</span>' +
-        (v.url ? '<a class="serif" href="' + esc(v.url) + '">' : '<span class="serif">') + pre + esc(v.place) + post + (v.url ? '</a>' : '</span>');
+        (v.url ? '<a class="serif" href="' + esc(v.url) + '">' + pre + esc(v.place) + post + '</a>'
+               : '<span class="serif">' + esc(v.place) + ' <span class="soon">· coming soon</span></span>');
     });
 
     const singles = ['feature', 'offset', 'inset', 'offset flip'];
@@ -423,20 +426,32 @@ h1 em { font-style: italic; font-weight: 200; }
     const pos = el => ({ x: parseFloat(el.style.left), y: parseFloat(el.style.top) });
     const at = el => { const p = pos(el); return 'left:' + ((p.x - box.x) / box.w * 100).toFixed(2) + '%;top:' + ((p.y - box.y) / box.h * 100).toFixed(2) + '%'; };
     const routeD = (document.getElementById('route-line') || {}).getAttribute?.('d') || '';
-    rail.innerHTML = '<button type="button" class="nb prev" aria-label="Previous stop">←</button>' +
+    rail.innerHTML = '<button type="button" class="nb prev" aria-label="Previous stop">↑</button>' +
       '<span class="mini">' +
       '<svg aria-hidden="true" viewBox="' + [box.x, box.y, box.w, box.h].join(' ') + '" preserveAspectRatio="none"><g fill="none" stroke-linejoin="round" stroke-linecap="round">' +
       '<use href="#borders" stroke="rgba(241,238,231,.4)" stroke-width="1" stroke-dasharray="none" vector-effect="non-scaling-stroke"/>' +
       '<path d="' + routeD + '" stroke="#E8674A" stroke-opacity=".6" stroke-width="1.5" vector-effect="non-scaling-stroke"/></g></svg>' +
       plates.map(p => { const d = mapDots.find(m => m.dataset.stop === p.dataset.stop); return d ? '<a href="#' + p.id + '" data-stop="' + p.dataset.stop + '"' + (d.classList.contains('capital') ? ' class="cap"' : '') + ' aria-label="' + esc(p.dataset.name) + '" style="' + at(d) + '"><i></i></a>' : ''; }).join('') +
       '</span><span class="now" aria-live="polite"><b></b><small lang="ka"></small></span>' +
-      '<button type="button" class="nb next" aria-label="Next stop">→</button>' +
+      '<button type="button" class="nb next" aria-label="Next stop">↓</button>' +
       '<button type="button" class="top-btn" aria-label="Back to the top of the page">Top <span aria-hidden="true">↑</span></button>';
     document.body.appendChild(rail);
     const nowEn = rail.querySelector('.now b'), nowHy = rail.querySelector('.now small'), steps = [...rail.querySelectorAll('.mini a')];
     const prevB = rail.querySelector('.prev'), nextB = rail.querySelector('.next');
+    // While a ↑/↓ press is scrolling, keep the guide on the stop being travelled to (the observer would
+    // otherwise flick through every stop passed on the way), and show that stop's photos straight away
+    // instead of fading them in after arrival.
+    let lock = false, lockT = 0;
+    const unlock = () => { lock = false; clearTimeout(lockT); };
+    addEventListener('scrollend', unlock);
     const idxOf = () => Math.max(0, plates.findIndex(x => x.dataset.stop === current));
-    const goTo = i => { const p = plates[Math.max(0, Math.min(plates.length - 1, i))]; if (p) setActive(p.dataset.stop); if (p) p.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); };
+    const goTo = i => {
+      const p = plates[Math.max(0, Math.min(plates.length - 1, i))]; if (!p) return;
+      setActive(p.dataset.stop);
+      p.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+      lock = true; clearTimeout(lockT); lockT = setTimeout(unlock, 1200);
+      p.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    };
     prevB.addEventListener('click', () => goTo(idxOf() - 1));
     nextB.addEventListener('click', () => goTo(idxOf() + 1));
     rail.querySelector('.top-btn').addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
@@ -450,7 +465,7 @@ h1 em { font-style: italic; font-weight: 200; }
       prevB.disabled = i <= 0; nextB.disabled = i < 0 || i >= plates.length - 1;
     };
     // which stop is in the middle of the screen
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) setActive(e.target.dataset.stop); }), { rootMargin: '-45% 0px -50% 0px' });
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !lock) setActive(e.target.dataset.stop); }), { rootMargin: '-45% 0px -50% 0px' });
     plates.forEach(p => io.observe(p));
     // show the guide only while reading the stops
     const first = plates[0], last = plates[plates.length - 1];
@@ -516,5 +531,6 @@ h1 em { font-style: italic; font-weight: 200; }
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 }
 </script>
+<script src="js/back.js"></script>
 </body>
 </html>
