@@ -16,7 +16,8 @@ body { margin: 0; background: var(--ink); color: var(--paper); font: 16px/1.55 '
 a { color: inherit; text-decoration: none; } a:hover { color: var(--oxide-light); }
 :focus-visible { outline: 2px solid var(--oxide-light); outline-offset: 3px; }
 .wrap { max-width: 1200px; margin: 0 auto; padding-left: clamp(20px, 4vw, 40px); padding-right: clamp(20px, 4vw, 40px); }
-.mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+.mono { font-family: 'Inter Tight', system-ui, sans-serif; font-size: 12px; letter-spacing: .02em; }
+.mono-keep { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
 .label { font-size: 13px; font-weight: 500; letter-spacing: .02em; }
 .serif { font-family: 'Newsreader', Georgia, serif; }
 @keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
@@ -86,7 +87,7 @@ h2.travel { margin: 0; font-weight: 600; font-size: clamp(72px, 11vw, 168px); li
 .prog .row1 { display: flex; align-items: baseline; gap: 16px; }
 .prog .t { font-family: 'Newsreader', Georgia, serif; font-size: clamp(24px, 2.6vw, 36px); line-height: 1.1; font-style: italic; }
 .prog .dots { flex: 1 1 40px; min-width: 24px; border-bottom: 1px dotted #4C5157; transform: translateY(-6px); }
-.prog .y { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--soft); }
+.prog .y { font-family: 'Inter Tight', system-ui, sans-serif; font-size: 13px; color: var(--soft); }
 .prog .row2 { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 32px; }
 .prog .ab { flex: 1 1 480px; color: var(--mute); max-width: 64ch; }
 .prog .ln { display: flex; gap: 20px; font-size: 14px; color: var(--blue); opacity: .55; transition: opacity .5s ease; }
@@ -130,7 +131,7 @@ h2.travel { margin: 0; font-weight: 600; font-size: clamp(72px, 11vw, 168px); li
 .side-note-wrap { flex: 0 1 360px; display: flex; flex-direction: column; gap: 20px; }
 .side-note-wrap p { flex: none; margin: 0; font-size: 17px; color: #4F5350; }
 .upnext { align-self: flex-start; display: inline-flex; flex-direction: column; gap: 4px; padding: 10px 14px; border: 1px solid #CFC8BA; font-size: 14px; }
-.upnext .mono { font-size: 10px; }
+.upnext .mono { font-size: 12px; }
 /* map hover preview: rolling photo carousel */
 .peek { position: absolute; z-index: 5; width: 240px; transform: translate(22px, -50%) scale(.96); background: #F1EEE7; color: #111214; box-shadow: 0 18px 40px rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .35s cubic-bezier(.2,.7,.2,1); }
 .peek.show { opacity: 1; transform: translate(22px, -50%); }
@@ -143,7 +144,7 @@ h2.travel { margin: 0; font-weight: 600; font-size: clamp(72px, 11vw, 168px); li
 .peek-dots i { flex: 1; height: 2px; background: rgba(255,255,255,.35); } .peek-dots i.on { background: #fff; }
 .peek-txt { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 2px; }
 .peek-txt b { font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 20px; line-height: 1.1; }
-.peek-txt span { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .12em; color: #A63D24; }
+.peek-txt span { font-family: 'Inter Tight', system-ui, sans-serif; font-size: 10px; letter-spacing: .02em; color: #A63D24; }
 .peek-txt em i { font-style: italic; }
 .peek-txt em { font-style: normal; font-size: 12px; color: #4F5350; } .peek-txt em:empty { display: none; }
 .pin-label.show { opacity: 0; }
@@ -318,7 +319,7 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
           <span class="roll-cap label" aria-hidden="true">Lake Sevan</span>
         </a>
         <div class="body">
-          <span class="mono k-red">Latest essay · Published Nov 2026 · Travelled Aug 2015</span>
+          <span class="mono-keep k-red">Latest essay · Published Nov 2026 · Travelled Aug 2015</span>
           <h3>Armenia</h3>
           <p>Photos from Armenia in August 2015, looked at again ten years on.</p>
           <p class="stopline label">Kapan · Goris · Lake Sevan · Yerevan</p>
