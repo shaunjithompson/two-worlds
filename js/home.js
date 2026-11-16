@@ -86,7 +86,7 @@
     document.getElementById('place-name').textContent = p.name;
     document.getElementById('place-text').textContent = p.text;
     musicBtn.hidden = !p.music;
-    musicBtn.innerHTML = CROSS_ICON + 'The music: ' + p.music;
+    musicBtn.innerHTML = CROSS_ICON + 'The music: <i>' + p.music + '</i>';
     journeyLink.hidden = !p.journey;
     if (p.journey) { journeyLink.href = p.journey; journeyLink.textContent = p.journeyText || 'Follow the journey'; }
     pulseT = performance.now(); // one soft ring from the chosen place, then it stops
@@ -176,7 +176,7 @@
     peek.classList.toggle('below', sy(o.y) < 200);
     peek.innerHTML = '<div class="peek-imgs">' + list.map(function (src, i) { return '<img src="' + src + '" alt=""' + (i ? '' : ' class="on"') + '>'; }).join('') + '</div>' +
       (list.length > 1 ? '<div class="peek-dots">' + list.map(function (_, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</div>' : '') +
-      '<div class="peek-txt"><b>' + p.name + '</b><span>' + p.label + '</span><em>' + (p.journey ? (p.journeyText || 'Follow the journey') : p.music ? 'The music: ' + p.music : '') + '</em></div>';
+      '<div class="peek-txt"><b>' + p.name + '</b><span>' + p.label + '</span><em>' + (p.journey ? (p.journeyText || 'Follow the journey') : p.music ? 'The music: <i>' + p.music + '</i>' : '') + '</em></div>';
     peek.classList.add('show'); peekI = 0;
     if (list.length > 1 && !reduce) peekTimer = setInterval(function () {
       var ims = peek.querySelectorAll('.peek-imgs img'), ds = peek.querySelectorAll('.peek-dots i');
