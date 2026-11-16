@@ -11,11 +11,11 @@ What it does (all steps are safe to repeat):
      content/journeys/<slug>.json into <slug>.html, between <!-- diary:start --> and <!-- diary:end -->.
      The page is complete without JavaScript, and search engines can read it.
   3. Images on every page: adds width/height (no layout jump), srcset/sizes (phones get the
-     small file), loading="lazy" below the first image, fetchpriority="high" on the first.
+     small file), fetchpriority="high" on the first image, loading="lazy" after the third.
+     Add data-keep to an <img> to leave it alone; data-sizes="…" to set its sizes.
   4. sitemap.xml, from the pages listed in PAGES.
 """
 import html, json, os, re, sys
-from datetime import date
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -219,15 +219,15 @@ def img_attrs(s):
             if set_:
                 set_.append(f'{src} {w}w')
                 extra += f' srcset="{", ".join(set_)}" sizes="{sizes_given.group(1) if sizes_given else "100vw"}"'
-        extra += ' fetchpriority="high"' if count[0] == 1 else ' loading="lazy" decoding="async"'
+        # the first few images are at or near the top of the page: load them straight away
+        extra += ' fetchpriority="high"' if count[0] == 1 else ('' if count[0] <= 3 else ' loading="lazy" decoding="async"')
         return re.sub(r'\s*/?>$', extra + '>', tag)
     return re.sub(r'<img\b[^>]*>', fix, s)
 
 
 # ---------- 4. sitemap ----------
 def sitemap():
-    today = date.today().isoformat()
-    urls = ''.join(f'  <url><loc>{SITE}{"" if f == "index.html" else f}</loc><lastmod>{today}</lastmod></url>\n' for f in PAGES)
+    urls = ''.join(f'  <url><loc>{SITE}{"" if f == "index.html" else f}</loc></url>\n' for f in PAGES)
     open(p('sitemap.xml'), 'w').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
 
 
