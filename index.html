@@ -242,7 +242,7 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
   </button>
   <button type="button" class="door rise d4" data-pick="travel">
     <span class="pic"><img class="pan" src="assets/sevan-sunset.jpg" alt=""></span>
-    <span class="txt"><span class="label k">Travel</span><span class="h">Journeys</span><span class="s">Latest essay: Armenia (travelled 2015). Photo essays, an atlas and the next departure.</span></span>
+    <span class="txt"><span class="label k">Travel</span><span class="h">Journeys</span><span class="s">Latest essay: Georgia (travelled 2015). Photo essays, an atlas and the next departure.</span></span>
   </button>
 </section>
 
@@ -279,7 +279,7 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
   <section class="also-travel" aria-label="Travel, in brief">
     <button type="button" class="wrap also card" data-pick="travel">
       <span class="pic"><img class="zoom-img" src="assets/sevanavank.jpg" alt=""></span>
-      <span class="txt"><span class="label k-red">Also on this site</span><span class="big-t">Travel</span><span style="color:#4F5350">Latest essay: Armenia (travelled 2015).</span></span>
+      <span class="txt"><span class="label k-red">Also on this site</span><span class="big-t">Travel</span><span style="color:#4F5350">Latest essay: Georgia (travelled 2015).</span></span>
       <span class="go">Turn to Travel <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </button>
   </section>
@@ -312,15 +312,30 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
 
 
       <div class="list-head"><h3>Essays</h3><span class="label">Newest first</span></div>
+      <article class="essay card" id="essay-georgia">
+        <a class="roll" href="georgia-2015.html" aria-label="Georgia — read the photo essay" data-names="Tbilisi|Tbilisi|Gori|Batumi|Batumi">
+          <img class="on" src="assets/tbilisi-cover.jpg" alt="Brick houses with iron balconies in Tbilisi">
+          <img src="assets/tbilisi-06.jpg" alt="" loading="lazy"><img src="assets/gori-02.jpg" alt="" loading="lazy"><img src="assets/batumi-02.jpg" alt="" loading="lazy"><img src="assets/batumi-01.jpg" alt="" loading="lazy">
+          <span class="roll-dots" aria-hidden="true"></span>
+          <span class="roll-cap label" aria-hidden="true">Tbilisi</span>
+        </a>
+        <div class="body">
+          <span class="mono-keep k-red">Latest essay · Published Nov 2026 · Travelled Aug 2015</span>
+          <h3>Georgia</h3>
+          <p>Photos from Georgia in August 2015, from Tbilisi to the Black Sea.</p>
+          <p class="stopline label">Tbilisi · Gori · Batumi</p>
+          <a class="btn" href="georgia-2015.html">Read the photo essay <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
       <article class="essay card" id="essay-armenia">
-        <a class="roll" href="armenia-2015.html" aria-label="Armenia — read the photo essay">
+        <a class="roll" href="armenia-2015.html" aria-label="Armenia — read the photo essay" data-names="Lake Sevan|Kapan|Goris|Lake Sevan|Yerevan">
           <img class="on" src="assets/sevan-sunset.jpg" alt="Sevanavank at sunset above Lake Sevan">
           <img src="assets/kapan-01.jpg" alt="" loading="lazy"><img src="assets/goris-02.jpg" alt="" loading="lazy"><img src="assets/sevanavank.jpg" alt="" loading="lazy"><img src="assets/yer-07.jpg" alt="" loading="lazy">
           <span class="roll-dots" aria-hidden="true"></span>
           <span class="roll-cap label" aria-hidden="true">Lake Sevan</span>
         </a>
         <div class="body">
-          <span class="mono-keep k-red">Latest essay · Published Nov 2026 · Travelled Aug 2015</span>
+          <span class="label k-red">Published Nov 2026 · Travelled Aug 2015</span>
           <h3>Armenia</h3>
           <p>Photos from Armenia in August 2015, looked at again ten years on.</p>
           <p class="stopline label">Kapan · Goris · Lake Sevan · Yerevan</p>
@@ -391,7 +406,7 @@ footer .fine { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--
   // Rolling carousel on the essay photo: plays while hovered or focused.
   document.querySelectorAll('.roll').forEach(function (r) {
     const ims = r.querySelectorAll('img'), dots = r.querySelector('.roll-dots'), cap = r.querySelector('.roll-cap');
-    const names = ['Lake Sevan', 'Kapan', 'Goris', 'Lake Sevan', 'Yerevan'];
+    const names = (r.dataset.names || '').split('|');
     ims.forEach((_, k) => dots.appendChild(document.createElement('i'))); dots.children[0].classList.add('on');
     let i = 0, t = null;
     const go = n => { ims[i].classList.remove('on'); dots.children[i].classList.remove('on'); i = n % ims.length; ims[i].classList.add('on'); dots.children[i].classList.add('on'); cap.textContent = names[i] || ''; };
