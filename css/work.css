@@ -101,8 +101,9 @@ dd { margin: 6px 0 0; font-family: var(--serif); font-size: 19px; }
 .zoom [data-zoom-label] { min-width: 52px; text-align: center; font-size: var(--fs-small); color: var(--mute); }
 .solo { flex-basis: 100%; margin: 0; min-width: 0; }
 .solo[hidden] { display: none; }
-.solo figcaption { margin: 0 0 12px; font-size: 15px; color: var(--soft); }
-.solo-scroll { overflow-x: auto; overflow-y: hidden; padding: 20px 8px; background: #FBF9F4; border-radius: 2px; }
+.solo figcaption { margin: 0 0 14px; font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--soft); }
+.solo-scroll { overflow-x: auto; overflow-y: hidden; padding: 28px 0 24px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); scrollbar-color: var(--rule) transparent; }
+.solo-scroll:focus-visible { outline-offset: 0; }
 .solo-scroll img { display: block; width: 100%; max-width: none; height: auto; }
 
 .inst { flex: 999 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 28px 40px; }
@@ -111,3 +112,4 @@ dd { margin: 6px 0 0; font-family: var(--serif); font-size: 19px; }
 .wide-page .wrap { max-width: 1140px; }
 .wide-page .nav { max-width: 1240px; }
 .wide-page .note p { max-width: 680px; }
+@media (max-width: 700px) { .solo-scroll img { min-width: 1000px; } }
