@@ -37,7 +37,7 @@
   var view = { s: 1, tx: 0, ty: 0 }, anim = null;
   var mouse = null, pulseT = -1e9, hot = null;
   var pts = {}, drag = null, pinch = null;
-  var beforeWhole = null, wholeShown = null;
+  var wholeShown = null;
   var focusId = null;                     // a place to open the map on (from a #place- link), else the home view
   var sized = false, onScreen = true, frame = 0;
 
@@ -79,9 +79,8 @@
     if (z) {
       var n = +z.dataset.zoom;
       if (n) { flyTo(zoomTarget(map.clientWidth / 2, map.clientHeight / 2, view.s * (n > 0 ? 1.8 : 1 / 1.8))); return; }
-      // Whole-map button is a toggle: out to the whole world, then back to where you were.
-      if (isWhole()) { flyTo(beforeWhole ? clampView({ s: clampS(beforeWhole.s), tx: beforeWhole.tx, ty: beforeWhole.ty }) : homeView()); beforeWhole = null; }
-      else { beforeWhole = { s: view.s, tx: view.tx, ty: view.ty }; flyTo(clampView({ s: minS(), tx: 0, ty: 0 })); }
+      // Whole-map button is a toggle: out to the whole world, then back to the opening (home) view.
+      flyTo(isWhole() ? homeView() : clampView({ s: minS(), tx: 0, ty: 0 }));
       return;
     }
     var pin = e.target.closest('.pin');
@@ -90,7 +89,7 @@
   // Double-clicking any zoom button returns the map to the zoom it opened at.
   document.addEventListener('dblclick', function (e) {
     if (!e.target.closest('[data-zoom]')) return;
-    e.preventDefault(); beforeWhole = null; flyTo(homeView());
+    e.preventDefault(); flyTo(homeView());
   });
 
   // ---- pan and zoom. view: screen = translate + map units * scale ----
@@ -127,7 +126,7 @@
     if (whole !== wholeShown && wholeBtn) {
       wholeShown = whole;
       wholeBtn.innerHTML = whole ? ICON_COLLAPSE : ICON_EXPAND;
-      wholeBtn.setAttribute('aria-label', whole ? 'Zoom back in' : 'Show the whole map');
+      wholeBtn.setAttribute('aria-label', whole ? 'Back to the starting view' : 'Show the whole map');
       wholeBtn.setAttribute('aria-pressed', whole ? 'true' : 'false');
     }
     layer.querySelectorAll('[data-x]').forEach(function (el) { el.style.left = sx(+el.dataset.x) + 'px'; el.style.top = sy(+el.dataset.y) + 'px'; });
