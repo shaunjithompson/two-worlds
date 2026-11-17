@@ -1,124 +1,92 @@
-/* Two Worlds — home page behaviour: the Music / Travel switch and the dot map. No dependencies.
-   The world's coastlines live in js/land.js, which must load first. */
+/* Two Worlds — the dot map on the home Travel side and the atlas. No dependencies.
+   The world's coastlines live in js/land.js, which must load first.
+   The Music / Travel switch and the home page's deep links are handled by the inline script in index.html. */
 (function () {
   'use strict';
 
-  // One dot per article, by longitude and latitude in decimal degrees (west and south are negative).
-  // kinds: 'music' = a piece is about this place · 'been' = a travel article · 'next' = an upcoming journey.
   // One dot per country, by longitude and latitude in decimal degrees (west and south are negative).
   // kinds: 'music' = a piece is about this country · 'been' = a photo essay · 'next' = an upcoming journey.
-  // Used by both the home Travel map and the atlas (atlas.html).
+  // essay = the photo essay; score = the score page (or the works row on the home page when there's no page yet).
   var PLACES = [
-    { id: 'armenia', name: 'Armenia', label: 'TRAVELLED AUGUST 2015 · PHOTO ESSAY',
-      text: 'Photos from Armenia in August 2015, looked at again ten years on.',
-      img: 'assets/sevan-sunset.jpg', imgs: ['assets/sevan-sunset.jpg', 'assets/kapan-01.jpg', 'assets/goris-02.jpg', 'assets/sevanavank.jpg', 'assets/yer-07.jpg'], lon: 45.0, lat: 40.2, kinds: ['been', 'music'], music: 'À la côte de la mer de Gegham', musicRow: 'row-gegham', journey: 'armenia-2015.html', journeyText: 'Read the photo essay' },
-    { id: 'georgia', name: 'Georgia', label: 'TRAVELLED AUGUST 2015 · PHOTO ESSAY',
-      text: 'Photos from Georgia in August 2015, from Tbilisi to the Black Sea. The Darial Gorge, on the road north, is the subject of Beyond the Darial Pass.',
-      img: 'assets/tbilisi-cover.jpg', imgs: ['assets/tbilisi-cover.jpg', 'assets/tbilisi-06.jpg', 'assets/gori-02.jpg', 'assets/batumi-02.jpg', 'assets/gorge.jpg'], lon: 43.6, lat: 42.1, kinds: ['been', 'music'], music: 'Overture “Beyond the Darial Pass”', musicRow: 'row-darial', journey: 'georgia-2015.html', journeyText: 'Read the photo essay' },
-    { id: 'journey', name: 'Morocco to The Gambia', label: 'NEXT JOURNEY · DEPARTS 2026',
-      text: 'Seven weeks from Casablanca down the Atlantic edge of the Sahara, written from the road.',
-      img: 'assets/dunes.jpg', lon: -7.59, lat: 33.57, kinds: ['next'], music: '', musicRow: '', journey: 'morocco-to-the-gambia.html' },
-    { id: 'portugal', name: 'Portugal', label: 'TRAVELLED DECEMBER 2015 · PHOTO ESSAY',
-      text: 'Photos from Portugal in December 2015: Porto, Aveiro, Lisbon and Cabo da Roca, the end of the overland route from Singapore. The winter waves off Nazaré are the subject of O Mar Novo.',
-      img: 'assets/portugal-cover.jpg', imgs: ['assets/portugal-cover.jpg', 'assets/porto-03.jpg', 'assets/aveiro-04.jpg', 'assets/lisbon-03.jpg', 'assets/roca-02.jpg'], lon: -8.2, lat: 39.6, kinds: ['been', 'music'], music: 'O Mar Novo: «As Vagas de Nazaré»', musicRow: 'row-marNovo', journey: 'portugal-2015.html', journeyText: 'Read the photo essay' },
-    { id: 'poland', name: 'Poland', label: 'MUSIC · FLUTE AND WIND BAND · 2025',
-      text: 'On 24 March 1794, in Kraków’s Main Square, Tadeusz Kościuszko swore his oath to the nation and took up arms against the partitioning powers.',
-      img: 'assets/plain.jpg', lon: 19.4, lat: 52.0, kinds: ['music'], music: 'Koncert „Elegia Kościuszki”', musicRow: 'row-kosciuszko', journey: false },
-    { id: 'norway', name: 'Norway', label: 'MUSIC · WIND BAND · 2025',
-      text: 'The Hardangerfjord, from Tidemand and Gude’s painting Bridal Procession on the Hardangerfjord (1848).',
-      img: 'assets/coast.jpg', lon: 8.5, lat: 61.0, kinds: ['music'], music: 'Forløp (Forløb)', musicRow: 'row-forlop', journey: false }
+    { id: 'armenia', name: 'Armenia', label: 'Travelled August 2015 · Photo essay',
+      imgs: ['assets/sevan-sunset.jpg', 'assets/kapan-01.jpg', 'assets/goris-02.jpg', 'assets/sevanavank.jpg', 'assets/yer-07.jpg'], lon: 45.0, lat: 40.2, kinds: ['been', 'music'],
+      essay: 'armenia-2015.html', music: 'À la côte de la mer de Gegham', score: 'a-la-cote-de-la-mer-de-gegham.html' },
+    { id: 'georgia', name: 'Georgia', label: 'Travelled August 2015 · Photo essay',
+      imgs: ['assets/tbilisi-cover.jpg', 'assets/tbilisi-06.jpg', 'assets/gori-02.jpg', 'assets/batumi-02.jpg', 'assets/gorge.jpg'], lon: 43.6, lat: 42.1, kinds: ['been', 'music'],
+      essay: 'georgia-2015.html', music: 'Overture “Beyond the Darial Pass”', score: 'beyond-the-darial-pass.html' },
+    { id: 'journey', name: 'Morocco to The Gambia', label: 'Next journey · Departs 2026',
+      imgs: ['assets/dunes.jpg'], lon: -7.59, lat: 33.57, kinds: ['next'], essay: 'morocco-to-the-gambia.html', essayText: 'About the journey' },
+    { id: 'portugal', name: 'Portugal', label: 'Travelled December 2015 · Photo essay',
+      imgs: ['assets/portugal-cover.jpg', 'assets/porto-03.jpg', 'assets/aveiro-04.jpg', 'assets/lisbon-03.jpg', 'assets/roca-02.jpg'], lon: -8.2, lat: 39.6, kinds: ['been', 'music'],
+      essay: 'portugal-2015.html', music: 'O Mar Novo: «As Vagas de Nazaré»', score: 'index.html#row-marNovo' },
+    { id: 'poland', name: 'Poland', label: 'Music · Flute and wind band · 2025',
+      imgs: ['assets/plain.jpg'], lon: 19.4, lat: 52.0, kinds: ['music'], music: 'Koncert „Elegia Kościuszki”', score: 'index.html#row-kosciuszko' },
+    { id: 'norway', name: 'Norway', label: 'Music · Wind band · 2025',
+      imgs: ['assets/coast.jpg'], lon: 8.5, lat: 61.0, kinds: ['music'], music: 'Forløp (Forløb)', score: 'index.html#row-forlop' }
   ];
   // Older links named a place inside a country: send them to the country.
   var ALIAS = { sevan: 'armenia', darial: 'georgia', nazare: 'portugal', lisbon: 'portugal', krakow: 'poland', hardanger: 'norway' };
+  // The upcoming journey as lon, lat pairs: Casablanca down the coast to The Gambia. Drawn faintly so the essays lead.
+  var ROUTE_NEXT = [-7.59, 33.57, -9.6, 30.4, -14.5, 26.13, -16, 18.1, -17.4, 14.7, -16.6, 13.45];
+
   // The whole world, 180°W–180°E and 84°N–58°S, in map units (U per degree).
   var U = 26 / 3, LON0 = -180, LAT0 = 84, LAT1 = -58;
   var MAP_W = 360 * U, MAP_H = (LAT0 - LAT1) * U;
   function project(lon, lat) { return { x: (lon - LON0) * U, y: (LAT0 - lat) * U }; }
-  var CROSS_ICON = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></svg>';
-
-  var stage = document.getElementById('worlds') || document.body;
-  // EMBED: the map sits on the home page's Travel section with no side panel; a click opens the place instead.
-  var EMBED = !document.getElementById('place-name');
-  var map = document.getElementById('map');
-  var canvas = map.querySelector('canvas');
-  var layer = document.getElementById('map-layer');
-  var chips = document.getElementById('chips');
-  var imgs = document.getElementById('place-imgs');
-  var musicBtn = document.getElementById('place-music');
-  var journeyLink = document.getElementById('place-journey');
-  var state = { side: 'music', place: 'journey' };
-  var mouse = null, pulseT = -1e9, view = { s: 1, tx: 0, ty: 0 }, anim = null;
+  // Colours on the dark stage: resting dots, pointer glow (oxide) and the one-off ring (pale indigo).
+  var DOT = [62, 66, 71], GLOW = [232, 103, 74], RING = [143, 166, 194];
   var PULSE_MS = 2200, PULSE_R = 300;
-  var pts = {}, drag = null, pinch = null, hot = null, wasHidden = true;
-  var wholeBtn = document.getElementById('zoom-whole'), beforeWhole = null, wholeShown = null;
   var ICON_EXPAND = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
   var ICON_COLLAPSE = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
-  var focusId = null; // a place to open the map on (from a #place- link), else the home view
+
+  var map = document.getElementById('map');
+  if (!map) return;
+  var canvas = map.querySelector('canvas');
+  var layer = document.getElementById('map-layer');
+  var wholeBtn = document.getElementById('zoom-whole');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function byId(id) { id = ALIAS[id] || id; for (var i = 0; i < PLACES.length; i++) if (PLACES[i].id === id) return PLACES[i]; return PLACES[0]; }
-  function mapPoint(p) { return project(p.lon, p.lat); }
+  var place = 'portugal';                 // the selected place: the latest photo essay
+  var view = { s: 1, tx: 0, ty: 0 }, anim = null;
+  var mouse = null, pulseT = -1e9, hot = null;
+  var pts = {}, drag = null, pinch = null;
+  var beforeWhole = null, wholeShown = null;
+  var focusId = null;                     // a place to open the map on (from a #place- link), else the home view
+  var sized = false, onScreen = true, frame = 0;
 
-  // ---- build pins, chips and place images from PLACES ----
+  function byId(id) { id = ALIAS[id] || id; for (var i = 0; i < PLACES.length; i++) if (PLACES[i].id === id) return PLACES[i]; return null; }
+  function mapPoint(p) { return project(p.lon, p.lat); }
+  // Previews are 240 px wide: use the 800 px WebP the build makes, not the 2000 px JPG.
+  function small(src) { return src.replace(/^assets\/([^/]+)\.jpg$/, 'assets/sized/$1-800.webp'); }
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  // ---- pins ----
   PLACES.forEach(function (p) {
     var pin = document.createElement('button');
     pin.type = 'button'; pin.className = 'pin' + p.kinds.map(function (k) { return ' k-' + k; }).join(''); pin.dataset.place = p.id;
     pin.setAttribute('aria-label', p.name + ' (' + p.kinds.map(function (k) { return { music: 'music', been: 'travel', next: 'upcoming' }[k]; }).join(', ') + ')');
+    pin.setAttribute('aria-pressed', 'false');
     var pt = mapPoint(p); pin.dataset.x = pt.x; pin.dataset.y = pt.y;
     pin.appendChild(document.createElement('i'));
     var label = document.createElement('span');
-    label.className = 'pin-label'; label.setAttribute('aria-hidden', 'true'); label.textContent = p.kinds.indexOf('next') >= 0 ? 'Up next: ' + p.name : p.name;
-    label.dataset.for = p.id; label.dataset.x = pin.dataset.x; label.dataset.y = pin.dataset.y;
+    label.className = 'pin-label'; label.setAttribute('aria-hidden', 'true');
+    label.textContent = p.kinds.indexOf('next') >= 0 ? 'Up next: ' + p.name : p.name;
+    label.dataset.x = pin.dataset.x; label.dataset.y = pin.dataset.y;
     layer.appendChild(pin); layer.appendChild(label);
-
-    var chip = document.createElement('button');
-    chip.type = 'button'; chip.className = 'chip'; chip.dataset.place = p.id; chip.textContent = p.name;
-    if (chips) chips.appendChild(chip);
-
-    var im = document.createElement('img');
-    im.src = p.img; im.alt = ''; im.dataset.place = p.id;
-    if (imgs) imgs.appendChild(im);
   });
 
-  function selectPlace(id, ripple) {
-    state.place = id;
-    var p = byId(id);
-    document.querySelectorAll('[data-place]').forEach(function (el) {
-      var on = el.dataset.place === id;
-      if (el.matches('.pin, .chip')) el.setAttribute('aria-pressed', on ? 'true' : 'false');
-      if (el.tagName === 'IMG' && el.parentNode === imgs) el.classList.toggle('on', on);
-    });
-    if (EMBED) { pulseT = performance.now(); if (ripple) { var o0 = mapPoint(p); flyTo(viewAround(o0.x, o0.y, Math.max(view.s, coverS() * 2.5))); } return; }
-    document.getElementById('place-label').textContent = p.label;
-    document.getElementById('place-name').textContent = p.name;
-    document.getElementById('place-text').textContent = p.text;
-    musicBtn.hidden = !p.music;
-    musicBtn.innerHTML = CROSS_ICON + 'The music: <i>' + p.music + '</i>';
-    journeyLink.hidden = !p.journey;
-    if (p.journey) { journeyLink.href = p.journey; journeyLink.textContent = p.journeyText || 'Follow the journey'; }
+  function selectPlace(id, fly) {
+    var p = byId(id); if (!p) return;
+    place = p.id;
+    layer.querySelectorAll('.pin').forEach(function (el) { el.setAttribute('aria-pressed', el.dataset.place === p.id ? 'true' : 'false'); });
     pulseT = performance.now(); // one soft ring from the chosen place, then it stops
-    if (ripple) { var o = mapPoint(p); flyTo(viewAround(o.x, o.y, Math.max(view.s, coverS() * 2.5))); }
+    if (fly) { var o = mapPoint(p); flyTo(viewAround(o.x, o.y, Math.max(view.s, coverS() * 2.5))); }
+    invalidate();
   }
+  function openPlace(p) { location.href = p.essay || p.score; }
 
-  function setSide(side, highlightRow) {
-    if (side === 'travel' && state.side !== 'travel') pulseT = performance.now();
-    state.side = side;
-    stage.dataset.side = side;
-    stage.querySelectorAll('.switch button').forEach(function (b) {
-      b.setAttribute('aria-pressed', b.dataset.go === side ? 'true' : 'false');
-    });
-    document.querySelectorAll('.rows li.lit').forEach(function (li) { li.classList.remove('lit'); });
-    if (highlightRow) { var li = document.getElementById(highlightRow); if (li) li.classList.add('lit'); }
-  }
-
-  // ---- events ----
+  // ---- buttons ----
   document.addEventListener('click', function (e) {
-    var go = e.target.closest('[data-go]');
-    if (go) {
-      if (go.dataset.place) selectPlace(go.dataset.place, true);
-      setSide(go.dataset.go);
-      return;
-    }
     var z = e.target.closest('[data-zoom]');
     if (z) {
       var n = +z.dataset.zoom;
@@ -128,15 +96,14 @@
       else { beforeWhole = { s: view.s, tx: view.tx, ty: view.ty }; flyTo(clampView({ s: minS(), tx: 0, ty: 0 })); }
       return;
     }
-    var pl = e.target.closest('.pin, .chip');
-    if (pl) { if (EMBED && pl.classList.contains('pin')) openPlace(byId(pl.dataset.place)); else selectPlace(pl.dataset.place, true); return; }
+    var pin = e.target.closest('.pin');
+    if (pin) openPlace(byId(pin.dataset.place)); // keyboard Enter / Space on a pin
   });
   // Double-clicking any zoom button returns the map to the zoom it opened at.
   document.addEventListener('dblclick', function (e) {
     if (!e.target.closest('[data-zoom]')) return;
     e.preventDefault(); beforeWhole = null; flyTo(homeView());
   });
-  if (musicBtn) musicBtn.addEventListener('click', function () { location.href = 'index.html#' + (byId(state.place).musicRow || 'music'); });
 
   // ---- pan and zoom. view: screen = translate + map units * scale ----
   function minS() { return Math.min(map.clientWidth / MAP_W, map.clientHeight / MAP_H); }
@@ -157,7 +124,7 @@
   function homeView() { var c = project(25, 28); return viewAround(c.x, c.y, coverS() * 1.7); }
   function layout() {
     var whole = isWhole();
-    if (whole !== wholeShown) {
+    if (whole !== wholeShown && wholeBtn) {
       wholeShown = whole;
       wholeBtn.innerHTML = whole ? ICON_COLLAPSE : ICON_EXPAND;
       wholeBtn.setAttribute('aria-label', whole ? 'Zoom back in' : 'Show the whole map');
@@ -165,8 +132,8 @@
     }
     layer.querySelectorAll('[data-x]').forEach(function (el) { el.style.left = sx(+el.dataset.x) + 'px'; el.style.top = sy(+el.dataset.y) + 'px'; });
   }
-  function setView(t) { view = t; layout(); }
-  function flyTo(t) { if (reduce) { anim = null; setView(t); } else anim = { a: view, b: t, t0: performance.now(), dur: 650 }; }
+  function setView(t) { view = t; layout(); invalidate(); }
+  function flyTo(t) { if (reduce) { anim = null; setView(t); } else { anim = { a: view, b: t, t0: performance.now(), dur: 650 }; invalidate(); } }
 
   // Only the place dots are clickable: the nearest one within a generous radius wins.
   function pinNear(px, py, radius) {
@@ -174,63 +141,80 @@
     PLACES.forEach(function (p) { var o = mapPoint(p), d = Math.hypot(sx(o.x) - px, sy(o.y) - py); if (d < bd) { bd = d; best = p; } });
     return best;
   }
-  // ---- hover preview: a small rolling photo carousel beside the dot ----
+
+  // ---- preview: a small rolling photo carousel beside the dot, with links to the essay and the score ----
   var peek = document.createElement('div'), peekTimer = null, peekI = 0;
-  peek.className = 'peek'; peek.setAttribute('aria-hidden', 'true');
+  peek.className = 'peek';
   layer.appendChild(peek);
+  function links(p) {
+    var a = [];
+    if (p.essay) a.push('<a href="' + esc(p.essay) + '">' + esc(p.essayText || 'Photo essay') + ' →</a>');
+    if (p.score) a.push('<a href="' + esc(p.score) + '">Score: <i>' + esc(p.music) + '</i> →</a>');
+    return a.join('');
+  }
   function showPeek(p) {
     clearInterval(peekTimer); peekTimer = null;
     if (!p) { peek.classList.remove('show'); return; }
-    var list = p.imgs || [p.img], o = mapPoint(p);
+    var list = p.imgs, o = mapPoint(p);
     peek.dataset.x = o.x; peek.dataset.y = o.y;
     peek.style.left = sx(o.x) + 'px'; peek.style.top = sy(o.y) + 'px';
     peek.classList.toggle('left', sx(o.x) > map.clientWidth - 280);
     peek.classList.toggle('below', sy(o.y) < 200);
-    peek.innerHTML = '<div class="peek-imgs">' + list.map(function (src, i) { return '<img src="' + src + '" alt=""' + (i ? '' : ' class="on"') + '>'; }).join('') + '</div>' +
-      (list.length > 1 ? '<div class="peek-dots">' + list.map(function (_, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</div>' : '') +
-      '<div class="peek-txt"><b>' + p.name + '</b><span>' + p.label + '</span><em>' + (p.journey ? (p.journeyText || 'Follow the journey') : p.music ? 'The music: <i>' + p.music + '</i>' : '') + '</em></div>';
+    // Only the first photo loads now; each next one loads just before it is shown.
+    peek.innerHTML = '<div class="peek-imgs" aria-hidden="true">' + list.map(function (src, i) { return '<img ' + (i ? 'data-src' : 'src') + '="' + small(src) + '" alt=""' + (i ? '' : ' class="on"') + '>'; }).join('') + '</div>' +
+      (list.length > 1 ? '<div class="peek-dots" aria-hidden="true">' + list.map(function (_, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</div>' : '') +
+      '<div class="peek-txt"><b>' + esc(p.name) + '</b><span>' + esc(p.label) + '</span><em>' + links(p) + '</em></div>';
     peek.classList.add('show'); peekI = 0;
-    if (list.length > 1 && !reduce) peekTimer = setInterval(function () {
-      var ims = peek.querySelectorAll('.peek-imgs img'), ds = peek.querySelectorAll('.peek-dots i');
-      ims[peekI].classList.remove('on'); ds[peekI].classList.remove('on');
-      peekI = (peekI + 1) % ims.length; ims[peekI].classList.add('on'); ds[peekI].classList.add('on');
-    }, 1300);
+    var ims = peek.querySelectorAll('.peek-imgs img'), ds = peek.querySelectorAll('.peek-dots i');
+    function load(i) { var im = ims[i]; if (im && im.dataset.src) { im.src = im.dataset.src; im.removeAttribute('data-src'); } }
+    if (list.length > 1 && !reduce) {
+      load(1);
+      peekTimer = setInterval(function () {
+        ims[peekI].classList.remove('on'); ds[peekI].classList.remove('on');
+        peekI = (peekI + 1) % ims.length; load(peekI); load((peekI + 1) % ims.length);
+        ims[peekI].classList.add('on'); ds[peekI].classList.add('on');
+      }, 1300);
+    }
   }
-  function openPlace(p) {
-    if (p.journey) { location.href = p.journey; return; }
-    if (p.musicRow) { location.href = 'index.html#' + p.musicRow; return; }
-    selectPlace(p.id, true);
-  }
-  window.twMap = { select: function (id) { focusId = ALIAS[id] || id; selectPlace(focusId, true); } };
-
   function setHot(p) {
     if (hot === p) return; hot = p; showPeek(p);
     layer.querySelectorAll('.pin').forEach(function (el) { el.classList.toggle('hot', !!p && el.dataset.place === p.id); });
-    layer.querySelectorAll('.pin-label').forEach(function (el) { el.classList.toggle('show', !!p && el.dataset.for === p.id); });
     map.classList.toggle('over-pin', !!p);
   }
+  // Moving from one dot's preview towards its links can pass near another dot: wait a moment before switching,
+  // and stay put once the pointer reaches the preview.
+  var hoverTimer = null;
+  function hover(p) {
+    clearTimeout(hoverTimer); hoverTimer = null;
+    if (p === hot) return;
+    if (!hot) setHot(p); else hoverTimer = setTimeout(function () { setHot(p); }, 250);
+  }
   function local(e) { var r = map.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+  function inPeek(e) { return e.target.closest && e.target.closest('.peek'); }
 
   map.addEventListener('pointerdown', function (e) {
-    if (e.target.closest('.zoom') || e.button > 0) return;
+    if (e.target.closest('.zoom') || inPeek(e) || e.button > 0) return;
     var q = local(e); pts[e.pointerId] = q; anim = null;
     try { map.setPointerCapture(e.pointerId); } catch (err) {}
     var ids = Object.keys(pts);
     if (ids.length === 1) drag = { x: q.x, y: q.y, tx: view.tx, ty: view.ty, moved: false, touch: e.pointerType !== 'mouse' };
     else if (ids.length === 2) {
       var a = pts[ids[0]], b = pts[ids[1]];
-      pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, s: view.s };
+      pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, s: view.s, mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2, tx: view.tx, ty: view.ty };
       if (drag) drag.moved = true;
     }
   });
   map.addEventListener('pointermove', function (e) {
     var q = local(e);
-    if (e.pointerType === 'mouse') mouse = q;
+    if (e.pointerType === 'mouse') { mouse = q; invalidate(); }
     if (pts[e.pointerId]) pts[e.pointerId] = q;
     var ids = Object.keys(pts);
     if (pinch && ids.length >= 2) {
-      var a = pts[ids[0]], b = pts[ids[1]];
-      setView(zoomTarget((a.x + b.x) / 2, (a.y + b.y) / 2, pinch.s * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d));
+      // Zoom around the starting midpoint, then follow the midpoint as it moves: pinch and pan together.
+      var a = pts[ids[0]], b = pts[ids[1]], mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+      var s = clampS(pinch.s * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d);
+      var X = (pinch.mx - pinch.tx) / pinch.s, Y = (pinch.my - pinch.ty) / pinch.s;
+      setView(clampView({ s: s, tx: mx - X * s, ty: my - Y * s }));
       return;
     }
     if (drag) {
@@ -239,20 +223,23 @@
       if (drag.moved) setView(clampView({ s: view.s, tx: drag.tx + dx, ty: drag.ty + dy }));
       return;
     }
-    if (e.pointerType === 'mouse') setHot(pinNear(q.x, q.y, 40));
+    if (e.pointerType === 'mouse') hover(inPeek(e) ? hot : pinNear(q.x, q.y, 40));
   });
   function endPointer(e) {
     if (drag && !drag.moved && e.type === 'pointerup') {
       var q = local(e), p = pinNear(q.x, q.y, drag.touch ? 56 : 40);
-      if (p) { if (EMBED) openPlace(p); else selectPlace(p.id, false); }
+      if (p) openPlace(p);
     }
     delete pts[e.pointerId];
-    if (Object.keys(pts).length < 2) pinch = null;
-    if (!Object.keys(pts).length) { drag = null; map.classList.remove('dragging'); }
+    var left = Object.keys(pts);
+    if (left.length < 2) pinch = null;
+    // Two fingers down to one: carry on panning from where the pinch left the map, not from where it started.
+    if (left.length === 1) { var r = pts[left[0]]; drag = { x: r.x, y: r.y, tx: view.tx, ty: view.ty, moved: true, touch: true }; }
+    if (!left.length) { drag = null; map.classList.remove('dragging'); }
   }
   map.addEventListener('pointerup', endPointer);
   map.addEventListener('pointercancel', endPointer);
-  map.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse' && !drag) { mouse = null; setHot(null); } });
+  map.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse' && !drag) { clearTimeout(hoverTimer); mouse = null; setHot(null); invalidate(); } });
   // Trackpad pinch (and ctrl/cmd + scroll) zooms; plain scrolling still scrolls the page.
   map.addEventListener('wheel', function (e) {
     if (!e.ctrlKey && !e.metaKey) return;
@@ -260,7 +247,6 @@
     var q = local(e), dy = Math.max(-60, Math.min(60, e.deltaY));
     setView(zoomTarget(q.x, q.y, view.s * Math.exp(-dy * 0.01)));
   }, { passive: false });
-  window.addEventListener('resize', function () { setView(clampView({ s: clampS(view.s), tx: view.tx, ty: view.ty })); });
 
   // ---- the dot field: one dot every 1.25 degrees wherever js/land.js says there is land ----
   function buildDots() {
@@ -295,34 +281,36 @@
   }
   var dots = buildDots();
 
-  // The upcoming journey as lon, lat pairs: Casablanca down the coast to The Gambia. Drawn faintly so the articles lead.
-  var ROUTE_NEXT = [-7.59, 33.57, -9.6, 30.4, -14.5, 26.13, -16, 18.1, -17.4, 14.7, -16.6, 13.45];
-  // Colours for the map on the dark stage: resting dots, pointer glow (oxide) and the one-off ring (pale indigo).
-  var DOT = [62, 66, 71], GLOW = [232, 103, 74], RING = [143, 166, 194];
+  // ---- drawing: only when something changed (a pan, a zoom, the pointer glow, the one-off ring) ----
+  function invalidate() { if (!frame && onScreen) frame = requestAnimationFrame(draw); }
   function rx(lon) { return sx((lon - LON0) * U); }
   function ry(lat) { return sy((LAT0 - lat) * U); }
-
-  // Draws the whole map (dots, routes, hover glow, one-off ring) at the current pan and zoom.
   function draw(now) {
-    requestAnimationFrame(draw);
+    frame = 0;
+    var w = map.clientWidth, h = map.clientHeight;
+    if (!w || !h) { sized = false; return; } // hidden (the Music side); the ResizeObserver wakes us when it shows
+    if (!sized) {
+      sized = true;
+      if (focusId) { var fo = mapPoint(byId(focusId)); view = viewAround(fo.x, fo.y, coverS() * 2.5); } else view = homeView();
+      anim = null; layout(); pulseT = now;
+    }
+    var more = false;
     if (anim) {
       var t = Math.min(1, (now - anim.t0) / anim.dur), e = 1 - Math.pow(1 - t, 3);
       view = { s: anim.a.s + (anim.b.s - anim.a.s) * e, tx: anim.a.tx + (anim.b.tx - anim.a.tx) * e, ty: anim.a.ty + (anim.b.ty - anim.a.ty) * e };
-      if (t >= 1) anim = null;
+      if (t >= 1) anim = null; else more = true;
       layout();
     }
-    var w = map.clientWidth, h = map.clientHeight; if (!w || !h) { wasHidden = true; return; }
-    if (wasHidden) { wasHidden = false; if (focusId) { var fo = mapPoint(byId(focusId)); setView(viewAround(fo.x, fo.y, coverS() * 2.5)); } else setView(homeView()); pulseT = now; }
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var cw = Math.round(w * dpr), ch = Math.round(h * dpr);
     if (canvas.width !== cw || canvas.height !== ch) { canvas.width = cw; canvas.height = ch; }
     var g = canvas.getContext('2d');
     g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cw, ch);
-    if (state.side !== 'travel') return;
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var r = 2.7 * Math.pow(view.s, 0.6), o = mapPoint(byId(state.place)), ox = sx(o.x), oy = sy(o.y);
+    var r = 2.7 * Math.pow(view.s, 0.6), sel = place && byId(place), o = sel ? mapPoint(sel) : { x: -1e9, y: -1e9 }, ox = sx(o.x), oy = sy(o.y);
     var pAge = (now - pulseT) / PULSE_MS;
-    var R = (reduce || pAge < 0 || pAge >= 1) ? -1 : pAge * PULSE_R;
+    var R = (reduce || !sel || pAge < 0 || pAge >= 1) ? -1 : pAge * PULSE_R;
+    if (R >= 0) more = true;
     var lit = [];
     g.fillStyle = 'rgb(' + DOT.join(',') + ')'; g.beginPath();
     for (var i = 0; i < dots.length; i += 2) {
@@ -345,25 +333,19 @@
     g.beginPath(); g.moveTo(rx(N[0]), ry(N[1]));
     for (var m = 2; m < N.length; m += 2) g.lineTo(rx(N[m]), ry(N[m + 1]));
     g.stroke(); g.setLineDash([]);
+    if (more) invalidate();
   }
 
-  setView(homeView());
-  // Deep links from other pages: #music, #travel, #place-<id> (travel side, that place selected), #row-<id> (music side, that work lit)
-  function fromHash() {
-    var h = (location.hash || '').slice(1);
-    // The atlas: #place-<id> opens the map on that country.
-    if (document.body.classList.contains('atlas-page')) { if (h.indexOf('place-') === 0) window.twMap.select(h.slice(6)); return; }
-    if (EMBED) return;
-    if (h === 'travel') setSide('travel');
-    else if (h === 'music') setSide('music');
-    else if (h.indexOf('place-') === 0) { selectPlace(ALIAS[h.slice(6)] || h.slice(6), false); setSide('travel'); }
-    else if (h.indexOf('row-') === 0 && document.getElementById(h)) setSide('music', h);
-    else return;
-    stage.scrollIntoView({ block: 'start' });
-  }
-  selectPlace('georgia', false);
-  setSide(stage.dataset.side || 'music');
-  fromHash();
-  window.addEventListener('hashchange', fromHash);
-  requestAnimationFrame(draw);
+  // Redraw when the map changes size (window resize, or the Travel side being shown) and only while it's on screen.
+  if (window.ResizeObserver) new ResizeObserver(function () { if (sized) view = clampView({ s: clampS(view.s), tx: view.tx, ty: view.ty }); layout(); invalidate(); }).observe(map);
+  else window.addEventListener('resize', function () { invalidate(); });
+  if (window.IntersectionObserver) new IntersectionObserver(function (es) { onScreen = es[es.length - 1].isIntersecting; invalidate(); }).observe(map);
+
+  // Used by index.html (#place-<id> links) and below for the atlas.
+  window.twMap = { select: function (id) { var p = byId(id); if (!p) return; focusId = p.id; selectPlace(p.id, sized); } };
+  // The atlas: #place-<id> opens the map on that country.
+  function fromHash() { var h = (location.hash || '').slice(1); if (h.indexOf('place-') === 0) window.twMap.select(h.slice(6)); }
+  selectPlace(place, false);
+  if (document.body.classList.contains('atlas-page')) { fromHash(); window.addEventListener('hashchange', fromHash); }
+  invalidate();
 })();
