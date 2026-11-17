@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/work.css">
 </head>
-<body>
+<body{% if w.cover %} class="wide-page"{% endif %}>
 <a class="skip" href="#content">Skip to content</a>
 
 <header class="wrap nav">
@@ -37,6 +37,88 @@
 </header>
 
 <main id="content">
+{%- if w.cover %}
+<section class="wrap wide hero">
+  <div class="pager" data-pager aria-label="Score preview">
+    <div class="pager-view"><img data-pager-img src="{{ w.cover.src }}" alt="{{ w.cover.alt }}" data-sizes="(min-width: 900px) 440px, 100vw"></div>
+    {%- if w.preview and w.preview.pages %}
+    <div class="pager-ctrl" data-pager-ctrl hidden>
+      <button type="button" class="pg-btn" data-pager-prev aria-label="Previous page">←</button>
+      <span class="pg-count" data-pager-count aria-live="polite">Cover · 1 of {{ w.preview.pages|length + 1 }}</span>
+      <button type="button" class="pg-btn" data-pager-next aria-label="Next page">→</button>
+    </div>
+    <ul class="thumbs" aria-label="Score pages">
+      <li><a class="thumb" href="{{ w.cover.src }}" data-pager-thumb data-src="{{ w.cover.src }}" data-alt="{{ w.cover.alt }}" data-label="Cover" aria-current="true"><img data-keep src="{{ w.cover.src }}" alt="Cover" loading="lazy"></a></li>
+      {%- for pg in w.preview.pages %}
+      <li><a class="thumb" href="{{ pg.src }}" data-pager-thumb data-src="{{ pg.src }}" data-alt="{{ pg.alt }}" data-label="{{ pg.label }}"><img data-keep src="{{ pg.src }}" alt="{{ pg.label }}" loading="lazy"></a></li>
+      {%- endfor %}
+    </ul>
+    <p class="mono-keep pager-note">{{ w.preview.note }}</p>
+    {%- endif %}
+  </div>
+
+  <div class="hero-txt">
+    <h1{% if w.lang %} lang="{{ w.lang }}"{% endif %}>{% if w.titleLines %}{% for line in w.titleLines %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% else %}{{ w.title }}{% endif %}</h1>
+    {%- if w.subtitles %}
+    <p class="subtitles">{% for st in w.subtitles %}<span lang="{{ st.lang }}">{{ st.text }}</span>{% endfor %}</p>
+    {%- endif %}
+    <p class="byline">Music by Shaun Ji-Thompson</p>
+    <dl class="facts">
+      <div><dt>Year</dt><dd>{{ w.year }}</dd></div>
+      {%- if w.duration %}
+      <div><dt>Duration</dt><dd>{{ w.duration }}</dd></div>
+      {%- endif %}
+      {%- if w.grade %}
+      <div><dt>Grade</dt><dd>{{ w.grade }}</dd></div>
+      {%- endif %}
+      {%- if w.premiere %}
+      <div><dt>Premiere</dt><dd>{{ w.premiere.split(' · ')[0] }}</dd></div>
+      {%- endif %}
+    </dl>
+    {%- if w.score %}
+    <div class="buy-inline">
+      <span class="amount">{{ w.score.price }}</span>
+      <div class="actions">
+        <a class="btn solid" href="{{ w.score.buy }}">Buy the score</a>
+        {%- if w.preview and w.preview.pages %}
+        <button type="button" class="btn line" data-pager-go="1" hidden>Preview the score</button>
+        {%- endif %}
+        {%- if w.score.perusal %}
+        <a class="btn line" href="{{ w.score.perusal }}">Free perusal score</a>
+        {%- endif %}
+      </div>
+      <span class="what">Full score and parts, PDF.</span>
+    </div>
+    {%- endif %}
+  </div>
+</section>
+{%- if w.listen %}
+
+<section class="wrap wide band" aria-labelledby="listen-h">
+  <h2 id="listen-h">Listen</h2>
+  <div class="listen">
+    <div class="player">
+      <p class="player-t">{{ w.listen.label }}<span class="muted"> · {{ w.listen.excerpt }}</span></p>
+      {%- if w.listen.audio %}
+      <audio controls preload="none" src="{{ w.listen.audio }}"></audio>
+      {%- else %}
+      <p class="muted">[Audio file to add]</p>
+      {%- endif %}
+    </div>
+    {%- if w.listen.links %}
+    <div class="yt">
+      <h3 class="mono">On YouTube</h3>
+      <ul>
+        {%- for l in w.listen.links %}
+        <li>{% if l.url %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.title }} <span aria-hidden="true">↗</span></a>{% else %}<span>{{ l.title }}</span>{% endif %}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endif %}
+  </div>
+</section>
+{%- endif %}
+{%- else %}
 <section class="wrap top">
   <p class="mono-keep kicker">Score · {{ w.forces }} · {{ w.year }}</p>
   <h1{% if w.lang %} lang="{{ w.lang }}"{% endif %}>{{ w.title }}</h1>
@@ -49,7 +131,9 @@
     <div class="price"><span class="amount">{{ w.score.price }}</span><span class="what">Full score and parts, PDF.</span></div>
     <div class="actions">
       <a class="btn solid" href="{{ w.score.buy }}">Buy the score</a>
+      {%- if w.score.perusal %}
       <a class="btn line" href="{{ w.score.perusal }}">Free perusal score</a>
+      {%- endif %}
     </div>
   </div>
   {%- if w.recording %}
@@ -60,6 +144,7 @@
   {%- endif %}
 </section>
 {%- endif %}
+{%- endif %}
 {%- if w.note %}
 
 <article class="wrap note">
@@ -68,6 +153,43 @@
   <p>{{ para }}</p>
   {%- endfor %}
 </article>
+{%- endif %}
+{%- if w.solos %}
+
+<section class="wrap wide band" aria-labelledby="solos-h" data-solos>
+  <h2 id="solos-h">Solos</h2>
+  <div class="tabs" role="tablist" aria-label="Solo passages" data-solo-tabs hidden>
+    {%- for so in w.solos %}
+    <button type="button" role="tab" id="tab-{{ loop.index }}" aria-controls="solo-{{ loop.index }}" aria-selected="{{ 'true' if loop.first else 'false' }}"{% if not loop.first %} tabindex="-1"{% endif %}><span class="tab-n">{{ so.name }}</span><span class="tab-b">Bars {{ so.bars }}</span></button>
+    {%- endfor %}
+  </div>
+  <div class="zoom" role="group" aria-label="Zoom" data-zoom hidden>
+    <button type="button" data-zoom-out aria-label="Zoom out">−</button>
+    <span data-zoom-label>100%</span>
+    <button type="button" data-zoom-in aria-label="Zoom in">+</button>
+    <button type="button" data-zoom-fit>Fit</button>
+  </div>
+  {%- for so in w.solos %}
+  <figure class="solo" id="solo-{{ loop.index }}" role="tabpanel" aria-labelledby="tab-{{ loop.index }}">
+    <figcaption>{{ so.part }} · bars {{ so.bars }}</figcaption>
+    <div class="solo-scroll" tabindex="0" aria-label="{{ so.name }} solo, scroll sideways when zoomed"><img data-keep src="{{ so.src }}" alt="{{ so.alt }}" loading="lazy"></div>
+  </figure>
+  {%- endfor %}
+</section>
+{%- endif %}
+{%- if w.instrumentation %}
+
+<section class="wrap wide band" aria-labelledby="inst-h">
+  <div>
+    <h2 id="inst-h">Instrumentation</h2>
+    <p class="for">For {{ w.forces|lower }}</p>
+  </div>
+  <div class="inst">
+    {%- for g in w.instrumentation %}
+    <div><h3 class="mono">{{ g.group }}</h3><p>{% for it in g["items"] %}{{ it }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p></div>
+    {%- endfor %}
+  </div>
+</section>
 {%- endif %}
 {%- for j in journeys %}
 
@@ -85,6 +207,12 @@
 
 <section class="wrap details" aria-label="Details">
   <dl>
+    {%- if w.cover %}
+    {%- if w.premiere %}
+    <div><dt>Premiere</dt><dd>{{ w.premiere }}</dd></div>
+    {%- endif %}
+    <div><dt>Score</dt><dd>Full score (A3) and parts, PDF · © {{ w.year }} Shaun Ji-Thompson</dd></div>
+    {%- else %}
     <div><dt>Instrumentation</dt><dd>{{ w.forces }}</dd></div>
     <div><dt>Year</dt><dd>{{ w.year }}</dd></div>
     {%- if w.duration %}
@@ -92,6 +220,7 @@
     {%- endif %}
     {%- if w.premiere %}
     <div><dt>Premiere</dt><dd>{{ w.premiere }}</dd></div>
+    {%- endif %}
     {%- endif %}
   </dl>
 </section>
@@ -105,5 +234,8 @@
 </main>
 
 <script src="js/back.js"></script>
+{%- if w.cover or w.solos %}
+<script src="js/work.js"></script>
+{%- endif %}
 </body>
 </html>

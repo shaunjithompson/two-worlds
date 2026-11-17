@@ -50,6 +50,65 @@ content:
       - { name: page, label: "Score page file (e.g. o-mar-novo.html; leave empty for no page yet)", type: string }
       - { name: image, label: Image for link previews, type: image }
       - { name: recording, label: Recording link, type: string }
+      - { name: titleLines, label: "Title split into lines for the score page (optional)", type: string, list: true }
+      - name: subtitles
+        label: Title in other languages (shown under the title)
+        type: object
+        list: true
+        fields:
+          - { name: text, label: Text, type: string }
+          - { name: lang, label: "Language (ru, ka, pt…)", type: string }
+      - { name: grade, label: Grade, type: string }
+      - name: cover
+        label: Score cover (gives the page the preview layout)
+        type: object
+        fields:
+          - { name: src, label: Cover image, type: image }
+          - { name: alt, label: Description for screen readers, type: string }
+      - name: preview
+        label: Score preview pages
+        type: object
+        fields:
+          - { name: note, label: Line under the preview, type: string }
+          - name: pages
+            label: Pages (shown after the cover)
+            type: object
+            list: true
+            fields:
+              - { name: label, label: "Label (e.g. Page 1)", type: string }
+              - { name: src, label: Page image, type: image }
+              - { name: alt, label: Description for screen readers, type: string }
+      - name: listen
+        label: Listen
+        type: object
+        fields:
+          - { name: label, label: "Recording name (e.g. Digital rendition)", type: string }
+          - { name: excerpt, label: "Which part (e.g. Excerpt · bars 52–68)", type: string }
+          - { name: audio, label: Audio file, type: file }
+          - name: links
+            label: YouTube links
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: url, label: Link, type: string }
+      - name: solos
+        label: Solo excerpts
+        type: object
+        list: true
+        fields:
+          - { name: name, label: "Instrument (tab name)", type: string }
+          - { name: part, label: "Part line (e.g. Trumpet I solo)", type: string }
+          - { name: bars, label: "Bars (e.g. 20–27)", type: string }
+          - { name: src, label: Notation image, type: image }
+          - { name: alt, label: Description for screen readers, type: string }
+      - name: instrumentation
+        label: Instrumentation by section
+        type: object
+        list: true
+        fields:
+          - { name: group, label: "Section (e.g. Brass)", type: string }
+          - { name: items, label: Instruments, type: string, list: true }
       - name: score
         label: Score sales
         type: object

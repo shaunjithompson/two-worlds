@@ -1,10 +1,19 @@
 {
   "id": "darial",
   "title": "Overture “Beyond the Darial Pass”",
+  "titleLines": [
+    "Overture",
+    "“Beyond the Darial Pass”"
+  ],
   "short": "Beyond the Darial Pass",
+  "subtitles": [
+    { "text": "«За Дарьяльским ущельем»", "lang": "ru" },
+    { "text": "„დარიალის ხეობის მიღმა“", "lang": "ka" }
+  ],
   "year": "2026",
-  "forces": "Wind band",
-  "duration": "[DURATION]",
+  "forces": "Wind orchestra",
+  "duration": "c. 8 minutes",
+  "grade": "[4 or 5]",
   "premiere": "October 2026 · [ENSEMBLE] · [CONDUCTOR] · [VENUE]",
   "about": "After Aivazovsky’s 1868 painting of the Darial Gorge. Premiered October 2026.",
   "note": [
@@ -17,11 +26,40 @@
   ],
   "row": "row-darial",
   "page": "beyond-the-darial-pass.html",
-  "image": "assets/gorge.jpg",
+  "image": "assets/darial-cover-wide.jpg",
+  "cover": {
+    "src": "assets/darial-cover.jpg",
+    "alt": "Score cover: three riders crossing a ledge in a mountain gorge, with snow peaks in low sun"
+  },
+  "preview": {
+    "note": "Preview: pages 1–2 of 10 (bars 1–35), for study only.",
+    "pages": [
+      { "label": "Page 1", "src": "assets/score/darial-page-1.jpg", "alt": "Full score, page 1, bars 1 to 18, marked perusal" },
+      { "label": "Page 2", "src": "assets/score/darial-page-2.jpg", "alt": "Full score, page 2, bars 19 to 35, marked perusal" }
+    ]
+  },
+  "listen": {
+    "audio": "",
+    "label": "Digital rendition",
+    "excerpt": "Excerpt · bars [FROM–TO]",
+    "links": [
+      { "title": "[YouTube video title]", "url": "" }
+    ]
+  },
+  "solos": [
+    { "name": "Trombone", "part": "Trombone I solo", "bars": "3–16", "src": "assets/score/darial-solo-trombone.png", "alt": "Notation: Trombone I solo, bars 3 to 16, joined by the section from bar 11" },
+    { "name": "Trumpet", "part": "Trumpet I solo, mf espressivo", "bars": "20–27", "src": "assets/score/darial-solo-trumpet.png", "alt": "Notation: Trumpet I solo marked mf espressivo, bars 20 to 27" },
+    { "name": "Horn", "part": "Horn I solo", "bars": "73–81", "src": "assets/score/darial-solo-horn.png", "alt": "Notation: Horn I solo, bars 73 to 81" }
+  ],
+  "instrumentation": [
+    { "group": "Woodwinds", "items": ["Piccolo", "Flute I, II, III", "Oboe I (doubling cor anglais), II", "Bassoon I, II", "Clarinet in B♭ I, II, III", "Bass clarinet"] },
+    { "group": "Saxophones", "items": ["Soprano", "Alto I, II", "Tenor", "Baritone"] },
+    { "group": "Brass", "items": ["Horn in F I–IV", "Trumpet in B♭ I, II, III", "Trombone I, II, III", "Euphonium", "Tuba"] },
+    { "group": "Percussion and keyboard", "items": ["Timpani", "Triangle, bass drum, cymbals", "Vibraphone", "Piano"] }
+  ],
   "recording": "",
   "score": {
     "price": "[PRICE]",
-    "buy": "index.html#about",
-    "perusal": "index.html#about"
+    "buy": "index.html#about"
   }
 }
