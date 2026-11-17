@@ -16,6 +16,13 @@ What it does (all steps are safe to repeat):
   4. sitemap.xml, from the pages listed in PAGES.
   5. Map dots: js/dots.js, the land dots for the home and atlas map, from tools/land.json
      (so phones don't have to work them out on every visit).
+  6. Score pages: one page per work with a "page" in content/works/<id>.json, from templates/work.html.
+  7. Map places: js/places.js (the dots, previews and links) and a plain list of the same links inside
+     the map on index.html and atlas.html (between <!-- places:start --> and <!-- places:end -->),
+     all worked out from content/places.json, content/works/*.json and content/journeys/*.json.
+
+Content is linked by id: a journey names its "place" and its "music": {"work": <id>}; a work lists its
+"places". tools/check.py checks those links, dates and every link on the site.
 """
 import html, json, os, re, sys
 from PIL import Image
@@ -29,6 +36,29 @@ MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augus
           'September', 'October', 'November', 'December']
 
 p = lambda *a: os.path.join(ROOT, *a)
+
+
+# ---------- content ----------
+def load(*a):
+    with open(p(*a), encoding='utf-8') as f:
+        return json.load(f)
+
+def content():
+    """Everything in content/, linked: places by id, works by id, journeys by slug."""
+    places = {pl['id']: pl for pl in load('content', 'places.json')['places']}
+    works = {}
+    for f in sorted(os.listdir(p('content', 'works'))):
+        if f.endswith('.json'):
+            w = load('content', 'works', f); works[w['id']] = w
+    journeys = {}
+    for f in sorted(os.listdir(p('content', 'journeys'))):
+        if f.endswith('.json'):
+            j = load('content', 'journeys', f); j['slug'] = f[:-5]; journeys[j['slug']] = j
+    return places, works, journeys
+
+def work_url(w):
+    """A work's own page, or its row in the works list on the home page until it has one."""
+    return w['page'] if w.get('page') else f'index.html#{w["row"]}'
 esc = lambda t: html.escape(str(t if t is not None else ''), quote=True)
 
 
@@ -163,7 +193,7 @@ def build_essay(slug):
     path = p(f'{slug}.html')
     if not os.path.exists(path):
         return None
-    data = json.load(open(p('content', 'journeys', f'{slug}.json'), encoding='utf-8'))
+    data = JOURNEYS[slug]
     s = open(path, encoding='utf-8').read()
     lang = (re.search(r'data-native-lang="([^"]*)"', s) or [None, ''])[1]
     stops = order(data.get('stops') or [])
@@ -180,11 +210,12 @@ def build_essay(slug):
     s = set_text(s, 'id="stop-list"', ' · '.join(st['place'] for st in shown))
     m = data.get('music')
     if m:
-        s = set_text(s, 'id="music-link"', m.get('title'))
-        s = set_attr(s, 'music-link', 'href', m.get('url'))
-        s = set_attr(s, 'music-btn', 'href', m.get('url'))
-        s = set_text(s, 'id="music-blurb"', m.get('blurb'))
-        s = set_text(s, 'id="music-year"', m.get('year'))
+        w = WORKS[m['work']]
+        s = set_text(s, 'id="music-link"', w['title'])
+        s = set_attr(s, 'music-link', 'href', work_url(w))
+        s = set_attr(s, 'music-btn', 'href', work_url(w))
+        s = set_text(s, 'id="music-blurb"', m.get('blurb') or w.get('about'))
+        s = set_text(s, 'id="music-year"', w['year'])
     for k, pre, post, word in (('before', '← ', '', 'Before'), ('after', '', ' →', 'After')):
         v = data.get(k)
         if not v:
@@ -279,8 +310,97 @@ def dots():
     return total
 
 
+# ---------- 6. score pages ----------
+def work_pages():
+    from jinja2 import Environment, FileSystemLoader, select_autoescape
+    env = Environment(loader=FileSystemLoader(p('templates')), autoescape=select_autoescape(['html']), keep_trailing_newline=True)
+    tpl, made = env.get_template('work.html'), []
+    for w in WORKS.values():
+        if not w.get('page'):
+            continue
+        journeys = [{'url': f'{j["slug"]}.html', 'cover': j['cover']['src'].lstrip('/'), 'country': j['title'],
+                     'year': j['date'][:4], 'title': f'{j["title"]}, {j["subtitle"]}'}
+                    for j in sorted(JOURNEYS.values(), key=lambda j: j['date'])
+                    if (j.get('music') or {}).get('work') == w['id'] and j.get('published')]
+        desc = f'{w["title"]} ({w["year"]}), for {w["forces"].lower()}, by Shaun Ji-Thompson. {w["about"]}'
+        ld = {'@context': 'https://schema.org', '@type': 'MusicComposition', 'name': w['title'],
+              'composer': {'@type': 'Person', 'name': 'Shaun Ji-Thompson', 'url': SITE},
+              'dateCreated': w['year'], 'description': w['about'], 'url': SITE + w['page']}
+        if w.get('lang'):
+            ld['inLanguage'] = w['lang']
+        if w.get('image'):
+            ld['image'] = SITE + w['image']
+        if w.get('recording'):
+            ld['recordedAs'] = {'@type': 'MusicRecording', 'url': w['recording']}
+        price = ((w.get('score') or {}).get('price') or '').replace('$', '').replace('A', '').strip()
+        if re.fullmatch(r'\d+(\.\d\d)?', price):  # only once a real price is filled in
+            ld['offers'] = {'@type': 'Offer', 'price': price, 'priceCurrency': 'AUD', 'url': SITE + w['page']}
+        out = tpl.render(w=w, site=SITE, desc=desc, journeys=journeys,
+                         places=[PLACES[i] for i in w.get('places', []) if i in PLACES],
+                         jsonld=json.dumps(ld, ensure_ascii=False).replace('</', '<\\/'))
+        open(p(w['page']), 'w', encoding='utf-8').write(out)
+        made.append(w['page'])
+        if w['page'] not in PAGES:
+            PAGES.append(w['page'])
+    return made
+
+
+# ---------- 7. map places ----------
+def map_places():
+    """One dot per place, with what to show on the map worked out from the journeys and works that name it."""
+    out = []
+    for pl in PLACES.values():
+        js = sorted((j for j in JOURNEYS.values() if j.get('place') == pl['id'] and j.get('published')), key=lambda j: j['date'], reverse=True)
+        ws = sorted((w for w in WORKS.values() if pl['id'] in w.get('places', [])), key=lambda w: w['year'], reverse=True)
+        kinds = (['been'] if js else []) + (['music'] if ws else []) + (['next'] if pl.get('next') else [])
+        d = {'id': pl['id'], 'name': pl['name'], 'lon': pl['lon'], 'lat': pl['lat'], 'kinds': kinds, 'imgs': pl.get('photos') or [],
+             'when': js[0]['date'] if js else (pl['next']['departs'] if pl.get('next') else ws[0]['year'] if ws else '')}
+        if js:
+            d['label'] = f'Travelled {fmt(js[0]["date"])} · Photo essay'
+            d['essay'] = f'{js[0]["slug"]}.html'
+        elif pl.get('next'):
+            d['label'] = f'Next journey · Departs {pl["next"]["departs"]}'
+            d['essay'], d['essayText'] = pl['next']['url'], 'About the journey'
+        elif ws:
+            d['label'] = f'Music · {ws[0]["forces"]} · {ws[0]["year"]}'
+        if ws:
+            d['music'], d['score'] = ws[0]['title'], work_url(ws[0])
+            d['scoreText'] = 'Score' if ws[0].get('page') else 'The music'
+        out.append(d)
+    return out
+
+def places_js(places):
+    route = next((pl['next'].get('route') for pl in PLACES.values() if pl.get('next')), [])
+    open(p('js', 'places.js'), 'w', encoding='utf-8').write(
+        '/* Two Worlds — places on the map. Made by tools/build.py from content/; do not edit by hand. */\n'
+        'window.TW_PLACES = [\n' + ',\n'.join(json.dumps(d, ensure_ascii=False) for d in places) + '\n];\n'
+        f'window.TW_ROUTE_NEXT = {json.dumps(route)};\n')
+
+def place_index(places):
+    """The same links as the map, as a plain list: for keyboards, screen readers, search engines and no-JavaScript."""
+    rows = []
+    for d in sorted(places, key=lambda d: ('next' in d['kinds'], d['when'])):
+        links = []
+        if d.get('essay'):
+            links.append(f'<a href="{esc(d["essay"])}">{esc(d.get("essayText", "Photo essay"))}</a>')
+        if d.get('score'):
+            links.append(f'<a href="{esc(d["score"])}">{d["scoreText"]}: <i>{esc(d["music"])}</i></a>')
+        rows.append(f'      <li><span class="pi-name">{esc(d["name"])}</span><span class="pi-when">{esc(d["label"])}</span>{"".join(links)}</li>')
+    block = '<nav class="place-index" aria-label="Places on the map">\n    <ul>\n' + '\n'.join(rows) + '\n    </ul>\n  </nav>'
+    for f in ('index.html', 'atlas.html'):
+        s = open(p(f), encoding='utf-8').read()
+        t = re.sub(r'(<!-- places:start -->).*?(<!-- places:end -->)', lambda m: m.group(1) + '\n  ' + block + '\n  ' + m.group(2), s, flags=re.S)
+        if t != s:
+            open(p(f), 'w', encoding='utf-8').write(t)
+
+
+PLACES, WORKS, JOURNEYS = content()
+
 if __name__ == '__main__':
     print('photo sizes made:', make_sizes())
+    print('score pages:', ', '.join(work_pages()))
+    places = map_places(); places_js(places); place_index(places)
+    print('map places:', len(places))
     for f in sorted(os.listdir(p('content', 'journeys'))):
         if f.endswith('.json'):
             print('essay', f[:-5], 'stops:', build_essay(f[:-5]))

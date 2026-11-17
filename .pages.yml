@@ -5,6 +5,58 @@ media:
   categories: [image]
 
 content:
+  - name: places
+    label: "Places · one dot per country on the map"
+    type: file
+    path: content/places.json
+    format: json
+    fields:
+      - name: places
+        label: Places
+        type: object
+        list: true
+        fields:
+          - { name: id, label: "Id (short, lower case: used by journeys and works)", type: string }
+          - { name: name, label: Name, type: string }
+          - { name: lon, label: "Longitude (west is negative)", type: number }
+          - { name: lat, label: "Latitude (south is negative)", type: number }
+          - { name: photos, label: Photos for the map preview, type: image, list: true }
+          - name: next
+            label: Upcoming journey (only for the next journey's dot)
+            type: object
+            fields:
+              - { name: url, label: Page, type: string }
+              - { name: departs, label: Departs (year), type: string }
+              - { name: route, label: "Route as lon, lat, lon, lat…", type: number, list: true }
+  - name: works
+    label: "Works · one per piece of music"
+    type: collection
+    path: content/works
+    format: json
+    filename: "{fields.id}.json"
+    view: { fields: [title, year] }
+    fields:
+      - { name: id, label: "Id (short, lower case; also the file name)", type: string }
+      - { name: title, label: Title, type: string }
+      - { name: lang, label: "Language of the title (fr, pt, pl…)", type: string }
+      - { name: year, label: Year, type: string }
+      - { name: forces, label: "Instrumentation (e.g. Wind band)", type: string }
+      - { name: duration, label: Duration, type: string }
+      - { name: premiere, label: Premiere, type: string }
+      - { name: about, label: One line for the works list and search engines, type: text }
+      - { name: note, label: Programme note (paragraphs), type: text, list: true }
+      - { name: places, label: "Places it is about (ids from Places)", type: string, list: true }
+      - { name: row, label: "Row id on the home works list (e.g. row-gegham)", type: string }
+      - { name: page, label: "Score page file (e.g. o-mar-novo.html; leave empty for no page yet)", type: string }
+      - { name: image, label: Image for link previews, type: image }
+      - { name: recording, label: Recording link, type: string }
+      - name: score
+        label: Score sales
+        type: object
+        fields:
+          - { name: price, label: "Price (e.g. 45 or 45.00, in AUD)", type: string }
+          - { name: buy, label: Buy link, type: string }
+          - { name: perusal, label: Perusal score link, type: string }
   - name: portugal-2015
     label: "Journey · Portugal, December 2015"
     type: file
@@ -38,14 +90,13 @@ content:
           - { name: place, label: Place, type: string }
           - { name: country, label: Country, type: string }
           - { name: url, label: Link (when that entry exists), type: string }
+      - { name: place, label: "Place on the map (an id from Places: armenia, georgia, portugal…)", type: string }
       - name: music
         label: Linked score
         type: object
         fields:
-          - { name: title, label: Title, type: string }
-          - { name: year, label: Year, type: string }
-          - { name: blurb, label: One line, type: string }
-          - { name: url, label: Score page, type: string }
+          - { name: work, label: "Work (an id from Works: gegham, darial, mar-novo…)", type: string }
+          - { name: blurb, label: One line for this essay's score card, type: string }
       - name: stops
         label: Stops (sorted by date automatically)
         type: object
@@ -104,14 +155,13 @@ content:
           - { name: place, label: Place, type: string }
           - { name: country, label: Country, type: string }
           - { name: url, label: Link (when that entry exists), type: string }
+      - { name: place, label: "Place on the map (an id from Places: armenia, georgia, portugal…)", type: string }
       - name: music
         label: Linked score
         type: object
         fields:
-          - { name: title, label: Title, type: string }
-          - { name: year, label: Year, type: string }
-          - { name: blurb, label: One line, type: string }
-          - { name: url, label: Score page, type: string }
+          - { name: work, label: "Work (an id from Works: gegham, darial, mar-novo…)", type: string }
+          - { name: blurb, label: One line for this essay's score card, type: string }
       - name: stops
         label: Stops (sorted by date automatically)
         type: object
@@ -170,14 +220,13 @@ content:
           - { name: place, label: Place, type: string }
           - { name: country, label: Country, type: string }
           - { name: url, label: Link (when that entry exists), type: string }
+      - { name: place, label: "Place on the map (an id from Places: armenia, georgia, portugal…)", type: string }
       - name: music
         label: Linked score
         type: object
         fields:
-          - { name: title, label: Title, type: string }
-          - { name: year, label: Year, type: string }
-          - { name: blurb, label: One line, type: string }
-          - { name: url, label: Score page, type: string }
+          - { name: work, label: "Work (an id from Works: gegham, darial, mar-novo…)", type: string }
+          - { name: blurb, label: One line for this essay's score card, type: string }
       - name: stops
         label: Stops (sorted by date automatically)
         type: object

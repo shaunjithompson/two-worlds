@@ -20,11 +20,10 @@
     "country": "Georgia",
     "url": "georgia-2015.html"
   },
+  "place": "armenia",
   "music": {
-    "title": "À la côte de la mer de Gegham",
-    "year": "2024",
-    "blurb": "A piece about Lake Sevan, for wind band.",
-    "url": "a-la-cote-de-la-mer-de-gegham.html"
+    "work": "gegham",
+    "blurb": "A piece about Lake Sevan, for wind band."
   },
   "stops": [
     {

@@ -21,11 +21,10 @@
     "country": "Turkey",
     "url": ""
   },
+  "place": "georgia",
   "music": {
-    "title": "Overture “Beyond the Darial Pass”",
-    "year": "2026",
-    "blurb": "An overture for wind band after Aivazovsky’s 1868 painting of the Darial Gorge, on the old road north from Tbilisi through the Caucasus.",
-    "url": "beyond-the-darial-pass.html"
+    "work": "darial",
+    "blurb": "An overture for wind band after Aivazovsky’s 1868 painting of the Darial Gorge, on the old road north from Tbilisi through the Caucasus."
   },
   "stops": [
     {

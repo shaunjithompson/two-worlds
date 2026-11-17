@@ -32,8 +32,20 @@ Design rules: black ground, paper `#F1EEE7`, Japanese indigo `#21364F`, oxide re
 
 ## Content
 
+Everything the map and the score pages show comes from `content/`, linked by id. Edit it in Pages CMS; the build does the rest.
+
+| File | What it holds |
+|---|---|
+| `content/places.json` | One dot per country: name, position, preview photos; the next journey's route |
+| `content/works/<id>.json` | One per piece: title, year, instrumentation, programme note, the places it's about, score price and links. A work with a `page` gets a score page made from `templates/work.html` |
+| `content/journeys/<slug>.json` | One per photo essay; names its `place` and its `music.work` |
+
 - **Journeys:** `content/journeys/<slug>.json`, edited in Pages CMS (pagescms.org, sign in with GitHub). Each stop and photo carries an ISO date; stops are sorted by date.
 - **Photos:** `assets/*.jpg` at 2000 px, made with `tools/photo.py`. The build adds 800 and 1400 px WebP copies in `assets/sized/`.
+
+## Checks
+
+`python3 tools/check.py` (after the build) checks the content, every date and every link on the site. On a pull request GitHub also takes screenshots of every page on a phone and a desktop and compares them with main: see the PR's Checks tab (`.github/workflows/checks.yml`).
 
 ## Build
 

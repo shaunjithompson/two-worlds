@@ -1,0 +1,25 @@
+{
+  "id": "gegham",
+  "title": "À la côte de la mer de Gegham",
+  "lang": "fr",
+  "year": "2024",
+  "forces": "Wind band",
+  "duration": "[DURATION]",
+  "premiere": "",
+  "about": "Lake Sevan, the Gegham Sea, lies about 1,900 metres up in the Armenian highlands. The piece opens with soft, free solo lines in the winds before the full band enters.",
+  "note": [
+    "Lake Sevan, the Gegham Sea, lies about 1,900 metres up in the Armenian highlands. The piece opens with soft, free solo lines in the winds before the full band enters."
+  ],
+  "places": [
+    "armenia"
+  ],
+  "row": "row-gegham",
+  "page": "a-la-cote-de-la-mer-de-gegham.html",
+  "image": "assets/sevan-sunset.jpg",
+  "recording": "https://www.youtube.com/watch?v=kwXetq1aLH4",
+  "score": {
+    "price": "[PRICE]",
+    "buy": "index.html#about",
+    "perusal": "index.html#about"
+  }
+}

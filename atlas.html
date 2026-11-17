@@ -31,11 +31,23 @@
   <p class="label atlas-k">Travel</p>
   <h1 id="atlas-h" class="atlas-h">The atlas</h1>
   <p class="atlas-sub">One dot per country: where the photo essays are, where each piece of music comes from, and the next journey.</p>
-  <div class="map atlas-map" id="map">
+  <div class="map atlas-map" id="map" role="region" aria-label="Map of places">
     <canvas aria-hidden="true"></canvas>
     <div class="map-layer" id="map-layer">
       <!-- pins are added by js/home.js from the PLACES list -->
     </div>
+<!-- places:start -->
+  <nav class="place-index" aria-label="Places on the map">
+    <ul>
+      <li><span class="pi-name">Armenia</span><span class="pi-when">Travelled August 2015 · Photo essay</span><a href="armenia-2015.html">Photo essay</a><a href="a-la-cote-de-la-mer-de-gegham.html">Score: <i>À la côte de la mer de Gegham</i></a></li>
+      <li><span class="pi-name">Georgia</span><span class="pi-when">Travelled August 2015 · Photo essay</span><a href="georgia-2015.html">Photo essay</a><a href="beyond-the-darial-pass.html">Score: <i>Overture “Beyond the Darial Pass”</i></a></li>
+      <li><span class="pi-name">Portugal</span><span class="pi-when">Travelled December 2015 · Photo essay</span><a href="portugal-2015.html">Photo essay</a><a href="o-mar-novo.html">Score: <i>O Mar Novo: «As Vagas de Nazaré»</i></a></li>
+      <li><span class="pi-name">Poland</span><span class="pi-when">Music · Flute and wind band · 2025</span><a href="index.html#row-kosciuszko">The music: <i>Koncert „Elegia Kościuszki”</i></a></li>
+      <li><span class="pi-name">Norway</span><span class="pi-when">Music · Wind band · 2025</span><a href="index.html#row-forlop">The music: <i>Forløp (Forløb)</i></a></li>
+      <li><span class="pi-name">Morocco to The Gambia</span><span class="pi-when">Next journey · Departs 2026</span><a href="morocco-to-the-gambia.html">About the journey</a></li>
+    </ul>
+  </nav>
+  <!-- places:end -->
     <div class="legend" aria-label="Map key">
             <span class="lg-t">Key · one dot per country</span>
             <span><span class="lg-sym lg-music" aria-hidden="true"></span>Music: a piece about this country</span>
@@ -54,6 +66,7 @@
 </main>
 <footer class="footer atlas-foot"><div class="wrap"><div class="fine"><a href="index.html">← Back to the front page</a><span>Shaun Ji-Thompson · Sydney</span></div></div></footer>
 <script src="js/dots.js"></script>
+<script src="js/places.js"></script>
 <script src="js/home.js"></script>
 <script src="js/back.js"></script>
 </body>
