@@ -1,0 +1,75 @@
+{
+  "title": "Portugal",
+  "subtitle": "from the Douro to Cabo da Roca",
+  "date": "2015-12",
+  "published": "2026-11-17",
+  "leg": "Santiago de Compostela to Lisbon, the last stretch from Singapore",
+  "standfirst": "Photos from Portugal in December 2015: Porto, Aveiro and Lisbon, then out past Cascais to Cabo da Roca. In from Santiago de Compostela; the last stop on the overland leg from Singapore.",
+  "cover": {
+    "src": "assets/portugal-cover.jpg",
+    "alt": "The stone cross on its column at Cabo da Roca against the sunset, people along the railing in silhouette",
+    "date": "2015-12-04"
+  },
+  "before": {
+    "place": "Santiago de Compostela",
+    "country": "Spain",
+    "url": ""
+  },
+  "music": {
+    "title": "O Mar Novo: «As Vagas de Nazaré»",
+    "year": "2026",
+    "blurb": "For wind band, on the great Atlantic winter waves that break off Nazaré, on this coast between Aveiro and Lisbon.",
+    "url": "index.html#row-marNovo"
+  },
+  "stops": [
+    {
+      "place": "Porto",
+      "country": "Portugal",
+      "date": "2015-12-01",
+      "caption": "Porto, on the Douro near its mouth, the first stop after crossing from Galicia. Houses stack up the hill from the Ribeira; São Bento station is in the centre.",
+      "photos": [
+        { "src": "assets/porto-03.jpg", "alt": "Tall houses with iron balconies and laundry hanging out, a corrugated-iron wall and tiled roofs behind", "lead": true, "date": "2015-12-01" },
+        { "src": "assets/porto-02.jpg", "alt": "The clock and mansard roof of São Bento station against a clear sky", "date": "2015-12-01" },
+        { "src": "assets/porto-01.jpg", "alt": "A francesinha: melted cheese over the sandwich, two sausages on top, in a dish of orange sauce", "date": "2015-12-01" }
+      ]
+    },
+    {
+      "place": "Aveiro",
+      "country": "Portugal",
+      "date": "2015-12-01",
+      "caption": "Aveiro, on the lagoon of the Ria de Aveiro. Canals through the centre with painted moliceiro boats, once used to gather seaweed; Art Nouveau fronts along the main canal; salt marsh at the edge of town.",
+      "photos": [
+        { "src": "assets/aveiro-04.jpg", "alt": "Moliceiro boats moored on the central canal, Art Nouveau and tiled buildings along the quay", "lead": true, "date": "2015-12-01" },
+        { "src": "assets/aveiro-01.jpg", "alt": "A pink stepped gable with peeling plaster, a pedestrian-crossing sign in front", "date": "2015-12-01" },
+        { "src": "assets/aveiro-02.jpg", "alt": "A narrow street between old plastered buildings, a strip of blue sky above", "date": "2015-12-01" },
+        { "src": "assets/aveiro-03.jpg", "alt": "A pão de ló sponge cake in a shop window, priced at 3.50 euros, custard tarts beside it", "date": "2015-12-01" },
+        { "src": "assets/aveiro-05.jpg", "alt": "A red parking meter marked Aveiro 250 in front of tiled houses", "date": "2015-12-01" },
+        { "src": "assets/aveiro-06.jpg", "alt": "A small white hut on the salt marsh, reflected in still water", "date": "2015-12-02" },
+        { "src": "assets/aveiro-07.jpg", "alt": "A painted moliceiro boat heading down a canal towards a footbridge", "date": "2015-12-02" },
+        { "src": "assets/aveiro-08.jpg", "alt": "A café counter of coconut cakes, flaky pastries in a box, burnt-top egg pastries and almond tarts at one euro each", "date": "2015-12-02" }
+      ]
+    },
+    {
+      "place": "Lisbon",
+      "native": "Lisboa",
+      "country": "Portugal",
+      "caption": "Lisbon, at the mouth of the Tagus and the end of the road west. Tiled fronts and trams in the old town; downriver at Belém, the tower and the Monument to the Discoveries face the Atlantic.",
+      "photos": [
+        { "src": "assets/lisbon-03.jpg", "alt": "The Monument to the Discoveries: stone navigators, a friar and a figure holding a scroll of verse, climbing the prow of a ship", "lead": true, "date": "2015-12-04" },
+        { "src": "assets/lisbon-01.jpg", "alt": "A charred egg pastry on a napkin beside a small black coffee", "date": "2015-12-04" },
+        { "src": "assets/lisbon-02.jpg", "alt": "A grey-tiled corner building, a red tram turning on the street below", "date": "2015-12-04" },
+        { "src": "assets/lisbon-04.jpg", "alt": "The battlements of Belém Tower, carved with crosses, the Tagus behind", "date": "2015-12-04" },
+        { "src": "assets/lisbon-05.jpg", "alt": "Roast chestnuts on paper beside a street seller's smoking burner", "date": "2015-12-05" }
+      ]
+    },
+    {
+      "place": "Cabo da Roca",
+      "country": "Portugal",
+      "caption": "Cabo da Roca, out past Cascais, the westernmost point of mainland Europe. The monument carries Camões’s line «Onde a terra se acaba e o mar começa».",
+      "photos": [
+        { "src": "assets/roca-02.jpg", "alt": "Cliffs dropping into the Atlantic, a rock in the surf below", "date": "2015-12-04" },
+        { "src": "assets/roca-01.jpg", "alt": "Sunset over the Atlantic, the sky orange and blue above a band of cloud", "date": "2015-12-04" }
+      ]
+    }
+  ]
+}

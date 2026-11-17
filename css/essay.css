@@ -33,7 +33,6 @@ h1 em { font-style: italic; font-weight: 200; }
 .plate-head .native { font-family: var(--native-font); font-weight: 300; font-size: clamp(15px, 1.5vw, 19px); color: #CFCAC0; margin-top: 6px; }
 .city .hy, .pin-label .hy { display: block; font-family: var(--native-font); font-size: .92em; opacity: .8; }
 .city.up { transform: translate(-50%, calc(-100% - 8px)); text-align: center; }
-.city.down { transform: translate(-50%, 8px); text-align: center; }
 .sea.edge-l { transform: translate(0, -50%); } .sea.edge-r { left: auto; transform: translate(0, -50%); }
 .city.edge-b { top: auto; transform: translate(-50%, 0); }
 @media (max-width: 700px) { .city.minor { display: none; } .city { font-size: 12px; } .country { font-size: 11px; } .pin { width: 12px; height: 12px; margin: -6px 0 0 -6px; } .pin-label { font-size: 11px; padding: 3px 8px; } }
