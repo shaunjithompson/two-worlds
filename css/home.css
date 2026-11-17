@@ -172,6 +172,7 @@ h2.travel { margin: 0; font-weight: 600; font-size: clamp(72px, 11vw, 168px); li
 .x-k { color: var(--oxide); } .also-music .x-k { color: var(--oxide-light); }
 .x-t { font-family: var(--serif); font-size: 26px; line-height: 1.1; }
 .x-s { font-size: 15px; color: var(--ink-soft); } .also-music .x-s { color: var(--mute); }
+.x-more { margin-top: 2px; color: var(--oxide); } .also-music .x-more { color: var(--oxide-light); }
 .also-travel a:hover { color: var(--oxide); }
 @media (max-width: 800px) { .also-top { grid-template-columns: minmax(0, 1fr); } .also-band { padding-top: 72px; padding-bottom: 72px; } }
 @media (prefers-reduced-motion: reduce) { .x-pic img { transition: none; } }
