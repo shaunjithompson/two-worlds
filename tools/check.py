@@ -9,6 +9,8 @@ Errors (the check fails):
   - every page with a photo carousel loads css/essay.css and js/essay.js (carousel buttons and ←/→ keys)
 Warnings (printed, the check still passes):
   - photos, and stops, with no date (the chronological rule: flag anything that can't be dated)
+  - two horizontal photos side by side in a carousel (Shaun: it looks blocky). Fix by choosing photos,
+    e.g. a vertical shot between them; carousels stay in date order, so nothing is reordered for you.
 """
 import json, os, re, sys
 from html.parser import HTMLParser
@@ -111,6 +113,12 @@ def check_links(places):
         if f.endswith('.html'):
             html = open(p(f), encoding='utf-8').read()
             pg = Page(); pg.feed(html); pages[f] = pg
+            for car in re.finditer(r'aria-label="([^"]+) photos, scroll sideways">(.*?)</div>', html):
+                shapes = ['h' if int(w) > int(ht) else 'v' for w, ht in re.findall(r'width="(\d+)" height="(\d+)"', car.group(2))]
+                pairs = [i + 1 for i in range(len(shapes) - 1) if shapes[i] == shapes[i + 1] == 'h']
+                if pairs:
+                    warn(f'{f}: {car.group(1)} carousel has horizontal photos side by side at '
+                         + ', '.join(f'{i}–{i + 1}' for i in pairs) + ' (' + ''.join(shapes).upper() + ')')
             if 'class="carousel' in html:
                 for need_ref in ('css/essay.css', 'js/essay.js'):
                     if not any(r == need_ref for _, r in pg.refs):
