@@ -1,6 +1,19 @@
 {
   "places": [
     {
+      "id": "iran",
+      "name": "Iran",
+      "lon": 53.7,
+      "lat": 32.4,
+      "photos": [
+        "assets/tehran-cover.jpg",
+        "assets/mashhad-01.jpg",
+        "assets/golestan-01.jpg",
+        "assets/tehran-01.jpg",
+        "assets/tabriz-01.jpg"
+      ]
+    },
+    {
       "id": "armenia",
       "name": "Armenia",
       "lon": 45.0,

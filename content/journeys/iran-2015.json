@@ -1,0 +1,152 @@
+{
+  "title": "Iran",
+  "titleNative": "ایران",
+  "subtitle": "from Mashhad to Tabriz",
+  "date": "2015-08",
+  "published": "2026-11-18",
+  "leg": "Ashgabat to Kapan",
+  "standfirst": "Photos from Iran in August 2015, on the overland route from Turkmenistan to Armenia: Mashhad, three days walking in Golestan, Tehran and Tabriz.",
+  "cover": {
+    "src": "assets/tehran-cover.jpg",
+    "alt": "A woman in a patterned headscarf walking past blue Persian calligraphy painted on a pink wall in Tehran",
+    "date": "2015-08-09"
+  },
+  "before": {
+    "place": "Ashgabat",
+    "country": "Turkmenistan",
+    "url": ""
+  },
+  "after": {
+    "place": "Kapan",
+    "country": "Armenia",
+    "url": "armenia-2015.html"
+  },
+  "place": "iran",
+  "stops": [
+    {
+      "place": "Mashhad",
+      "native": "مشهد",
+      "country": "Iran",
+      "date": "2015-08-02",
+      "caption": "Over the border from Ashgabat and down to Mashhad by bus; the driver poured me a glass of tea on the way. Mashhad grew up around the shrine of Imam Reza.",
+      "photos": [
+        {
+          "src": "assets/mashhad-01.jpg",
+          "alt": "A glass of tea held up in front of a bus windscreen, the driver holding a tin of sugar cubes",
+          "lead": true,
+          "date": "2015-08-02"
+        },
+        {
+          "src": "assets/mashhad-02.jpg",
+          "alt": "Tiled arcades of the Imam Reza shrine in Mashhad under a clear sky",
+          "date": "2015-08-03"
+        },
+        {
+          "src": "assets/mashhad-03.jpg",
+          "alt": "Round and long flatbreads hanging in a Mashhad bakery window",
+          "date": "2015-08-03"
+        }
+      ]
+    },
+    {
+      "place": "Golestan",
+      "native": "گلستان",
+      "country": "Iran",
+      "date": "2015-08-05",
+      "caption": "In Mashhad a hiking group from Golestan asked me to walk with them: three days from Aliabad-e Katul, through beech forest above the village of Mahian and over the ridge to the Semnan border, down to a waterfall.",
+      "photos": [
+        {
+          "src": "assets/golestan-01.jpg",
+          "alt": "A horse grazing on a rocky slope above forested valleys",
+          "lead": true,
+          "date": "2015-08-06"
+        },
+        {
+          "src": "assets/golestan-02.jpg",
+          "alt": "Saffron chicken kebab pulled off a flat skewer into bread",
+          "date": "2015-08-05"
+        },
+        {
+          "src": "assets/golestan-03.jpg",
+          "alt": "A mud-and-timber house and an old blue pickup in Mahian",
+          "date": "2015-08-05"
+        },
+        {
+          "src": "assets/golestan-04.jpg",
+          "alt": "Sheep grazing above the village of Mahian at dusk",
+          "date": "2015-08-05"
+        },
+        {
+          "src": "assets/golestan-05.jpg",
+          "alt": "A dead tree on a dry upland slope, forested hills behind",
+          "date": "2015-08-06"
+        },
+        {
+          "src": "assets/golestan-06.jpg",
+          "alt": "Low sun through beech trunks",
+          "date": "2015-08-06"
+        },
+        {
+          "src": "assets/golestan-07.jpg",
+          "alt": "A waterfall dropping down a limestone cliff into a pool, forest around it",
+          "date": "2015-08-07"
+        }
+      ]
+    },
+    {
+      "place": "Tehran",
+      "native": "تهران",
+      "country": "Iran",
+      "date": "2015-08-09",
+      "caption": "Tehran, under the Alborz. The Grand Bazaar is sorted by trade; my host took me up to Meygun, a mountain village an hour north of the city.",
+      "photos": [
+        {
+          "src": "assets/tehran-01.jpg",
+          "alt": "Expressway traffic and apartment blocks with the Alborz mountains behind",
+          "lead": true,
+          "date": "2015-08-09"
+        },
+        {
+          "src": "assets/tehran-02.jpg",
+          "alt": "Tiled shop signs above a shoe shop in the Tehran Grand Bazaar",
+          "date": "2015-08-09"
+        },
+        {
+          "src": "assets/tehran-03.jpg",
+          "alt": "Villas and building frames in a valley among bare mountains at Meygun",
+          "date": "2015-08-11"
+        }
+      ]
+    },
+    {
+      "place": "Tabriz",
+      "native": "تبریز",
+      "country": "Iran",
+      "date": "2015-08-12",
+      "caption": "Tabriz, the last city before the border, with its brick-vaulted bazaar. Then north to Jolfa and east along the Aras into Armenia.",
+      "photos": [
+        {
+          "src": "assets/tabriz-01.jpg",
+          "alt": "A shop wall of framed woven carpet pictures of flowers and a mosque",
+          "lead": true,
+          "date": "2015-08-12"
+        },
+        {
+          "src": "assets/tabriz-02.jpg",
+          "alt": "A man in a white shirt walking past a parked bicycle and an arched doorway",
+          "date": "2015-08-12"
+        },
+        {
+          "src": "assets/tabriz-03.jpg",
+          "alt": "Brick vaults of the Tabriz bazaar hung with coloured lanterns",
+          "date": "2015-08-12"
+        },
+        {
+          "src": "assets/tabriz-04.jpg",
+          "alt": "An empty road crossing a dry plain towards mountains",
+          "date": "2015-08-12"
+        }
+      ]
+    }
+  ]
+}
