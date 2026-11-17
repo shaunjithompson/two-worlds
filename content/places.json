@@ -1,0 +1,88 @@
+{
+  "places": [
+    {
+      "id": "armenia",
+      "name": "Armenia",
+      "lon": 45.0,
+      "lat": 40.2,
+      "photos": [
+        "assets/sevan-sunset.jpg",
+        "assets/kapan-01.jpg",
+        "assets/goris-02.jpg",
+        "assets/sevanavank.jpg",
+        "assets/yer-07.jpg"
+      ]
+    },
+    {
+      "id": "georgia",
+      "name": "Georgia",
+      "lon": 43.6,
+      "lat": 42.1,
+      "photos": [
+        "assets/tbilisi-cover.jpg",
+        "assets/tbilisi-06.jpg",
+        "assets/gori-02.jpg",
+        "assets/batumi-02.jpg",
+        "assets/gorge.jpg"
+      ]
+    },
+    {
+      "id": "portugal",
+      "name": "Portugal",
+      "lon": -8.2,
+      "lat": 39.6,
+      "photos": [
+        "assets/portugal-cover.jpg",
+        "assets/porto-03.jpg",
+        "assets/aveiro-04.jpg",
+        "assets/lisbon-03.jpg",
+        "assets/roca-02.jpg"
+      ]
+    },
+    {
+      "id": "poland",
+      "name": "Poland",
+      "lon": 19.4,
+      "lat": 52.0,
+      "photos": [
+        "assets/plain.jpg"
+      ]
+    },
+    {
+      "id": "norway",
+      "name": "Norway",
+      "lon": 8.5,
+      "lat": 61.0,
+      "photos": [
+        "assets/coast.jpg"
+      ]
+    },
+    {
+      "id": "journey",
+      "name": "Morocco to The Gambia",
+      "lon": -7.59,
+      "lat": 33.57,
+      "photos": [
+        "assets/dunes.jpg"
+      ],
+      "next": {
+        "url": "morocco-to-the-gambia.html",
+        "departs": "2026",
+        "route": [
+          -7.59,
+          33.57,
+          -9.6,
+          30.4,
+          -14.5,
+          26.13,
+          -16,
+          18.1,
+          -17.4,
+          14.7,
+          -16.6,
+          13.45
+        ]
+      }
+    }
+  ]
+}

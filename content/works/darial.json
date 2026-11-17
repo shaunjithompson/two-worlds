@@ -1,0 +1,27 @@
+{
+  "id": "darial",
+  "title": "Overture “Beyond the Darial Pass”",
+  "short": "Beyond the Darial Pass",
+  "year": "2026",
+  "forces": "Wind band",
+  "duration": "[DURATION]",
+  "premiere": "October 2026 · [ENSEMBLE] · [CONDUCTOR] · [VENUE]",
+  "about": "After Aivazovsky’s 1868 painting of the Darial Gorge. Premiered October 2026.",
+  "note": [
+    "The Persians called it Dar-e Alān, the gate of the Alans: the narrow gorge that carries the old road north through the Caucasus.",
+    "Aivazovsky painted it in 1868. This piece starts from that painting and follows a traveller into the gorge — through apprehension and vulnerability toward determination and, finally, courage. The winds carry the line the way a voice would: in their natural registers, with the long breath of bel canto and resonant harmony underneath.",
+    "[Continue the note in your own words — the concert speech from 31 October is a good source.]"
+  ],
+  "places": [
+    "georgia"
+  ],
+  "row": "row-darial",
+  "page": "beyond-the-darial-pass.html",
+  "image": "assets/gorge.jpg",
+  "recording": "",
+  "score": {
+    "price": "[PRICE]",
+    "buy": "index.html#about",
+    "perusal": "index.html#about"
+  }
+}

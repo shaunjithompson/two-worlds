@@ -15,11 +15,10 @@
     "country": "Spain",
     "url": ""
   },
+  "place": "portugal",
   "music": {
-    "title": "O Mar Novo: «As Vagas de Nazaré»",
-    "year": "2026",
-    "blurb": "For wind band, on the great Atlantic winter waves that break off Nazaré, on this coast between Aveiro and Lisbon.",
-    "url": "index.html#row-marNovo"
+    "work": "mar-novo",
+    "blurb": "For wind band, on the great Atlantic winter waves that break off Nazaré, on this coast between Aveiro and Lisbon."
   },
   "stops": [
     {

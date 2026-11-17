@@ -4,7 +4,7 @@ name: Build pages
 on:
   push:
     branches: [main]
-    paths: ['content/**', 'assets/**', 'tools/build.py', 'tools/land.json', '*.html']
+    paths: ['content/**', 'assets/**', 'templates/**', 'tools/build.py', 'tools/land.json', '*.html']
   workflow_dispatch:
 permissions:
   contents: write
@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - run: pip install pillow
+      - run: pip install pillow jinja2
       - run: python3 tools/build.py
       - name: Commit if anything changed
         run: |

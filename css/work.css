@@ -1,0 +1,43 @@
+/* Two Worlds — score pages (made from templates/work.html). Loaded after base.css. */
+body { margin: 0; background: var(--ink); color: var(--paper); font-family: var(--sans); }
+a { color: var(--paper); } a:hover { color: var(--oxide-light); }
+.wrap { max-width: 824px; margin: 0 auto; padding: 0 32px; box-sizing: border-box; }
+.mono { font-family: var(--sans); font-size: 12px; letter-spacing: .02em; }
+.mono-keep { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.nav { max-width: 1240px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; padding-top: 24px; padding-bottom: 24px; }
+.nav .brand { font-family: var(--serif); font-size: 22px; text-decoration: none; }
+.nav-links { display: flex; flex-wrap: wrap; gap: 4px; }
+.nav-links a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; text-decoration: none; color: var(--mute); font-family: var(--sans); font-size: 12px; letter-spacing: .02em; }
+.nav-links a[aria-current] { color: var(--paper); background: var(--indigo); border-radius: 999px; }
+.top { padding-top: 72px; }
+.kicker { margin: 0 0 20px; color: var(--mute); }
+h1 { margin: 0; font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(44px, 7vw, 80px); line-height: 1.02; letter-spacing: -0.02em; }
+.byline { margin: 20px 0 0; font-family: var(--sans); font-size: 12px; letter-spacing: .02em; color: var(--mute); }
+.block { padding-top: 40px; }
+.buy { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; padding: 28px 32px; background: var(--indigo); border-radius: 2px; }
+.price { flex: 1 1 260px; display: flex; flex-direction: column; gap: 6px; }
+.price .amount { font-family: var(--serif); font-size: 34px; }
+.price .what { font-size: 14px; color: #C9D3E0; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 999px; text-decoration: none; font-family: var(--sans); font-size: 12px; }
+.btn.solid { background: var(--paper); color: var(--ink); } .btn.solid:hover { color: var(--oxide); }
+.btn.line { border: 1px solid #6F8AAE; }
+.watch { display: flex; align-items: center; gap: 16px; padding: 20px 0; text-decoration: none; border-bottom: 1px solid var(--rule); font-size: 15px; }
+.watch .play { flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--paper); color: var(--ink); display: flex; align-items: center; justify-content: center; }
+.muted { color: var(--mute); }
+.note { padding-top: 64px; }
+.note .label { font-size: 11px; color: var(--oxide-light); }
+article p { margin: 0 0 1.1em; font-family: var(--serif); font-size: 21px; line-height: 1.6; color: #E6E2DA; }
+.journey-wrap { padding-top: 32px; }
+.journey { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); text-decoration: none; background: #161618; border-radius: 2px; overflow: hidden; }
+.journey img { display: block; width: 100%; height: 100%; min-height: 200px; object-fit: cover; }
+.journey-txt { display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 28px; }
+.journey-txt .mono { font-size: 11px; color: #9DB3CF; }
+.journey-t { font-family: var(--serif); font-size: 28px; line-height: 1.15; }
+.journey-txt .more { font-family: var(--sans); font-size: 12px; color: var(--mute); }
+.details { padding-top: 72px; padding-bottom: 40px; }
+dl { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 24px; border-top: 1px solid var(--rule); padding-top: 24px; }
+dt { font-family: var(--sans); font-size: 11px; letter-spacing: .02em; color: var(--mute); }
+dd { margin: 6px 0 0; font-family: var(--serif); font-size: 19px; }
+.more-nav { display: flex; flex-wrap: wrap; gap: 12px 28px; padding-bottom: 96px; font-family: var(--sans); font-size: 12px; letter-spacing: .02em; }
+.more-nav a { padding: 12px 0; color: var(--mute); text-decoration: none; }

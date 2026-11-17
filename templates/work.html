@@ -1,0 +1,109 @@
+{#- Two Worlds — score page, one per work with a "page" in content/works/<id>.json. Made by tools/build.py; edit this template, not the generated page. -#}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ w.title }}, for {{ w.forces|lower }} — score by Shaun Ji-Thompson</title>
+<meta name="description" content="{{ desc }}">
+<link rel="canonical" href="{{ site }}{{ w.page }}">
+<meta property="og:type" content="music.song">
+<meta property="og:site_name" content="Shaun Ji-Thompson">
+<meta property="og:title" content="{{ w.title }} — score for {{ w.forces|lower }}">
+<meta property="og:description" content="{{ desc }}">
+<meta property="og:url" content="{{ site }}{{ w.page }}">
+{%- if w.image %}
+<meta property="og:image" content="{{ site }}{{ w.image }}">
+{%- endif %}
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{{ jsonld }}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,200;1,6..72,300;1,6..72,400&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/work.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<header class="wrap nav">
+  <div class="tw-brandrow"><a class="tw-back" href="index.html#back" data-back><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back</a><a class="brand" href="index.html">Shaun Ji-Thompson</a></div>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="index.html#music" aria-current="page">Music</a>
+    <a href="index.html#travel">Travel</a>
+    <a href="atlas.html">Atlas</a>
+    <a href="index.html#about">About</a>
+  </nav>
+</header>
+
+<main id="content">
+<section class="wrap top">
+  <p class="mono-keep kicker">Score · {{ w.forces }} · {{ w.year }}</p>
+  <h1{% if w.lang %} lang="{{ w.lang }}"{% endif %}>{{ w.title }}</h1>
+  <p class="byline">Music by Shaun Ji-Thompson</p>
+</section>
+{%- if w.score %}
+
+<section class="wrap block" aria-label="Buy the score">
+  <div class="buy">
+    <div class="price"><span class="amount">{{ w.score.price }}</span><span class="what">Full score and parts, PDF.</span></div>
+    <div class="actions">
+      <a class="btn solid" href="{{ w.score.buy }}">Buy the score</a>
+      <a class="btn line" href="{{ w.score.perusal }}">Free perusal score</a>
+    </div>
+  </div>
+  {%- if w.recording %}
+  <a class="watch" href="{{ w.recording }}" target="_blank" rel="noopener">
+    <span class="play"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg></span>
+    <span>Watch the performance <span class="muted">↗</span></span>
+  </a>
+  {%- endif %}
+</section>
+{%- endif %}
+{%- if w.note %}
+
+<article class="wrap note">
+  <p class="mono label">The inspiration</p>
+  {%- for para in w.note %}
+  <p>{{ para }}</p>
+  {%- endfor %}
+</article>
+{%- endif %}
+{%- for j in journeys %}
+
+<section class="wrap journey-wrap">
+  <a class="journey" href="{{ j.url }}">
+    <img src="{{ j.cover }}" alt="">
+    <span class="journey-txt">
+      <span class="mono">The journey · {{ j.country }}, {{ j.year }}</span>
+      <span class="journey-t">{{ j.title }}</span>
+      <span class="more">See the photo diary →</span>
+    </span>
+  </a>
+</section>
+{%- endfor %}
+
+<section class="wrap details" aria-label="Details">
+  <dl>
+    <div><dt>Instrumentation</dt><dd>{{ w.forces }}</dd></div>
+    <div><dt>Year</dt><dd>{{ w.year }}</dd></div>
+    {%- if w.duration %}
+    <div><dt>Duration</dt><dd>{{ w.duration }}</dd></div>
+    {%- endif %}
+    {%- if w.premiere %}
+    <div><dt>Premiere</dt><dd>{{ w.premiere }}</dd></div>
+    {%- endif %}
+  </dl>
+</section>
+<nav class="wrap more-nav" aria-label="More from Two Worlds">
+  <a href="index.html#{{ w.row }}">← All works and scores</a>
+  {%- for pl in places %}
+  <a href="atlas.html#place-{{ pl.id }}">{{ pl.name }} on the atlas</a>
+  {%- endfor %}
+  <a href="index.html">Home</a>
+</nav>
+</main>
+
+<script src="js/back.js"></script>
+</body>
+</html>

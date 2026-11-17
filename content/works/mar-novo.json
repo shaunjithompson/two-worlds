@@ -1,0 +1,26 @@
+{
+  "id": "mar-novo",
+  "title": "O Mar Novo: «As Vagas de Nazaré»",
+  "lang": "pt",
+  "year": "2026",
+  "forces": "Wind band",
+  "duration": "[DURATION]",
+  "premiere": "",
+  "about": "The great Atlantic winter waves that break off Nazaré, on the coast of Portugal.",
+  "note": [
+    "The waves off Nazaré, on the Atlantic coast of Portugal, are among the largest in the world: in winter, swells from the open ocean are funnelled by an undersea canyon and break close to the shore.",
+    "[Continue the note in your own words: what drew you to Nazaré, and how the piece moves.]"
+  ],
+  "places": [
+    "portugal"
+  ],
+  "row": "row-marNovo",
+  "page": "o-mar-novo.html",
+  "image": "assets/portugal-cover.jpg",
+  "recording": "https://www.youtube.com/watch?v=zOkrFVbamSI",
+  "score": {
+    "price": "[PRICE]",
+    "buy": "index.html#about",
+    "perusal": "index.html#about"
+  }
+}

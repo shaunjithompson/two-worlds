@@ -1,33 +1,19 @@
 /* Two Worlds — the dot map on the home Travel side and the atlas. No dependencies.
-   The land dots live in js/dots.js (made by tools/build.py), which must load first.
+   js/dots.js (land dots) and js/places.js (the places), both made by tools/build.py, must load first.
+   Keyboard and screen-reader users get the plain list of the same links (.place-index, also made by the build);
+   the dots themselves are for pointers and touch.
    The Music / Travel switch and the home page's deep links are handled by the inline script in index.html. */
 (function () {
   'use strict';
 
-  // One dot per country, by longitude and latitude in decimal degrees (west and south are negative).
+  // One dot per country. The list is made by tools/build.py from content/ (places, journeys and works) into js/places.js.
   // kinds: 'music' = a piece is about this country · 'been' = a photo essay · 'next' = an upcoming journey.
   // essay = the photo essay; score = the score page (or the works row on the home page when there's no page yet).
-  var PLACES = [
-    { id: 'armenia', name: 'Armenia', label: 'Travelled August 2015 · Photo essay',
-      imgs: ['assets/sevan-sunset.jpg', 'assets/kapan-01.jpg', 'assets/goris-02.jpg', 'assets/sevanavank.jpg', 'assets/yer-07.jpg'], lon: 45.0, lat: 40.2, kinds: ['been', 'music'],
-      essay: 'armenia-2015.html', music: 'À la côte de la mer de Gegham', score: 'a-la-cote-de-la-mer-de-gegham.html' },
-    { id: 'georgia', name: 'Georgia', label: 'Travelled August 2015 · Photo essay',
-      imgs: ['assets/tbilisi-cover.jpg', 'assets/tbilisi-06.jpg', 'assets/gori-02.jpg', 'assets/batumi-02.jpg', 'assets/gorge.jpg'], lon: 43.6, lat: 42.1, kinds: ['been', 'music'],
-      essay: 'georgia-2015.html', music: 'Overture “Beyond the Darial Pass”', score: 'beyond-the-darial-pass.html' },
-    { id: 'journey', name: 'Morocco to The Gambia', label: 'Next journey · Departs 2026',
-      imgs: ['assets/dunes.jpg'], lon: -7.59, lat: 33.57, kinds: ['next'], essay: 'morocco-to-the-gambia.html', essayText: 'About the journey' },
-    { id: 'portugal', name: 'Portugal', label: 'Travelled December 2015 · Photo essay',
-      imgs: ['assets/portugal-cover.jpg', 'assets/porto-03.jpg', 'assets/aveiro-04.jpg', 'assets/lisbon-03.jpg', 'assets/roca-02.jpg'], lon: -8.2, lat: 39.6, kinds: ['been', 'music'],
-      essay: 'portugal-2015.html', music: 'O Mar Novo: «As Vagas de Nazaré»', score: 'index.html#row-marNovo' },
-    { id: 'poland', name: 'Poland', label: 'Music · Flute and wind band · 2025',
-      imgs: ['assets/plain.jpg'], lon: 19.4, lat: 52.0, kinds: ['music'], music: 'Koncert „Elegia Kościuszki”', score: 'index.html#row-kosciuszko' },
-    { id: 'norway', name: 'Norway', label: 'Music · Wind band · 2025',
-      imgs: ['assets/coast.jpg'], lon: 8.5, lat: 61.0, kinds: ['music'], music: 'Forløp (Forløb)', score: 'index.html#row-forlop' }
-  ];
+  var PLACES = window.TW_PLACES || [];
   // Older links named a place inside a country: send them to the country.
   var ALIAS = { sevan: 'armenia', darial: 'georgia', nazare: 'portugal', lisbon: 'portugal', krakow: 'poland', hardanger: 'norway' };
-  // The upcoming journey as lon, lat pairs: Casablanca down the coast to The Gambia. Drawn faintly so the essays lead.
-  var ROUTE_NEXT = [-7.59, 33.57, -9.6, 30.4, -14.5, 26.13, -16, 18.1, -17.4, 14.7, -16.6, 13.45];
+  // The upcoming journey's route as lon, lat pairs (content/places.json). Drawn faintly so the essays lead.
+  var ROUTE_NEXT = window.TW_ROUTE_NEXT || [];
 
   // The whole world, 180°W–180°E and 84°N–58°S, in map units (U per degree).
   var U = 26 / 3, LON0 = -180, LAT0 = 84, LAT1 = -58;
@@ -44,9 +30,10 @@
   var canvas = map.querySelector('canvas');
   var layer = document.getElementById('map-layer');
   var wholeBtn = document.getElementById('zoom-whole');
+  map.classList.add('has-js'); // the place list hides until it gets keyboard focus
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var place = 'portugal';                 // the selected place: the latest photo essay
+  var place = (PLACES.filter(function (q) { return q.kinds.indexOf('been') >= 0; }).sort(function (a, b) { return a.when < b.when ? 1 : -1; })[0] || {}).id; // the latest photo essay
   var view = { s: 1, tx: 0, ty: 0 }, anim = null;
   var mouse = null, pulseT = -1e9, hot = null;
   var pts = {}, drag = null, pinch = null;
@@ -66,6 +53,7 @@
     pin.type = 'button'; pin.className = 'pin' + p.kinds.map(function (k) { return ' k-' + k; }).join(''); pin.dataset.place = p.id;
     pin.setAttribute('aria-label', p.name + ' (' + p.kinds.map(function (k) { return { music: 'music', been: 'travel', next: 'upcoming' }[k]; }).join(', ') + ')');
     pin.setAttribute('aria-pressed', 'false');
+    pin.tabIndex = -1; // the place list (.place-index) is the keyboard route
     var pt = mapPoint(p); pin.dataset.x = pt.x; pin.dataset.y = pt.y;
     pin.appendChild(document.createElement('i'));
     var label = document.createElement('span');
@@ -161,7 +149,7 @@
   function links(p) {
     var a = [];
     if (p.essay) a.push('<a href="' + esc(p.essay) + '">' + esc(p.essayText || 'Photo essay') + ' →</a>');
-    if (p.score) a.push('<a href="' + esc(p.score) + '">Score: <i>' + esc(p.music) + '</i> →</a>');
+    if (p.score) a.push('<a href="' + esc(p.score) + '">' + esc(p.scoreText || 'Score') + ': <i>' + esc(p.music) + '</i> →</a>');
     return a.join('');
   }
   function showPeek(p) {
@@ -343,11 +331,13 @@
       g.beginPath(); g.arc(lit[k], lit[k + 1], r * (1 + 0.8 * f2), 0, 6.2832); g.fill();
     }
     var N = ROUTE_NEXT;
+    if (N.length >= 4) {
     g.lineJoin = 'round'; g.lineCap = 'round';
     g.strokeStyle = 'rgba(232,103,74,0.45)'; g.lineWidth = 1.25; g.setLineDash([2, 5]); g.lineDashOffset = 0;
     g.beginPath(); g.moveTo(rx(N[0]), ry(N[1]));
     for (var m = 2; m < N.length; m += 2) g.lineTo(rx(N[m]), ry(N[m + 1]));
     g.stroke(); g.setLineDash([]);
+    }
     if (more) invalidate();
   }
 
