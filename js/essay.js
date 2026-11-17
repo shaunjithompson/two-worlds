@@ -2,6 +2,9 @@
    The stops are already in the HTML (written by tools/build.py from content/journeys/<slug>.json),
    so the page reads fine without this file. This only adds: reveal on scroll, carousels,
    the floating stop guide, map ↔ stop linking, the feedback form and the reading bar.
+   Carousel keys: ←/→ turn the carousel you've clicked into, otherwise the one most on screen
+   (at least 40% visible); with none in view the keys scroll the page as usual. Every essay
+   gets this, because every essay loads this file (tools/check.py makes sure).
    Page settings come from <body data-native-lang="ka" data-mini="x y w h" data-feedback-subject="…">. */
 (function () {
   const cfg = document.body.dataset;
@@ -19,6 +22,7 @@
   }
 
   // ---- carousels ----
+  const carousels = [];
   document.querySelectorAll('.carousel').forEach(c => {
     const t = c.querySelector('.track'), figs = [...t.children], cnt = c.querySelector('.count');
     const prev = c.querySelector('.prev'), next = c.querySelector('.next');
@@ -28,8 +32,24 @@
     c.querySelector('.c-ctrl').hidden = false;
     prev.addEventListener('click', () => go(-1)); next.addEventListener('click', () => go(1));
     t.addEventListener('scroll', upd, { passive: true });
-    t.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(1); if (e.key === 'ArrowLeft') go(-1); });
+    carousels.push({ t, go });
     upd();
+  });
+  // ←/→ anywhere on the page: the focused carousel, else the one with most of itself on screen
+  const onScreen = () => {
+    const f = carousels.find(k => k.t.contains(document.activeElement));
+    if (f) return f;
+    let best = null, most = 0.4;
+    carousels.forEach(k => { const r = k.t.getBoundingClientRect(), v = Math.min(r.bottom, innerHeight) - Math.max(r.top, 0);
+      if (r.height && v / r.height > most) { most = v / r.height; best = k; } });
+    return best;
+  };
+  addEventListener('keydown', e => {
+    if ((e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    const el = document.activeElement;
+    if (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+    const k = onScreen();
+    if (k) { e.preventDefault(); k.go(e.key === 'ArrowRight' ? 1 : -1); }
   });
 
   // ---- stop guide: previous / mini map / place (English, then local name) / next / top ----

@@ -6,6 +6,7 @@ Errors (the check fails):
   - content: a journey, work or place is missing a field, has a malformed date, or names an id that doesn't exist
   - photos and pages named in content that don't exist
   - every link and image on every page: the file exists, and #anchors exist on the page they point to
+  - every page with a photo carousel loads css/essay.css and js/essay.js (carousel buttons and ←/→ keys)
 Warnings (printed, the check still passes):
   - photos, and stops, with no date (the chronological rule: flag anything that can't be dated)
 """
@@ -108,7 +109,12 @@ def check_links(places):
     pages = {}
     for f in sorted(os.listdir(ROOT)):
         if f.endswith('.html'):
-            pg = Page(); pg.feed(open(p(f), encoding='utf-8').read()); pages[f] = pg
+            html = open(p(f), encoding='utf-8').read()
+            pg = Page(); pg.feed(html); pages[f] = pg
+            if 'class="carousel' in html:
+                for need_ref in ('css/essay.css', 'js/essay.js'):
+                    if not any(r == need_ref for _, r in pg.refs):
+                        err(f'{f}: has a photo carousel but does not load {need_ref}')
     for f, pg in pages.items():
         for tag, ref in pg.refs:
             if re.match(r'^(https?:|mailto:|tel:|data:|//)', ref):
