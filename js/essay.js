@@ -39,15 +39,19 @@
     const box = (cfg.mini || '0 0 100 100').split(/\s+/).map(Number);
     const at = el => { const x = parseFloat(el.style.left), y = parseFloat(el.style.top);
       return 'left:' + ((x - box[0]) / box[2] * 100).toFixed(2) + '%;top:' + ((y - box[1]) / box[3] * 100).toFixed(2) + '%'; };
-    const routeEl = document.getElementById('route-line');
-    const routeD = routeEl ? routeEl.getAttribute('d') : '';
+    // The mini map redraws the route and borders in its own 0–100 box (no zoomed viewBox, no
+    // non-scaling strokes), which Safari renders reliably.
+    const fit = d => (d || '').replace(/(-?[\d.]+)[ ,](-?[\d.]+)/g, (m, x, y) =>
+      ((x - box[0]) / box[2] * 100).toFixed(2) + ' ' + ((y - box[1]) / box[3] * 100).toFixed(2));
+    const routeEl = document.getElementById('route-line'), bordersEl = document.getElementById('borders');
+    const routeD = fit(routeEl && routeEl.getAttribute('d')), bordersD = fit(bordersEl && bordersEl.getAttribute('d'));
     const rail = document.createElement('nav');
     rail.className = 'rail'; rail.setAttribute('aria-label', 'Stops on this journey');
     rail.innerHTML = '<button type="button" class="nb prev" aria-label="Previous stop">↑</button>' +
       '<span class="mini">' +
-      '<svg aria-hidden="true" viewBox="' + box.join(' ') + '" preserveAspectRatio="none"><g fill="none" stroke-linejoin="round" stroke-linecap="round">' +
-      '<use href="#borders" stroke="rgba(241,238,231,.4)" stroke-width="1" stroke-dasharray="none" vector-effect="non-scaling-stroke"/>' +
-      '<path d="' + routeD + '" stroke="#E8674A" stroke-opacity=".6" stroke-width="1.5" vector-effect="non-scaling-stroke"/></g></svg>' +
+      '<svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none"><g fill="none" stroke-linejoin="round" stroke-linecap="round">' +
+      '<path d="' + bordersD + '" stroke="rgba(241,238,231,.18)" stroke-width="1.6"/>' +
+      '<path d="' + routeD + '" stroke="#E8674A" stroke-opacity=".85" stroke-width="3.2"/></g></svg>' +
       plates.map(p => { const d = mapDots.find(m => m.dataset.stop === p.dataset.stop); return d ? '<a href="#' + p.id + '" data-stop="' + p.dataset.stop + '"' + (d.classList.contains('capital') ? ' class="cap"' : '') + ' aria-label="' + esc(p.dataset.name) + '" style="' + at(d) + '"><i></i></a>' : ''; }).join('') +
       '</span><span class="now" aria-live="polite"><b></b><small' + (lang ? ' lang="' + lang + '"' : '') + '></small></span>' +
       '<button type="button" class="nb next" aria-label="Next stop">↓</button>' +
