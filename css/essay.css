@@ -49,6 +49,7 @@ h1 em { font-style: italic; font-weight: 200; }
 .sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 22px; }
 .sec-head h2 { margin: 0; font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.05; }
 .sec-head .mono { color: var(--mute); }
+.map-card.tall { max-width: 600px; margin-inline: auto; }
 .map-card { background: #121417; border: 1px solid var(--line); color: var(--soft); padding: clamp(12px, 2.5vw, 32px); }
 .map { position: relative; width: 100%; aspect-ratio: var(--map-ratio, 2240 / 1536); overflow: hidden; }
 /* .stage: draw the full plate larger and frame part of it (set its size on the page) */
