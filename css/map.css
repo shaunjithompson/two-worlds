@@ -50,3 +50,11 @@
 .peek-txt em a { display: block; padding: 8px 0; color: var(--ink-soft); text-decoration: none; border-top: 1px solid rgba(17,18,20,.1); }
 .peek-txt em a:hover, .peek-txt em a:focus-visible { color: var(--oxide); }
 @media (prefers-reduced-motion: reduce) { .peek, .peek-imgs img { transition: none; } }
+
+/* narrow maps (phones): the preview is a card along the bottom of the map, opened by a tap */
+.peek.sheet, .peek.sheet.show { left: 10px; right: 10px; bottom: 10px; top: auto; width: auto; z-index: 7; display: grid; grid-template-columns: 38% 1fr; transform: translateY(12px); }
+.peek.sheet.show { transform: none; }
+.peek.sheet .peek-imgs { aspect-ratio: auto; min-height: 150px; }
+.peek.sheet .peek-dots { right: auto; width: calc(38% - 20px); }
+.peek.sheet .peek-txt { padding-right: 40px; }
+.peek-close { position: absolute; top: 4px; right: 4px; width: 44px; height: 44px; border: 0; background: none; color: var(--ink-soft); font: inherit; font-size: 22px; line-height: 1; cursor: pointer; }
