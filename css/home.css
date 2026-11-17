@@ -123,7 +123,7 @@ h2.travel { margin: 0; font-weight: 600; font-size: clamp(72px, 11vw, 168px); li
 .upnext .mono { font-size: 12px; }
 
 /* travel: map first */
-.map-wrap { margin-top: 64px; } .map-wrap.top { margin-top: 0; } .travel-sec { padding-top: 40px; } .travel-sec .sec-top { margin-top: 88px; }
+.map-wrap { margin-top: 64px; } .travel-sec .sec-top { margin-top: 0; }
 .travel-sec .list-head { margin-top: 72px; }
 
 /* essay entry with a rolling carousel on hover */
