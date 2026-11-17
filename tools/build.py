@@ -14,6 +14,8 @@ What it does (all steps are safe to repeat):
      small file), fetchpriority="high" on the first image, loading="lazy" after the third.
      Add data-keep to an <img> to leave it alone; data-sizes="…" to set its sizes.
   4. sitemap.xml, from the pages listed in PAGES.
+  5. Map dots: js/dots.js, the land dots for the home and atlas map, from tools/land.json
+     (so phones don't have to work them out on every visit).
 """
 import html, json, os, re, sys
 from PIL import Image
@@ -231,6 +233,52 @@ def sitemap():
     open(p('sitemap.xml'), 'w').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
 
 
+# ---------- 5. map dots ----------
+# Same grid as the map in js/home.js: a dot every 1.25 degrees from 84°N to 58°S, odd rows shifted half a step.
+STEP, LAT0, LAT1 = 1.25, 84, -58
+
+def dots():
+    data = json.load(open(p('tools', 'land.json'), encoding='utf-8'))
+    def shapes(group):
+        out = []
+        for pts in data[group].values():
+            xs, ys = pts[0::2], pts[1::2]
+            out.append((pts, min(xs), min(ys), max(xs), max(ys)))
+        return out
+    def inside(x, y, pts):
+        c, n = False, len(pts) // 2
+        for i in range(n):
+            j = (i + 1) % n
+            x1, y1, x2, y2 = pts[2 * i], pts[2 * i + 1], pts[2 * j], pts[2 * j + 1]
+            if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1:
+                c = not c
+        return c
+    def hit(lst, x, y):
+        return any(x0 <= x <= x1 and y0 <= y <= y1 and inside(x, y, pts) for pts, x0, y0, x1, y1 in lst)
+    land, water = shapes('land'), shapes('water')
+    rows, row, lat, total = [], 0, LAT0 - STEP / 2, 0
+    while lat > LAT1:
+        lon, i, runs, start = -180 + STEP / 2 + (STEP / 2 if row % 2 else 0), 0, [], None
+        while lon < 180:
+            on = hit(land, lon, lat) and not hit(water, lon, lat)
+            if on and start is None:
+                start = i
+            if not on and start is not None:
+                runs += [start, i - start]; start = None
+            lon += STEP; i += 1
+        if start is not None:
+            runs += [start, i - start]
+        if runs:
+            rows.append([row] + runs); total += sum(runs[1::2])
+        lat -= STEP; row += 1
+    body = ',\n'.join(json.dumps(r, separators=(',', ':')) for r in rows)
+    open(p('js', 'dots.js'), 'w').write(
+        '/* Two Worlds — land dots for the map. Made by tools/build.py from tools/land.json; do not edit by hand.\n'
+        '   Each row: [row number, start, count, start, count, ...]; row 0 is 84°N, a dot every 1.25°, odd rows shifted half a step. */\n'
+        f'window.TW_DOTS = {{ step: {STEP}, lat0: {LAT0}, rows: [\n{body}\n] }};\n')
+    return total
+
+
 if __name__ == '__main__':
     print('photo sizes made:', make_sizes())
     for f in sorted(os.listdir(p('content', 'journeys'))):
@@ -243,4 +291,5 @@ if __name__ == '__main__':
             if t != s:
                 open(p(f), 'w', encoding='utf-8').write(t)
     sitemap()
+    print('map dots:', dots())
     print('done')

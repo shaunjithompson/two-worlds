@@ -1,5 +1,5 @@
 /* Two Worlds — the dot map on the home Travel side and the atlas. No dependencies.
-   The world's coastlines live in js/land.js, which must load first.
+   The land dots live in js/dots.js (made by tools/build.py), which must load first.
    The Music / Travel switch and the home page's deep links are handled by the inline script in index.html. */
 (function () {
   'use strict';
@@ -121,7 +121,19 @@
   function sx(X) { return view.tx + X * view.s; }
   function sy(Y) { return view.ty + Y * view.s; }
   function isWhole() { return view.s <= minS() * 1.02; }
-  function homeView() { var c = project(25, 28); return viewAround(c.x, c.y, coverS() * 1.7); }
+  // Fit a set of lon, lat points into the map, leaving room for the zoom buttons and, on phones, the key.
+  function fitView(lonlat, maxScale) {
+    var x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+    for (var i = 0; i < lonlat.length; i += 2) { var q = project(lonlat[i], lonlat[i + 1]); x0 = Math.min(x0, q.x); y0 = Math.min(y0, q.y); x1 = Math.max(x1, q.x); y1 = Math.max(y1, q.y); }
+    var w = map.clientWidth, h = map.clientHeight, legend = map.querySelector('.legend');
+    var pad = { t: 48, r: 76, b: 48, l: 48 };
+    if (legend) { if (w < 700) pad.b += legend.offsetHeight; else pad.l += legend.offsetWidth * 0.5; }
+    var s = Math.min((w - pad.l - pad.r) / Math.max(x1 - x0, 1), (h - pad.t - pad.b) / Math.max(y1 - y0, 1));
+    s = clampS(Math.min(s, maxScale || coverS() * 3));
+    return clampView({ s: s, tx: pad.l + (w - pad.l - pad.r - (x1 - x0) * s) / 2 - x0 * s, ty: pad.t + (h - pad.t - pad.b - (y1 - y0) * s) / 2 - y0 * s });
+  }
+  // The opening view: every place and the next journey's route, however many places there are.
+  function homeView() { return fitView(PLACES.reduce(function (a, p) { return a.concat(p.lon, p.lat); }, ROUTE_NEXT.slice())); }
   function layout() {
     var whole = isWhole();
     if (whole !== wholeShown && wholeBtn) {
@@ -155,15 +167,21 @@
   function showPeek(p) {
     clearInterval(peekTimer); peekTimer = null;
     if (!p) { peek.classList.remove('show'); return; }
-    var list = p.imgs, o = mapPoint(p);
-    peek.dataset.x = o.x; peek.dataset.y = o.y;
-    peek.style.left = sx(o.x) + 'px'; peek.style.top = sy(o.y) + 'px';
-    peek.classList.toggle('left', sx(o.x) > map.clientWidth - 280);
-    peek.classList.toggle('below', sy(o.y) < 200);
+    var list = p.imgs, o = mapPoint(p), sheet = map.clientWidth < 560;
+    // On narrow maps (phones) the preview is a card along the bottom of the map instead of beside the dot.
+    peek.classList.toggle('sheet', sheet);
+    if (sheet) { delete peek.dataset.x; delete peek.dataset.y; peek.style.left = peek.style.top = ''; }
+    else {
+      peek.dataset.x = o.x; peek.dataset.y = o.y;
+      peek.style.left = sx(o.x) + 'px'; peek.style.top = sy(o.y) + 'px';
+      peek.classList.toggle('left', sx(o.x) > map.clientWidth - 280);
+      peek.classList.toggle('below', sy(o.y) < 200);
+    }
     // Only the first photo loads now; each next one loads just before it is shown.
     peek.innerHTML = '<div class="peek-imgs" aria-hidden="true">' + list.map(function (src, i) { return '<img ' + (i ? 'data-src' : 'src') + '="' + small(src) + '" alt=""' + (i ? '' : ' class="on"') + '>'; }).join('') + '</div>' +
       (list.length > 1 ? '<div class="peek-dots" aria-hidden="true">' + list.map(function (_, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</div>' : '') +
-      '<div class="peek-txt"><b>' + esc(p.name) + '</b><span>' + esc(p.label) + '</span><em>' + links(p) + '</em></div>';
+      '<div class="peek-txt"><b>' + esc(p.name) + '</b><span>' + esc(p.label) + '</span><em>' + links(p) + '</em></div>' +
+      (sheet ? '<button type="button" class="peek-close" aria-label="Close">×</button>' : '');
     peek.classList.add('show'); peekI = 0;
     var ims = peek.querySelectorAll('.peek-imgs img'), ds = peek.querySelectorAll('.peek-dots i');
     function load(i) { var im = ims[i]; if (im && im.dataset.src) { im.src = im.dataset.src; im.removeAttribute('data-src'); } }
@@ -190,6 +208,7 @@
     if (!hot) setHot(p); else hoverTimer = setTimeout(function () { setHot(p); }, 250);
   }
   function local(e) { var r = map.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+  peek.addEventListener('click', function (e) { if (e.target.closest('.peek-close')) setHot(null); });
   function inPeek(e) { return e.target.closest && e.target.closest('.peek'); }
 
   map.addEventListener('pointerdown', function (e) {
@@ -225,11 +244,29 @@
     }
     if (e.pointerType === 'mouse') hover(inPeek(e) ? hot : pinNear(q.x, q.y, 40));
   });
-  function endPointer(e) {
-    if (drag && !drag.moved && e.type === 'pointerup') {
-      var q = local(e), p = pinNear(q.x, q.y, drag.touch ? 56 : 40);
-      if (p) openPlace(p);
+  // Dots closer than this on screen are too close to tell apart by tapping: zoom in on them instead.
+  var CLOSE = 36;
+  function closeTo(p) {
+    var o = mapPoint(p);
+    return PLACES.filter(function (q) { var r = mapPoint(q); return q !== p && Math.hypot((r.x - o.x) * view.s, (r.y - o.y) * view.s) < CLOSE; });
+  }
+  function tap(q, touch) {
+    var p = pinNear(q.x, q.y, touch ? 56 : 40);
+    if (!p) { if (touch) setHot(null); return; }
+    var near = closeTo(p);
+    if (near.length) {
+      // Zoom until the group is spread out (at least about 60 px between the dots), centred on the group.
+      var group = near.concat(p), ll = group.reduce(function (a, g) { return a.concat(g.lon, g.lat); }, []);
+      var gap = Math.min.apply(null, near.map(function (g) { var a = mapPoint(g), b = mapPoint(p); return Math.hypot(a.x - b.x, a.y - b.y); }));
+      flyTo(fitView(ll, Math.max(view.s * 1.5, 60 / Math.max(gap, 0.1))));
+      setHot(null); return;
     }
+    // Touch: the first tap shows the preview with its links; tapping the same dot again opens it.
+    if (touch && hot !== p) { setHot(p); selectPlace(p.id, false); return; }
+    openPlace(p);
+  }
+  function endPointer(e) {
+    if (drag && !drag.moved && e.type === 'pointerup') tap(local(e), drag.touch);
     delete pts[e.pointerId];
     var left = Object.keys(pts);
     if (left.length < 2) pinch = null;
@@ -248,38 +285,16 @@
     setView(zoomTarget(q.x, q.y, view.s * Math.exp(-dy * 0.01)));
   }, { passive: false });
 
-  // ---- the dot field: one dot every 1.25 degrees wherever js/land.js says there is land ----
-  function buildDots() {
-    var LAND = window.TW_LAND || {}, WATER = window.TW_WATER || {};
-    function shapes(set) {
-      return Object.keys(set).map(function (k) {
-        var p = set[k], b = [180, 90, -180, -90];
-        for (var i = 0; i < p.length; i += 2) { b[0] = Math.min(b[0], p[i]); b[1] = Math.min(b[1], p[i + 1]); b[2] = Math.max(b[2], p[i]); b[3] = Math.max(b[3], p[i + 1]); }
-        return { p: p, b: b };
-      });
-    }
-    function inside(x, y, p) {
-      var c = false, n = p.length / 2;
-      for (var i = 0; i < n; i++) {
-        var j = (i + 1) % n, x1 = p[2 * i], y1 = p[2 * i + 1], x2 = p[2 * j], y2 = p[2 * j + 1];
-        if ((y1 > y) !== (y2 > y) && x < (x2 - x1) * (y - y1) / (y2 - y1) + x1) c = !c;
-      }
-      return c;
-    }
-    function hit(list, x, y) {
-      for (var q = 0; q < list.length; q++) { var s = list[q]; if (x >= s.b[0] && x <= s.b[2] && y >= s.b[1] && y <= s.b[3] && inside(x, y, s.p)) return true; }
-      return false;
-    }
-    var land = shapes(LAND), water = shapes(WATER);
-    var out = [], step = 1.25, row = 0;
-    for (var lat = LAT0 - step / 2; lat > LAT1; lat -= step, row++) {
-      for (var lon = LON0 + step / 2 + (row % 2 ? step / 2 : 0); lon < 180; lon += step) {
-        if (hit(land, lon, lat) && !hit(water, lon, lat)) { var pt = project(lon, lat); out.push(pt.x, pt.y); }
-      }
-    }
+  // ---- the dot field: js/dots.js (made by tools/build.py) lists the land dots as runs per row ----
+  function readDots() {
+    var D = window.TW_DOTS || { step: 1.25, lat0: LAT0, rows: [] }, out = [];
+    D.rows.forEach(function (r) {
+      var lat = D.lat0 - D.step / 2 - r[0] * D.step, lon0 = LON0 + D.step / 2 + (r[0] % 2 ? D.step / 2 : 0);
+      for (var k = 1; k < r.length; k += 2) for (var i = r[k]; i < r[k] + r[k + 1]; i++) { var pt = project(lon0 + i * D.step, lat); out.push(pt.x, pt.y); }
+    });
     return out;
   }
-  var dots = buildDots();
+  var dots = readDots();
 
   // ---- drawing: only when something changed (a pan, a zoom, the pointer glow, the one-off ring) ----
   function invalidate() { if (!frame && onScreen) frame = requestAnimationFrame(draw); }

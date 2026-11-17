@@ -4,7 +4,7 @@ name: Build pages
 on:
   push:
     branches: [main]
-    paths: ['content/**', 'assets/**', 'tools/build.py', '*.html']
+    paths: ['content/**', 'assets/**', 'tools/build.py', 'tools/land.json', '*.html']
   workflow_dispatch:
 permissions:
   contents: write
