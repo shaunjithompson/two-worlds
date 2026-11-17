@@ -216,6 +216,10 @@ def build_essay(slug):
         s = set_attr(s, 'music-btn', 'href', work_url(w))
         s = set_text(s, 'id="music-blurb"', m.get('blurb') or w.get('about'))
         s = set_text(s, 'id="music-year"', w['year'])
+        cov = w.get('cover') or {}
+        inner = (f'<a class="score-cover" href="{esc(work_url(w))}" tabindex="-1" aria-hidden="true">'
+                 f'<img src="{esc(cov["src"])}" alt="" data-sizes="160px"></a>') if cov.get('src') else ''
+        s = re.sub(r'(<!-- score-cover:start -->).*?(<!-- score-cover:end -->)', lambda mm: mm.group(1) + inner + mm.group(2), s, flags=re.S)
     for k, pre, post, word in (('before', '← ', '', 'Before'), ('after', '', ' →', 'After')):
         v = data.get(k)
         if not v:
