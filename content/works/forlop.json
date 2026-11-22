@@ -1,17 +1,65 @@
 {
   "id": "forlop",
   "title": "Forløp (Forløb)",
+  "titleLines": [
+    "Forløp"
+  ],
+  "short": "Forløp",
+  "subtitles": [
+    { "text": "(Forløb)", "lang": "da" }
+  ],
   "lang": "no",
   "year": "2025",
   "forces": "Wind band",
-  "duration": "",
+  "duration": "c. 7 minutes",
+  "grade": "[GRADE]",
   "premiere": "",
   "about": "After Tidemand and Gude’s Bridal Procession on the Hardangerfjord (1848), which shows a wedding party crossing the fjord by boat.",
-  "note": [],
+  "note": [
+    "In 1848 Adolph Tidemand and Hans Gude painted Bridal Procession on the Hardangerfjord: a wedding party crossing the fjord by boat, between steep slopes, with the church on the shore behind them.",
+    "Forløp is a slow, cold song in the manner of Grieg’s slow songs.",
+    "[Continue the note in your own words: what the piece follows, and how it moves.]"
+  ],
   "places": [
     "norway"
   ],
   "row": "row-forlop",
-  "page": "",
-  "recording": "https://www.youtube.com/watch?v=5hfHdJyn6ks"
+  "page": "forlop.html",
+  "image": "assets/forlop-cover-wide.jpg",
+  "cover": {
+    "src": "assets/forlop-cover.jpg",
+    "alt": "Score cover: a small rowing boat alone on a pale, misty fjord, the rowers caught by the sun, with a church on the snowy shore"
+  },
+  "preview": {
+    "note": "Preview: pages 1–2 of 8 (bars 1–29), for study only.",
+    "pages": [
+      { "label": "Page 1", "src": "assets/score/forlop-page-1.jpg", "alt": "Full score, page 1, bars 1 to 17, marked perusal" },
+      { "label": "Page 2", "src": "assets/score/forlop-page-2.jpg", "alt": "Full score, page 2, bars 18 to 29, marked perusal" }
+    ]
+  },
+  "listen": {
+    "audio": "",
+    "label": "Digital rendition",
+    "excerpt": "Excerpt · bars [FROM–TO]",
+    "links": [
+      { "title": "Forløp on YouTube", "url": "https://www.youtube.com/watch?v=5hfHdJyn6ks" }
+    ]
+  },
+  "solos": [
+    { "name": "Oboe", "part": "Oboes I and II, solo from bar 10", "bars": "8–13", "src": "assets/score/forlop-solo-oboe.png", "alt": "Notation: Oboes I and II, bars 8 to 13, with solos marked at bars 10 and 12" },
+    { "name": "Alto saxophone", "part": "Alto saxophones I and II, soli, mp", "bars": "35–41", "src": "assets/score/forlop-solo-alto.png", "alt": "Notation: Alto saxophones soli marked mp, bars 35 to 41, dividing at bar 41" },
+    { "name": "Flute", "part": "Flute I solo", "bars": "69–72", "src": "assets/score/forlop-solo-flute.png", "alt": "Notation: Flute I solo, bars 69 to 72, in triplets" }
+  ],
+  "instrumentation": [
+    { "group": "Woodwinds", "items": ["Piccolo (doubling flute)", "Flute I, II, III", "Oboe I, II, III", "Bassoon I, II, III", "Clarinet in B♭ I, II, III", "Bass clarinet"] },
+    { "group": "Saxophones", "items": ["Alto I, II", "Tenor", "Baritone"] },
+    { "group": "Brass", "items": ["Trumpet in B♭ I–IV", "Horn in F I–IV", "Trombone I–IV", "Euphonium", "Tuba"] },
+    { "group": "Percussion and keyboard", "items": ["Timpani", "Cymbals, snare drum, antique cymbals", "Vibraphone"] },
+    { "group": "Strings", "items": ["String bass"] }
+  ],
+  "recording": "https://www.youtube.com/watch?v=5hfHdJyn6ks",
+  "score": {
+    "price": "[PRICE]",
+    "buy": "index.html#about"
+  }
 }
