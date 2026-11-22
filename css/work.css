@@ -81,6 +81,26 @@ dd { margin: 6px 0 0; font-family: var(--serif); font-size: 19px; }
 .player-t { margin: 0; font-size: var(--fs-body); }
 .player p.muted { margin: 0; font-size: var(--fs-small); }
 .player audio { width: 100%; }
+.player audio[hidden] { display: none; }
+/* our controls (js/player.js): play button, waveform with a slider on top, time */
+.pl { display: flex; align-items: center; gap: 16px; }
+.pl[hidden] { display: none; }
+.pl-btn { flex: none; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; padding: 0; border: 0; border-radius: 50%; background: var(--paper); color: var(--ink); cursor: pointer; transition: background-color .2s var(--ease); }
+.pl-btn:hover { background: #FFFFFF; }
+.pl-btn .i-play { margin-left: 2px; }
+.pl-btn .i-pause, .is-playing .pl-btn .i-play { display: none; }
+.is-playing .pl-btn .i-pause { display: block; }
+.pl-track { position: relative; flex: 1 1 auto; min-width: 0; height: 44px; }
+.pl-wave { display: block; width: 100%; height: 100%; }
+.pl-seek { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.pl-track:has(.pl-seek:focus-visible) { outline: 2px solid var(--oxide-light); outline-offset: 4px; }
+.player p.pl-time { flex: none; margin: 0; font-size: var(--fs-small); font-variant-numeric: tabular-nums; }
+.player p.pl-status:empty { display: none; }
+@media (max-width: 520px) {
+  .pl { flex-wrap: wrap; gap: 12px 14px; }
+  .pl-track { flex-basis: calc(100% - 64px); }
+  .player p.pl-time { margin-left: 62px; }
+}
 .yt { flex: 1 1 220px; }
 .yt h3 { margin: 0; padding: 0 0 10px; font-weight: 500; color: var(--mute); }
 .yt ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }

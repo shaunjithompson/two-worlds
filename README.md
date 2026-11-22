@@ -27,6 +27,7 @@ Plain HTML, CSS and JavaScript on GitHub Pages. One small Python build script (`
 | `css/essay.css` | Every photo essay |
 | `js/home.js`, `js/dots.js` | The dot map on home and atlas. One dot per country: the `PLACES` list at the top of `js/home.js`. `js/dots.js` is made by the build from the coastlines in `tools/land.json` |
 | `js/essay.js` | Every photo essay: carousels, stop guide, map links, feedback form |
+| `js/player.js` | The recording player on score pages: play/pause, a waveform to scrub, time. Without JavaScript the browser's own audio controls show |
 
 Design rules: black ground, paper `#F1EEE7`, Japanese indigo `#21364F`, oxide red. Newsreader for display, Inter Tight for everything else, IBM Plex Mono once per page (class `mono-keep`). The class `mono` is a small Inter Tight label, despite its name.
 
@@ -41,6 +42,7 @@ Everything the map and the score pages show comes from `content/`, linked by id.
 | `content/journeys/<slug>.json` | One per photo essay; names its `place` and its `music.work` |
 
 - **Journeys:** `content/journeys/<slug>.json`, edited in Pages CMS (pagescms.org, sign in with GitHub). Each stop and photo carries an ISO date; stops are sorted by date.
+- **Recordings:** put the MP3 in `assets/audio/` (e.g. `assets/audio/forlop.mp3`) and set the work's `listen.audio` to it, in Pages CMS or the JSON. The build reads its length and waveform with ffmpeg once and keeps them beside it as `assets/audio/<name>.json`.
 - **Photos:** `assets/*.jpg` at 2000 px, made with `tools/photo.py`. The build adds 800 and 1400 px WebP copies in `assets/sized/`.
 
 ## Checks

@@ -97,10 +97,22 @@
 <section class="wrap wide band" aria-labelledby="listen-h">
   <h2 id="listen-h">Listen</h2>
   <div class="listen">
-    <div class="player">
-      <p class="player-t">{{ w.listen.label }}<span class="muted"> · {{ w.listen.excerpt }}</span></p>
+    <div class="player"{% if w.listen.audio %} data-player data-title="{{ w.short or w.title }}" data-label="{{ w.listen.label }}"{% if w.cover %} data-art="{{ w.cover.src }}"{% endif %}{% if audio and audio.duration %} data-duration="{{ audio.duration }}"{% endif %}{% endif %}>
+      <p class="player-t">{{ w.listen.label }}{% if w.listen.excerpt %}<span class="muted"> · {{ w.listen.excerpt }}</span>{% endif %}</p>
       {%- if w.listen.audio %}
-      <audio controls preload="none" src="{{ w.listen.audio }}"></audio>
+      <audio controls preload="metadata" src="{{ w.listen.audio }}"></audio>
+      <div class="pl" data-ui hidden>
+        <button class="pl-btn" type="button" data-play aria-label="Play" aria-pressed="false">
+          <svg class="i-play" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.2v11.6L14.6 9z" fill="currentColor"/></svg>
+          <svg class="i-pause" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4.5 3h3v12h-3zM10.5 3h3v12h-3z" fill="currentColor"/></svg>
+        </button>
+        <div class="pl-track">
+          <canvas class="pl-wave" data-wave{% if audio and audio.peaks %} data-peaks="{{ audio.peaks|join(',') }}"{% endif %} aria-hidden="true"></canvas>
+          <input class="pl-seek" type="range" min="0" max="{{ (audio.duration|round|int) if audio and audio.duration else 100 }}" step="1" value="0" data-seek aria-label="Position in the recording">
+        </div>
+        <p class="pl-time"><span data-cur>0:00</span><span class="muted"> / <span data-dur>{{ audio.length if audio and audio.length else '–:––' }}</span></span></p>
+      </div>
+      <p class="pl-status muted" data-status aria-live="polite"></p>
       {%- else %}
       <p class="muted">[Audio file to add]</p>
       {%- endif %}
@@ -236,6 +248,9 @@
 <script src="js/back.js"></script>
 {%- if w.cover or w.solos %}
 <script src="js/work.js"></script>
+{%- endif %}
+{%- if w.listen and w.listen.audio %}
+<script src="js/player.js"></script>
 {%- endif %}
 </body>
 </html>

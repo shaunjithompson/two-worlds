@@ -315,6 +315,39 @@ def dots():
 
 
 # ---------- 6. score pages ----------
+def audio_info(src):
+    """Length and waveform of a recording, for the player on its score page.
+    Read from the MP3 with ffmpeg once and kept beside it as <name>.json, so later builds
+    (and machines without ffmpeg) just read that. Returns None if neither is available."""
+    import shutil, subprocess, array, math
+    if not src or src.startswith('http'):
+        return None
+    f = p(src.lstrip('/'))
+    side = os.path.splitext(f)[0] + '.json'
+    if not os.path.exists(f):
+        return None
+    if os.path.exists(side) and os.path.getmtime(side) >= os.path.getmtime(f):
+        return json.load(open(side, encoding='utf-8'))
+    if not shutil.which('ffmpeg'):
+        return json.load(open(side, encoding='utf-8')) if os.path.exists(side) else None
+    rate, bars = 2000, 400
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', f, '-ac', '1', '-ar', str(rate), '-f', 's16le', '-'],
+                         capture_output=True, check=True).stdout
+    pcm = array.array('h', raw[:len(raw) // 2 * 2])
+    if sys.byteorder == 'big':
+        pcm.byteswap()
+    n = len(pcm)
+    rms = []
+    for i in range(bars):
+        seg = pcm[i * n // bars:(i + 1) * n // bars] or array.array('h', [0])
+        rms.append(math.sqrt(sum(x * x for x in seg) / len(seg)))
+    top = max(rms) or 1
+    secs = n / rate
+    info = {'duration': round(secs, 2), 'length': f'{int(secs) // 60}:{int(secs) % 60:02d}',
+            'peaks': [max(1, round(100 * r / top)) for r in rms]}
+    json.dump(info, open(side, 'w', encoding='utf-8'), separators=(',', ':'))
+    return info
+
 def work_pages():
     from jinja2 import Environment, FileSystemLoader, select_autoescape
     env = Environment(loader=FileSystemLoader(p('templates')), autoescape=select_autoescape(['html']), keep_trailing_newline=True)
@@ -339,7 +372,8 @@ def work_pages():
         price = ((w.get('score') or {}).get('price') or '').replace('$', '').replace('A', '').strip()
         if re.fullmatch(r'\d+(\.\d\d)?', price):  # only once a real price is filled in
             ld['offers'] = {'@type': 'Offer', 'price': price, 'priceCurrency': 'AUD', 'url': SITE + w['page']}
-        out = tpl.render(w=w, site=SITE, desc=desc, journeys=journeys,
+        audio = audio_info((w.get('listen') or {}).get('audio'))
+        out = tpl.render(w=w, site=SITE, desc=desc, journeys=journeys, audio=audio,
                          places=[PLACES[i] for i in w.get('places', []) if i in PLACES],
                          jsonld=json.dumps(ld, ensure_ascii=False).replace('</', '<\\/'))
         open(p(w['page']), 'w', encoding='utf-8').write(out)
