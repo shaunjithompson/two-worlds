@@ -37,6 +37,17 @@
 <section class="wrap wide hero">
   <div class="pager" data-pager aria-label="Score preview">
     <div class="pager-view"><img data-pager-img src="assets/gegham-cover.jpg" alt="Score cover: the monastery of Sevanavank on its rocky headland above Lake Sevan, in pale morning light under drifting cloud" data-sizes="(min-width: 900px) 440px, 100vw" width="1414" height="2000" srcset="assets/sized/gegham-cover-800.webp 800w, assets/sized/gegham-cover-1400.webp 1400w, assets/gegham-cover.jpg 1414w" sizes="(min-width: 900px) 440px, 100vw" fetchpriority="high"></div>
+    <div class="pager-ctrl" data-pager-ctrl hidden>
+      <button type="button" class="pg-btn" data-pager-prev aria-label="Previous page">←</button>
+      <span class="pg-count" data-pager-count aria-live="polite">Cover · 1 of 3</span>
+      <button type="button" class="pg-btn" data-pager-next aria-label="Next page">→</button>
+    </div>
+    <ul class="thumbs" aria-label="Score pages">
+      <li><a class="thumb" href="assets/gegham-cover.jpg" data-pager-thumb data-src="assets/gegham-cover.jpg" data-alt="Score cover: the monastery of Sevanavank on its rocky headland above Lake Sevan, in pale morning light under drifting cloud" data-label="Cover" aria-current="true"><img data-keep src="assets/gegham-cover.jpg" alt="Cover" loading="lazy"></a></li>
+      <li><a class="thumb" href="assets/score/gegham-page-1.jpg" data-pager-thumb data-src="assets/score/gegham-page-1.jpg" data-alt="Full score, page 1, bars 1 to 19, marked perusal" data-label="Page 1"><img data-keep src="assets/score/gegham-page-1.jpg" alt="Page 1" loading="lazy"></a></li>
+      <li><a class="thumb" href="assets/score/gegham-page-2.jpg" data-pager-thumb data-src="assets/score/gegham-page-2.jpg" data-alt="Full score, page 2, bars 20 to 39, marked perusal" data-label="Page 2"><img data-keep src="assets/score/gegham-page-2.jpg" alt="Page 2" loading="lazy"></a></li>
+    </ul>
+    <p class="mono-keep pager-note">Preview: pages 1–2 of 12 (bars 1–39), for study only.</p>
   </div>
 
   <div class="hero-txt">
@@ -51,6 +62,7 @@
       <span class="amount">[PRICE]</span>
       <div class="actions">
         <a class="btn solid" href="index.html#about">Buy the score</a>
+        <button type="button" class="btn line" data-pager-go="1" hidden>Preview the score</button>
         <a class="btn line" href="index.html#about">Free perusal score</a>
       </div>
       <span class="what">Full score and parts, PDF.</span>
@@ -78,6 +90,46 @@
   <p class="mono label">The inspiration</p>
   <p>Lake Sevan, the Gegham Sea, lies about 1,900 metres up in the Armenian highlands. The piece opens with soft, free solo lines in the winds before the full band enters.</p>
 </article>
+
+<section class="wrap wide band" aria-labelledby="solos-h" data-solos>
+  <h2 id="solos-h">Solos</h2>
+  <div class="tabs" role="tablist" aria-label="Solo passages" data-solo-tabs hidden>
+    <button type="button" role="tab" id="tab-1" aria-controls="solo-1" aria-selected="true"><span class="tab-n">Flute</span><span class="tab-b">Bars 21–24</span></button>
+    <button type="button" role="tab" id="tab-2" aria-controls="solo-2" aria-selected="false" tabindex="-1"><span class="tab-n">Bassoon</span><span class="tab-b">Bars 101–102</span></button>
+    <button type="button" role="tab" id="tab-3" aria-controls="solo-3" aria-selected="false" tabindex="-1"><span class="tab-n">Clarinet</span><span class="tab-b">Bars 103–106</span></button>
+  </div>
+  <div class="zoom" role="group" aria-label="Zoom" data-zoom hidden>
+    <button type="button" data-zoom-out aria-label="Zoom out">−</button>
+    <span data-zoom-label>100%</span>
+    <button type="button" data-zoom-in aria-label="Zoom in">+</button>
+    <button type="button" data-zoom-fit>Fit</button>
+  </div>
+  <figure class="solo" id="solo-1" role="tabpanel" aria-labelledby="tab-1">
+    <figcaption>Solo flute (Flûte seule), mf · bars 21–24</figcaption>
+    <div class="solo-scroll" tabindex="0" aria-label="Flute solo, scroll sideways when zoomed"><img data-keep src="assets/score/gegham-solo-flute.png" alt="Notation: solo flute, bars 21 to 24, short figures with trills, marked mf" loading="lazy"></div>
+  </figure>
+  <figure class="solo" id="solo-2" role="tabpanel" aria-labelledby="tab-2">
+    <figcaption>Bassoon solo, mf · bars 101–102</figcaption>
+    <div class="solo-scroll" tabindex="0" aria-label="Bassoon solo, scroll sideways when zoomed"><img data-keep src="assets/score/gegham-solo-bassoon.png" alt="Notation: bassoon solo, bars 101 to 102, marked mf, ending on a held note" loading="lazy"></div>
+  </figure>
+  <figure class="solo" id="solo-3" role="tabpanel" aria-labelledby="tab-3">
+    <figcaption>Solo clarinet (Clarinette seule), mf · bars 103–106</figcaption>
+    <div class="solo-scroll" tabindex="0" aria-label="Clarinet solo, scroll sideways when zoomed"><img data-keep src="assets/score/gegham-solo-clarinet.png" alt="Notation: solo clarinet, bars 103 to 106, a line in triplets, marked mf" loading="lazy"></div>
+  </figure>
+</section>
+
+<section class="wrap wide band" aria-labelledby="inst-h">
+  <div>
+    <h2 id="inst-h">Instrumentation</h2>
+    <p class="for">For wind band</p>
+  </div>
+  <div class="inst">
+    <div><h3 class="mono">Woodwinds</h3><p>Piccolo<br>Solo flute<br>Flute I, II<br>Oboe I, II<br>Bassoon I, II<br>Solo clarinet in B♭<br>Clarinet in B♭ I, II<br>Bass clarinet</p></div>
+    <div><h3 class="mono">Saxophones</h3><p>Solo alto<br>Alto I, II<br>Tenor<br>Baritone</p></div>
+    <div><h3 class="mono">Brass</h3><p>Trumpet in B♭ I, II<br>Horn in F I, II<br>Trombone I, II<br>Bass trombone<br>Euphonium I, II<br>Tuba</p></div>
+    <div><h3 class="mono">Percussion and keyboard</h3><p>Timpani<br>Triangle, bass drum, cymbals, tambourine<br>Glockenspiel</p></div>
+  </div>
+</section>
 
 <section class="wrap journey-wrap">
   <a class="journey" href="armenia-2015.html">

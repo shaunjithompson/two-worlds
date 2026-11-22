@@ -33,6 +33,90 @@
     "src": "assets/kosciuszko-cover.jpg",
     "alt": "Score cover: the Cloth Hall on Kraków’s Main Square at night in the rain, its arches lit and reflected on the wet stones, with a red light cutting across a storm sky"
   },
+  "preview": {
+    "note": "Preview: pages 1–2 of 15 (bars 1–31), for study only.",
+    "pages": [
+      {
+        "label": "Page 1",
+        "src": "assets/score/kosciuszko-page-1.jpg",
+        "alt": "Full score, page 1, bars 1 to 15, marked perusal"
+      },
+      {
+        "label": "Page 2",
+        "src": "assets/score/kosciuszko-page-2.jpg",
+        "alt": "Full score, page 2, bars 16 to 31, marked perusal"
+      }
+    ]
+  },
+  "solos": [
+    {
+      "name": "Flute: theme",
+      "part": "Solo flute, the opening theme, mp",
+      "bars": "2–14",
+      "src": "assets/score/kosciuszko-solo-flute-theme.png",
+      "alt": "Notation: solo flute, bars 2 to 14, the opening theme in three-four time, marked mp"
+    },
+    {
+      "name": "Flute: Andante",
+      "part": "Solo flute, Andante, mp cantabile",
+      "bars": "204–210",
+      "src": "assets/score/kosciuszko-solo-flute-cantabile.png",
+      "alt": "Notation: solo flute, bars 204 to 210, entering at rehearsal T, marked mp cantabile"
+    },
+    {
+      "name": "Oboe",
+      "part": "Oboe I solo, p rising to mf",
+      "bars": "210–213",
+      "src": "assets/score/kosciuszko-solo-oboe.png",
+      "alt": "Notation: Oboe I solo, bars 210 to 213, marked p then mf"
+    }
+  ],
+  "instrumentation": [
+    {
+      "group": "Soloist",
+      "items": [
+        "Solo flute"
+      ]
+    },
+    {
+      "group": "Woodwinds",
+      "items": [
+        "Flute I, II, III",
+        "Oboe I, II",
+        "Clarinet in B♭ I, II, III",
+        "Bass clarinet",
+        "Bassoon I, II"
+      ]
+    },
+    {
+      "group": "Saxophones",
+      "items": [
+        "Alto I, II",
+        "Tenor",
+        "Baritone"
+      ]
+    },
+    {
+      "group": "Brass",
+      "items": [
+        "Trumpet in B♭ I, II, III",
+        "Horn in F I–IV",
+        "Trombone I, II, III",
+        "Bass trombone",
+        "Euphonium",
+        "Tuba"
+      ]
+    },
+    {
+      "group": "Percussion and keyboard",
+      "items": [
+        "Timpani",
+        "Snare drum, triangle, bass drum, cymbals",
+        "Glockenspiel",
+        "Vibraphone"
+      ]
+    }
+  ],
   "recording": "",
   "score": {
     "price": "[PRICE]",
