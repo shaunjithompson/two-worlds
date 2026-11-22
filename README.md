@@ -11,8 +11,7 @@ Plain HTML, CSS and JavaScript on GitHub Pages. One small Python build script (`
 | `index.html` | Home: Music / Travel switch, works list, interactive dot map, essays |
 | `atlas.html` | Full-screen map |
 | `georgia-2015.html`, `armenia-2015.html` | Photo essays |
-| `a-la-cote-de-la-mer-de-gegham.html` | Score page |
-| `beyond-the-darial-pass.html`, `forlop.html`, `o-mar-novo.html` | Score pages, made from `templates/work.html`. A work with a `cover` gets the wide layout: cover and page preview, Listen, Solos (tabs with zoom, `js/work.js`), Instrumentation |
+| `beyond-the-darial-pass.html`, `forlop.html`, `a-la-cote-de-la-mer-de-gegham.html`, `o-mar-novo.html` | Score pages, made from `templates/work.html`. A work with a `cover` gets the wide layout: cover and page preview, Listen, Solos (tabs with zoom, `js/work.js`), Instrumentation |
 | `morocco-to-the-gambia.html` | Upcoming journey (older layout, to simplify) |
 | `404.html` | Not-found page |
 
