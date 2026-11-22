@@ -43,11 +43,11 @@ h1 span { display: block; }
 .door .pic { height: 280px; overflow: hidden; }
 /* Music door reel: the score covers take turns, slow crossfade */
 .reel { position: relative; } .reel .slide { position: absolute; inset: 0; overflow: hidden; } .reel img { position: absolute; inset: 0; }
-.reel .slide + .slide { animation: reel 14s ease-in-out infinite; }
+.reel .slide + .slide { animation: reel 21s ease-in-out infinite; } .reel .slide + .slide + .slide { animation-delay: -14s; }
 .reel .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 20px 14px; background: linear-gradient(transparent, rgba(0,0,0,.6)); color: #F1EEE7; line-height: 1.15; }
-.reel .cap-darial { font-family: var(--serif); font-size: 22px; } .reel .cap-k { display: block; font-family: var(--sans); font-size: 10px; letter-spacing: .25em; text-transform: uppercase; opacity: .75; margin-bottom: 4px; }
+.reel .cap-darial, .reel .cap-gegham { font-family: var(--serif); font-size: 22px; } .reel .cap-gegham { font-style: italic; } .reel .cap-k { display: block; font-family: var(--sans); font-size: 10px; letter-spacing: .25em; text-transform: uppercase; opacity: .75; margin-bottom: 4px; }
 .reel .cap-forlop { font-family: Arial, 'Liberation Sans', Helvetica, sans-serif; font-weight: 700; font-size: 20px; letter-spacing: .12em; text-transform: uppercase; }
-@keyframes reel { 0%, 43% { opacity: 0; } 50%, 93% { opacity: 1; } 100% { opacity: 0; } } .door .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@keyframes reel { 0%, 29% { opacity: 0; } 33%, 62% { opacity: 1; } 67%, 100% { opacity: 0; } } .door .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .door .txt { padding: 28px 32px 32px; display: flex; flex-direction: column; gap: 10px; }
 .door .k { color: var(--oxide-light); }
 .door .h { font-family: var(--serif); font-size: 40px; line-height: 1.05; }
