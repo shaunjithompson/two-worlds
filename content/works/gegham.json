@@ -1,6 +1,21 @@
 {
   "id": "gegham",
   "title": "À la côte de la mer de Gegham",
+  "titleLines": [
+    "À la côte de la mer de",
+    "Gegham"
+  ],
+  "short": "À la côte de la mer de Gegham",
+  "subtitles": [
+    {
+      "text": "“On the Shore of the Gegham Sea”",
+      "lang": "en"
+    },
+    {
+      "text": "«Գեղամա ծովի ափին»",
+      "lang": "hy"
+    }
+  ],
   "lang": "fr",
   "year": "2024",
   "forces": "Wind band",
@@ -15,7 +30,22 @@
   ],
   "row": "row-gegham",
   "page": "a-la-cote-de-la-mer-de-gegham.html",
-  "image": "assets/sevan-sunset.jpg",
+  "image": "assets/gegham-cover-wide.jpg",
+  "cover": {
+    "src": "assets/gegham-cover.jpg",
+    "alt": "Score cover: the monastery of Sevanavank on its rocky headland above Lake Sevan, in pale morning light under drifting cloud"
+  },
+  "listen": {
+    "audio": "",
+    "label": "Digital rendition",
+    "excerpt": "Excerpt · bars [FROM–TO]",
+    "links": [
+      {
+        "title": "À la côte de la mer de Gegham on YouTube",
+        "url": "https://www.youtube.com/watch?v=kwXetq1aLH4"
+      }
+    ]
+  },
   "recording": "https://www.youtube.com/watch?v=kwXetq1aLH4",
   "score": {
     "price": "[PRICE]",
