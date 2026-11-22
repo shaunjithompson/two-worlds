@@ -1,17 +1,41 @@
 {
   "id": "kosciuszko",
   "title": "Koncert „Elegia Kościuszki”",
+  "titleLines": [
+    "Koncert",
+    "„Elegia Kościuszki”"
+  ],
+  "short": "Elegia Kościuszki",
+  "subtitles": [
+    {
+      "text": "“Kościuszko’s Elegy”",
+      "lang": "en"
+    }
+  ],
   "lang": "pl",
   "year": "2025",
   "forces": "Flute and wind band",
-  "duration": "",
+  "duration": "[DURATION]",
   "premiere": "",
   "about": "An elegy for solo flute and wind band for Tadeusz Kościuszko, the Polish general who fought in the American and Polish wars of independence.",
-  "note": [],
+  "note": [
+    "On 24 March 1794, on the Main Square in Kraków, Tadeusz Kościuszko swore an oath to the nation and began the uprising that carries his name.",
+    "The piece is a concerto for solo flute and wind band: an elegy, and an anthem for the homeland.",
+    "[Continue the note in your own words: what the flute carries, and how the piece moves.]"
+  ],
   "places": [
     "poland"
   ],
   "row": "row-kosciuszko",
-  "page": "",
-  "recording": ""
+  "page": "koncert-elegia-kosciuszki.html",
+  "image": "assets/kosciuszko-cover-wide.jpg",
+  "cover": {
+    "src": "assets/kosciuszko-cover.jpg",
+    "alt": "Score cover: the Cloth Hall on Kraków’s Main Square at night in the rain, its arches lit and reflected on the wet stones, with a red light cutting across a storm sky"
+  },
+  "recording": "",
+  "score": {
+    "price": "[PRICE]",
+    "buy": "index.html#about"
+  }
 }
