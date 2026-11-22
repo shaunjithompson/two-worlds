@@ -48,7 +48,7 @@
   "solos": [
     { "name": "Oboe", "part": "Oboes I and II, solo from bar 10", "bars": "8–13", "src": "assets/score/forlop-solo-oboe.png", "alt": "Notation: Oboes I and II, bars 8 to 13, with solos marked at bars 10 and 12" },
     { "name": "Alto saxophone", "part": "Alto saxophones I and II, soli, mp", "bars": "35–41", "src": "assets/score/forlop-solo-alto.png", "alt": "Notation: Alto saxophones soli marked mp, bars 35 to 41, dividing at bar 41" },
-    { "name": "Flute", "part": "Flute I solo", "bars": "69–72", "src": "assets/score/forlop-solo-flute.png", "alt": "Notation: Flute I solo, bars 69 to 72, in triplets" }
+    { "name": "Flute", "part": "Flute I solo, mf espressivo", "bars": "68–72", "src": "assets/score/forlop-solo-flute.png", "alt": "Notation: Flute I solo marked mf espressivo, from the pickup in bar 68 through bar 72, in triplets" }
   ],
   "instrumentation": [
     { "group": "Woodwinds", "items": ["Piccolo (doubling flute)", "Flute I, II, III", "Oboe I, II, III", "Bassoon I, II, III", "Clarinet in B♭ I, II, III", "Bass clarinet"] },
