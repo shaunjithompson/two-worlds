@@ -19,7 +19,7 @@ a { color: inherit; text-decoration: none; } a:hover { color: var(--oxide-light)
 .drift { animation: drift 18s ease-in-out infinite alternate; } .pan { animation: pan 24s ease-in-out infinite alternate; }
 .fade { animation: fade .7s cubic-bezier(.2,.7,.2,1) both; }
 .zoom-img { transition: transform 1.4s cubic-bezier(.2,.7,.2,1); } .card:hover .zoom-img { transform: scale(1.07); }
-@media (prefers-reduced-motion: reduce) { .rise, .rule-in, .drift, .pan, .fade, .blink, .draw { animation: none !important; } .zoom-img, .door { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .rise, .rule-in, .drift, .pan, .fade, .blink, .draw, .reel img { animation: none !important; } .zoom-img, .door { transition: none; } }
 
 /* nav + masthead */
 .nav { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 32px; padding-top: 28px; padding-bottom: 28px; }
@@ -40,7 +40,10 @@ h1 span { display: block; }
 .doors { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); gap: 24px; padding-bottom: 40px; }
 .door { display: flex; flex-direction: column; background: var(--ink-2); border: 1px solid var(--line); text-align: left; color: inherit; font: inherit; padding: 0; cursor: pointer; transition: transform .5s cubic-bezier(.2,.7,.2,1), border-color .5s ease; }
 .door:hover { transform: translateY(-6px); border-color: #4C5157; color: inherit; }
-.door .pic { height: 280px; overflow: hidden; } .door .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.door .pic { height: 280px; overflow: hidden; }
+/* Music door reel: the score covers take turns, slow crossfade */
+.reel { position: relative; } .reel img { position: absolute; inset: 0; } .reel img + img { animation: drift 18s ease-in-out infinite alternate, reel 14s ease-in-out infinite; }
+@keyframes reel { 0%, 43% { opacity: 0; } 50%, 93% { opacity: 1; } 100% { opacity: 0; } } .door .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .door .txt { padding: 28px 32px 32px; display: flex; flex-direction: column; gap: 10px; }
 .door .k { color: var(--oxide-light); }
 .door .h { font-family: var(--serif); font-size: 40px; line-height: 1.05; }
