@@ -41,7 +41,7 @@
   "listen": {
     "audio": "",
     "label": "Digital rendition",
-    "excerpt": "Excerpt · bars [FROM–TO]",
+    "excerpt": "",
     "links": [
       { "title": "[YouTube video title]", "url": "" }
     ]

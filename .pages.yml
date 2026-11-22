@@ -2,7 +2,7 @@
 media:
   input: assets
   output: assets
-  categories: [image]
+  categories: [image, audio]
 
 content:
   - name: places
@@ -83,8 +83,8 @@ content:
         type: object
         fields:
           - { name: label, label: "Recording name (e.g. Digital rendition)", type: string }
-          - { name: excerpt, label: "Which part (e.g. Excerpt · bars 52–68)", type: string }
-          - { name: audio, label: Audio file, type: file }
+          - { name: excerpt, label: "Which part (leave empty for the whole piece; e.g. Excerpt · bars 52–68)", type: string }
+          - { name: audio, label: "Recording (MP3)", type: file }
           - name: links
             label: YouTube links
             type: object
