@@ -37,6 +37,17 @@
 <section class="wrap wide hero">
   <div class="pager" data-pager aria-label="Score preview">
     <div class="pager-view"><img data-pager-img src="assets/kosciuszko-cover.jpg" alt="Score cover: the Cloth Hall on Kraków’s Main Square at night in the rain, its arches lit and reflected on the wet stones, with a red light cutting across a storm sky" data-sizes="(min-width: 900px) 440px, 100vw" width="1414" height="2000" srcset="assets/sized/kosciuszko-cover-800.webp 800w, assets/sized/kosciuszko-cover-1400.webp 1400w, assets/kosciuszko-cover.jpg 1414w" sizes="(min-width: 900px) 440px, 100vw" fetchpriority="high"></div>
+    <div class="pager-ctrl" data-pager-ctrl hidden>
+      <button type="button" class="pg-btn" data-pager-prev aria-label="Previous page">←</button>
+      <span class="pg-count" data-pager-count aria-live="polite">Cover · 1 of 3</span>
+      <button type="button" class="pg-btn" data-pager-next aria-label="Next page">→</button>
+    </div>
+    <ul class="thumbs" aria-label="Score pages">
+      <li><a class="thumb" href="assets/kosciuszko-cover.jpg" data-pager-thumb data-src="assets/kosciuszko-cover.jpg" data-alt="Score cover: the Cloth Hall on Kraków’s Main Square at night in the rain, its arches lit and reflected on the wet stones, with a red light cutting across a storm sky" data-label="Cover" aria-current="true"><img data-keep src="assets/kosciuszko-cover.jpg" alt="Cover" loading="lazy"></a></li>
+      <li><a class="thumb" href="assets/score/kosciuszko-page-1.jpg" data-pager-thumb data-src="assets/score/kosciuszko-page-1.jpg" data-alt="Full score, page 1, bars 1 to 15, marked perusal" data-label="Page 1"><img data-keep src="assets/score/kosciuszko-page-1.jpg" alt="Page 1" loading="lazy"></a></li>
+      <li><a class="thumb" href="assets/score/kosciuszko-page-2.jpg" data-pager-thumb data-src="assets/score/kosciuszko-page-2.jpg" data-alt="Full score, page 2, bars 16 to 31, marked perusal" data-label="Page 2"><img data-keep src="assets/score/kosciuszko-page-2.jpg" alt="Page 2" loading="lazy"></a></li>
+    </ul>
+    <p class="mono-keep pager-note">Preview: pages 1–2 of 15 (bars 1–31), for study only.</p>
   </div>
 
   <div class="hero-txt">
@@ -51,6 +62,7 @@
       <span class="amount">[PRICE]</span>
       <div class="actions">
         <a class="btn solid" href="index.html#about">Buy the score</a>
+        <button type="button" class="btn line" data-pager-go="1" hidden>Preview the score</button>
       </div>
       <span class="what">Full score and parts, PDF.</span>
     </div>
@@ -63,6 +75,47 @@
   <p>The piece is a concerto for solo flute and wind band: an elegy, and an anthem for the homeland.</p>
   <p>[Continue the note in your own words: what the flute carries, and how the piece moves.]</p>
 </article>
+
+<section class="wrap wide band" aria-labelledby="solos-h" data-solos>
+  <h2 id="solos-h">Solos</h2>
+  <div class="tabs" role="tablist" aria-label="Solo passages" data-solo-tabs hidden>
+    <button type="button" role="tab" id="tab-1" aria-controls="solo-1" aria-selected="true"><span class="tab-n">Flute: theme</span><span class="tab-b">Bars 2–14</span></button>
+    <button type="button" role="tab" id="tab-2" aria-controls="solo-2" aria-selected="false" tabindex="-1"><span class="tab-n">Flute: Andante</span><span class="tab-b">Bars 204–210</span></button>
+    <button type="button" role="tab" id="tab-3" aria-controls="solo-3" aria-selected="false" tabindex="-1"><span class="tab-n">Oboe</span><span class="tab-b">Bars 210–213</span></button>
+  </div>
+  <div class="zoom" role="group" aria-label="Zoom" data-zoom hidden>
+    <button type="button" data-zoom-out aria-label="Zoom out">−</button>
+    <span data-zoom-label>100%</span>
+    <button type="button" data-zoom-in aria-label="Zoom in">+</button>
+    <button type="button" data-zoom-fit>Fit</button>
+  </div>
+  <figure class="solo" id="solo-1" role="tabpanel" aria-labelledby="tab-1">
+    <figcaption>Solo flute, the opening theme, mp · bars 2–14</figcaption>
+    <div class="solo-scroll" tabindex="0" aria-label="Flute: theme solo, scroll sideways when zoomed"><img data-keep src="assets/score/kosciuszko-solo-flute-theme.png" alt="Notation: solo flute, bars 2 to 14, the opening theme in three-four time, marked mp" loading="lazy"></div>
+  </figure>
+  <figure class="solo" id="solo-2" role="tabpanel" aria-labelledby="tab-2">
+    <figcaption>Solo flute, Andante, mp cantabile · bars 204–210</figcaption>
+    <div class="solo-scroll" tabindex="0" aria-label="Flute: Andante solo, scroll sideways when zoomed"><img data-keep src="assets/score/kosciuszko-solo-flute-cantabile.png" alt="Notation: solo flute, bars 204 to 210, entering at rehearsal T, marked mp cantabile" loading="lazy"></div>
+  </figure>
+  <figure class="solo" id="solo-3" role="tabpanel" aria-labelledby="tab-3">
+    <figcaption>Oboe I solo, p rising to mf · bars 210–213</figcaption>
+    <div class="solo-scroll" tabindex="0" aria-label="Oboe solo, scroll sideways when zoomed"><img data-keep src="assets/score/kosciuszko-solo-oboe.png" alt="Notation: Oboe I solo, bars 210 to 213, marked p then mf" loading="lazy"></div>
+  </figure>
+</section>
+
+<section class="wrap wide band" aria-labelledby="inst-h">
+  <div>
+    <h2 id="inst-h">Instrumentation</h2>
+    <p class="for">For flute and wind band</p>
+  </div>
+  <div class="inst">
+    <div><h3 class="mono">Soloist</h3><p>Solo flute</p></div>
+    <div><h3 class="mono">Woodwinds</h3><p>Flute I, II, III<br>Oboe I, II<br>Clarinet in B♭ I, II, III<br>Bass clarinet<br>Bassoon I, II</p></div>
+    <div><h3 class="mono">Saxophones</h3><p>Alto I, II<br>Tenor<br>Baritone</p></div>
+    <div><h3 class="mono">Brass</h3><p>Trumpet in B♭ I, II, III<br>Horn in F I–IV<br>Trombone I, II, III<br>Bass trombone<br>Euphonium<br>Tuba</p></div>
+    <div><h3 class="mono">Percussion and keyboard</h3><p>Timpani<br>Snare drum, triangle, bass drum, cymbals<br>Glockenspiel<br>Vibraphone</p></div>
+  </div>
+</section>
 
 <section class="wrap details" aria-label="Details">
   <dl>

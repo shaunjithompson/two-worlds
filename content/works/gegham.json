@@ -35,6 +35,87 @@
     "src": "assets/gegham-cover.jpg",
     "alt": "Score cover: the monastery of Sevanavank on its rocky headland above Lake Sevan, in pale morning light under drifting cloud"
   },
+  "preview": {
+    "note": "Preview: pages 1–2 of 12 (bars 1–39), for study only.",
+    "pages": [
+      {
+        "label": "Page 1",
+        "src": "assets/score/gegham-page-1.jpg",
+        "alt": "Full score, page 1, bars 1 to 19, marked perusal"
+      },
+      {
+        "label": "Page 2",
+        "src": "assets/score/gegham-page-2.jpg",
+        "alt": "Full score, page 2, bars 20 to 39, marked perusal"
+      }
+    ]
+  },
+  "solos": [
+    {
+      "name": "Flute",
+      "part": "Solo flute (Flûte seule), mf",
+      "bars": "21–24",
+      "src": "assets/score/gegham-solo-flute.png",
+      "alt": "Notation: solo flute, bars 21 to 24, short figures with trills, marked mf"
+    },
+    {
+      "name": "Bassoon",
+      "part": "Bassoon solo, mf",
+      "bars": "101–102",
+      "src": "assets/score/gegham-solo-bassoon.png",
+      "alt": "Notation: bassoon solo, bars 101 to 102, marked mf, ending on a held note"
+    },
+    {
+      "name": "Clarinet",
+      "part": "Solo clarinet (Clarinette seule), mf",
+      "bars": "103–106",
+      "src": "assets/score/gegham-solo-clarinet.png",
+      "alt": "Notation: solo clarinet, bars 103 to 106, a line in triplets, marked mf"
+    }
+  ],
+  "instrumentation": [
+    {
+      "group": "Woodwinds",
+      "items": [
+        "Piccolo",
+        "Solo flute",
+        "Flute I, II",
+        "Oboe I, II",
+        "Bassoon I, II",
+        "Solo clarinet in B♭",
+        "Clarinet in B♭ I, II",
+        "Bass clarinet"
+      ]
+    },
+    {
+      "group": "Saxophones",
+      "items": [
+        "Solo alto",
+        "Alto I, II",
+        "Tenor",
+        "Baritone"
+      ]
+    },
+    {
+      "group": "Brass",
+      "items": [
+        "Trumpet in B♭ I, II",
+        "Horn in F I, II",
+        "Trombone I, II",
+        "Bass trombone",
+        "Euphonium I, II",
+        "Tuba"
+      ]
+    },
+    {
+      "group": "Percussion and keyboard",
+      "items": [
+        "Timpani",
+        "Triangle, bass drum, cymbals, tambourine",
+        "Glockenspiel"
+      ]
+    }
+  ],
   "listen": {
     "audio": "",
     "label": "Digital rendition",
