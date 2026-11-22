@@ -1,26 +1,135 @@
 {
   "id": "mar-novo",
   "title": "O Mar Novo: «As Vagas de Nazaré»",
+  "titleLines": [
+    "O Mar Novo",
+    "«As Vagas de Nazaré»"
+  ],
+  "short": "O Mar Novo",
+  "subtitles": [
+    {
+      "text": "“The New Sea: The Waves of Nazaré”",
+      "lang": "en"
+    }
+  ],
   "lang": "pt",
   "year": "2026",
-  "forces": "Wind band",
-  "duration": "[DURATION]",
+  "forces": "Wind orchestra",
+  "duration": "c. 11 minutes",
   "premiere": "",
   "about": "The great Atlantic winter waves that break off Nazaré, on the coast of Portugal.",
   "note": [
     "The waves off Nazaré, on the Atlantic coast of Portugal, are among the largest in the world: in winter, swells from the open ocean are funnelled by an undersea canyon and break close to the shore.",
-    "[Continue the note in your own words: what drew you to Nazaré, and how the piece moves.]"
+    "The piece is an overture, an abertura, for symphonic band, about the stormy ocean there: dramatic and frightening, Romantic in manner but modern.",
+    "It opens Maestoso con moto with a solo horn over the band, slows to Meno mosso in the middle, and returns to the opening tempo. Along the way, solos for euphonium and oboe come out of the full band."
   ],
   "places": [
     "portugal"
   ],
   "row": "row-marNovo",
   "page": "o-mar-novo.html",
-  "image": "assets/portugal-cover.jpg",
+  "image": "assets/mar-novo-cover-wide.jpg",
+  "cover": {
+    "src": "assets/mar-novo-cover.jpg",
+    "alt": "Score cover: a great wave breaking in a storm beside a dark headland with a lighthouse, low light cutting through the rain"
+  },
+  "preview": {
+    "note": "Preview: pages 1–2 of 16 (bars 1–25), for study only.",
+    "pages": [
+      {
+        "label": "Page 1",
+        "src": "assets/score/mar-novo-page-1.jpg",
+        "alt": "Full score, page 1, bars 1 to 14, marked perusal"
+      },
+      {
+        "label": "Page 2",
+        "src": "assets/score/mar-novo-page-2.jpg",
+        "alt": "Full score, page 2, bars 15 to 25, marked perusal"
+      }
+    ]
+  },
+  "listen": {
+    "audio": "assets/audio/mar-novo-excerpt.mp3",
+    "label": "Digital rendition",
+    "excerpt": "Excerpt · bars 1–35",
+    "links": [
+      {
+        "title": "O Mar Novo on YouTube",
+        "url": "https://www.youtube.com/watch?v=zOkrFVbamSI"
+      }
+    ]
+  },
+  "solos": [
+    {
+      "name": "Horn",
+      "part": "Horn I solo, mf",
+      "bars": "3–6",
+      "src": "assets/score/mar-novo-solo-horn.png",
+      "alt": "Notation: Horn I solo, bars 3 to 6, marked mf"
+    },
+    {
+      "name": "Euphonium",
+      "part": "Euphonium solo, mp",
+      "bars": "61–65",
+      "src": "assets/score/mar-novo-solo-euphonium.png",
+      "alt": "Notation: euphonium solo, bars 61 to 65, marked mp and falling to p"
+    },
+    {
+      "name": "Oboe",
+      "part": "Oboe I solo, mp",
+      "bars": "158–161",
+      "src": "assets/score/mar-novo-solo-oboe.png",
+      "alt": "Notation: Oboe I solo, bars 158 to 161, marked mp then p"
+    }
+  ],
+  "instrumentation": [
+    {
+      "group": "Woodwinds",
+      "items": [
+        "Piccolo I, II",
+        "Flute I, II, III",
+        "Oboe I, II",
+        "Cor anglais",
+        "Clarinet in B♭ I, II, III",
+        "Bass clarinet",
+        "Bassoon"
+      ]
+    },
+    {
+      "group": "Saxophones",
+      "items": [
+        "Alto I, II",
+        "Tenor"
+      ]
+    },
+    {
+      "group": "Brass",
+      "items": [
+        "Horn in F I–IV",
+        "Trumpet in B♭ I, II, III",
+        "Soprano cornet in E♭",
+        "Trombone I, II, III",
+        "Bass trombone",
+        "Euphonium",
+        "Tuba"
+      ]
+    },
+    {
+      "group": "Percussion and keyboard",
+      "items": [
+        "Timpani",
+        "Snare drum, triangle, bass drum",
+        "Suspended cymbal, cymbals",
+        "Tubular bells, antique cymbals",
+        "Marimba",
+        "Vibraphone",
+        "Piano"
+      ]
+    }
+  ],
   "recording": "https://www.youtube.com/watch?v=zOkrFVbamSI",
   "score": {
     "price": "[PRICE]",
-    "buy": "index.html#about",
-    "perusal": "index.html#about"
+    "buy": "index.html#about"
   }
 }
