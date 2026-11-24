@@ -4,12 +4,17 @@
   "subtitle": "from Dashoguz to Ashgabat",
   "date": "2015-07",
   "published": "2026-11-24",
-  "leg": "Dashoguz to Mashhad",
+  "leg": "Khiva to Mashhad",
   "standfirst": "Photos from Turkmenistan at the end of July 2015. A transit visa let me travel on my own, but only through two cities: Dashoguz, near the Uzbek border, and Ashgabat.",
   "cover": {
     "src": "assets/ashgabat-cover.jpg",
     "alt": "Two white buildings with arched windows and flags on their roofs, cars crossing a junction in front, Ashgabat",
     "date": "2015-08-01"
+  },
+  "before": {
+    "place": "Khiva",
+    "country": "Uzbekistan",
+    "url": ""
   },
   "after": {
     "place": "Mashhad",
@@ -22,24 +27,24 @@
       "place": "Dashoguz",
       "native": "Daşoguz",
       "country": "Turkmenistan",
-      "date": "2015-07-30",
+      "date": "2015-07-31",
       "caption": "Dashoguz, the first town over the border from Uzbekistan. From here the road runs south across the Karakum Desert to Ashgabat.",
       "photos": [
         {
           "src": "assets/dashoguz-01.jpg",
           "alt": "A gilded statue on a pedestal in front of a white colonnade and a tall flagpole, a child pushing a pram across the square",
           "lead": true,
-          "date": "2015-07-30"
+          "date": "2015-07-31"
         },
         {
           "src": "assets/dashoguz-02.jpg",
           "alt": "A tree-lined avenue with lit street lamps leading to a gold monument and a domed white building",
-          "date": "2015-07-30"
+          "date": "2015-07-31"
         },
         {
           "src": "assets/dashoguz-03.jpg",
           "alt": "A large white building outlined in gold lights, its centre shaped like an open book, a car and a cyclist on the road in front",
-          "date": "2015-07-30"
+          "date": "2015-07-31"
         },
         {
           "src": "assets/dashoguz-04.jpg",
@@ -67,8 +72,8 @@
       "place": "Ashgabat",
       "native": "Aşgabat",
       "country": "Turkmenistan",
-      "date": "2015-07-31",
-      "caption": "Ashgabat, the capital, under the Kopet Dag. The herbs in the bazaar are labelled in Russian and Turkmen. Then south over the mountains to Mashhad.",
+      "date": "2015-08-01",
+      "caption": "Ashgabat, the capital, under the Kopet Dag. The herbs in the bazaar are labelled in Russian and Turkmen. From here, south over the mountains to Mashhad.",
       "photos": [
         {
           "src": "assets/ashgabat-04.jpg",
@@ -79,7 +84,7 @@
         {
           "src": "assets/ashgabat-01.jpg",
           "alt": "Traffic on a wide avenue in Ashgabat, white apartment blocks and the Kopet Dag mountains ahead, seen from a car",
-          "date": "2015-07-31"
+          "date": "2015-08-01"
         },
         {
           "src": "assets/ashgabat-02.jpg",
