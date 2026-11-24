@@ -379,7 +379,29 @@ def places_js(places):
     open(p('js', 'places.js'), 'w', encoding='utf-8').write(
         '/* Two Worlds — places on the map. Made by tools/build.py from content/; do not edit by hand. */\n'
         'window.TW_PLACES = [\n' + ',\n'.join(json.dumps(d, ensure_ascii=False) for d in places) + '\n];\n'
-        f'window.TW_ROUTE_NEXT = {json.dumps(route)};\n')
+        f'window.TW_ROUTE_NEXT = {json.dumps(route)};\n'
+        f'window.TW_ROUTE_TRAVELLED = {json.dumps(travelled_route())};\n')
+
+def travelled_route():
+    """The travelled route for the atlas: essays chained by their After links (Turkmenistan → Iran → …),
+    one list of country-dot positions [lon, lat, lon, lat…] per unbroken chain. A gap (an After with no essay yet) ends a chain."""
+    nxt = {}
+    for slug, j in JOURNEYS.items():
+        url = ((j.get('after') or {}).get('url') or '').split('#')[0]
+        if url.endswith('.html') and url[:-5] in JOURNEYS:
+            nxt[slug] = url[:-5]
+    chains = []
+    for slug in sorted(JOURNEYS, key=lambda s: JOURNEYS[s].get('date', '')):
+        if slug in nxt.values() or slug not in nxt:
+            continue  # not the start of a chain
+        seen, pts, s = set(), [], slug
+        while s and s not in seen:
+            seen.add(s); pl = PLACES.get(JOURNEYS[s].get('place'))
+            if pl: pts += [pl['lon'], pl['lat']]
+            s = nxt.get(s)
+        if len(pts) >= 4:
+            chains.append(pts)
+    return chains
 
 def place_index(places):
     """The same links as the map, as a plain list: for keyboards, screen readers, search engines and no-JavaScript."""
@@ -405,9 +427,9 @@ def cache_bust():
     import hashlib
     for page in ('index.html', 'atlas.html'):
         s = open(p(page), encoding='utf-8').read(); t = s
-        for js in ('places.js', 'dots.js'):
-            h = hashlib.sha1(open(p('js', js), 'rb').read()).hexdigest()[:8]
-            t = re.sub(r'<script src="js/' + re.escape(js) + r'(\?v=[0-9a-f]*)?"></script>', f'<script src="js/{js}?v={h}"></script>', t)
+        for f in ('js/places.js', 'js/dots.js', 'js/home.js', 'css/map.css'):
+            h = hashlib.sha1(open(p(f), 'rb').read()).hexdigest()[:8]
+            t = re.sub(r'((?:src|href)=")' + re.escape(f) + r'(\?v=[0-9a-f]*)?"', lambda m: f'{m.group(1)}{f}?v={h}"', t)
         if t != s:
             open(p(page), 'w', encoding='utf-8').write(t)
 

@@ -30,6 +30,7 @@
 .legend .lg-music { border: 2px solid var(--indigo-light); }
 .legend .lg-been { background: var(--paper); }
 .legend .lg-both { background: var(--paper); box-shadow: 0 0 0 2px #121417, 0 0 0 4px var(--indigo-light); }
+.legend .lg-route { width: 20px; height: 0; border-radius: 0; border-top: 2px dashed #E8674A; }
 .legend .lg-next { width: 20px; height: 0; border-radius: 0; border-top: 1.5px dashed rgba(232,103,74,.7); }
 
 /* hover preview: rolling photo carousel */

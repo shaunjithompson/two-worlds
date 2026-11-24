@@ -10,3 +10,4 @@ window.TW_PLACES = [
 {"id": "journey", "name": "Morocco to The Gambia", "lon": -7.59, "lat": 33.57, "kinds": ["next"], "imgs": ["assets/dunes.jpg"], "when": "2026", "label": "Next journey · Departs 2026", "essay": "morocco-to-the-gambia.html", "essayText": "About the journey"}
 ];
 window.TW_ROUTE_NEXT = [-7.59, 33.57, -9.6, 30.4, -14.5, 26.13, -16, 18.1, -17.4, 14.7, -16.6, 13.45];
+window.TW_ROUTE_TRAVELLED = [[58.9, 39.4, 53.7, 32.4, 45.0, 40.2, 43.6, 42.1]];
