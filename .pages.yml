@@ -116,6 +116,136 @@ content:
           - { name: price, label: "Price (e.g. 45 or 45.00, in AUD)", type: string }
           - { name: buy, label: Buy link, type: string }
           - { name: perusal, label: Perusal score link, type: string }
+  - name: turkmenistan-2015
+    label: "Journey · Turkmenistan, July 2015"
+    type: file
+    path: content/journeys/turkmenistan-2015.json
+    format: json
+    fields:
+      - { name: title, label: Title, type: string }
+      - { name: titleNative, label: Title in the local script, type: string }
+      - { name: subtitle, label: Subtitle (sells the music), type: string }
+      - { name: date, label: "Travelled (YYYY-MM or YYYY-MM-DD) — orders the atlas and the route", type: string }
+      - { name: published, label: "Published (YYYY-MM-DD) — orders Latest on the home page", type: string }
+      - { name: leg, label: Part of which leg, type: string }
+      - { name: standfirst, label: Standfirst, type: text }
+      - name: cover
+        label: Cover photo
+        type: object
+        fields:
+          - { name: src, label: Photo, type: image }
+          - { name: alt, label: Description for screen readers, type: string }
+      - name: before
+        label: Previous stop on the leg
+        type: object
+        fields:
+          - { name: place, label: Place, type: string }
+          - { name: country, label: Country, type: string }
+          - { name: url, label: Link (when that entry exists), type: string }
+      - name: after
+        label: Next stop on the leg
+        type: object
+        fields:
+          - { name: place, label: Place, type: string }
+          - { name: country, label: Country, type: string }
+          - { name: url, label: Link (when that entry exists), type: string }
+      - { name: place, label: "Place on the map (an id from Places: armenia, georgia, portugal…)", type: string }
+      - name: music
+        label: Linked score
+        type: object
+        fields:
+          - { name: work, label: "Work (an id from Works: gegham, darial, mar-novo…)", type: string }
+          - { name: blurb, label: One line for this essay's score card, type: string }
+      - name: stops
+        label: Stops (sorted by date automatically)
+        type: object
+        list: true
+        fields:
+          - { name: place, label: "Place (town or site)", type: string }
+          - { name: native, label: "Place in the local language and script", type: string }
+          - { name: country, label: Country, type: string }
+          - { name: date, label: "Date (YYYY-MM or YYYY-MM-DD)", type: string }
+          - { name: caption, label: One-line caption, type: string }
+          - name: note
+            label: Context note shown before this stop (optional)
+            type: object
+            fields:
+              - { name: title, label: Heading, type: string }
+              - { name: paras, label: Paragraphs, type: text, list: true }
+          - name: photos
+            label: "Photos (1 = feature, 2 = pair, 3+ = carousel)"
+            type: object
+            list: true
+            fields:
+              - { name: src, label: Photo, type: image }
+              - { name: alt, label: Description for screen readers, type: string }
+              - { name: lead, label: Use as the big lead photo, type: boolean }
+              - { name: date, label: "Date taken (YYYY-MM-DD; the camera file name P8130545 = 13 August)", type: string }
+  - name: iran-2015
+    label: "Journey · Iran, August 2015"
+    type: file
+    path: content/journeys/iran-2015.json
+    format: json
+    fields:
+      - { name: title, label: Title, type: string }
+      - { name: titleNative, label: Title in the local script, type: string }
+      - { name: subtitle, label: Subtitle (sells the music), type: string }
+      - { name: date, label: "Travelled (YYYY-MM or YYYY-MM-DD) — orders the atlas and the route", type: string }
+      - { name: published, label: "Published (YYYY-MM-DD) — orders Latest on the home page", type: string }
+      - { name: leg, label: Part of which leg, type: string }
+      - { name: standfirst, label: Standfirst, type: text }
+      - name: cover
+        label: Cover photo
+        type: object
+        fields:
+          - { name: src, label: Photo, type: image }
+          - { name: alt, label: Description for screen readers, type: string }
+      - name: before
+        label: Previous stop on the leg
+        type: object
+        fields:
+          - { name: place, label: Place, type: string }
+          - { name: country, label: Country, type: string }
+          - { name: url, label: Link (when that entry exists), type: string }
+      - name: after
+        label: Next stop on the leg
+        type: object
+        fields:
+          - { name: place, label: Place, type: string }
+          - { name: country, label: Country, type: string }
+          - { name: url, label: Link (when that entry exists), type: string }
+      - { name: place, label: "Place on the map (an id from Places: armenia, georgia, portugal…)", type: string }
+      - name: music
+        label: Linked score
+        type: object
+        fields:
+          - { name: work, label: "Work (an id from Works: gegham, darial, mar-novo…)", type: string }
+          - { name: blurb, label: One line for this essay's score card, type: string }
+      - name: stops
+        label: Stops (sorted by date automatically)
+        type: object
+        list: true
+        fields:
+          - { name: place, label: "Place (town or site)", type: string }
+          - { name: native, label: "Place in the local language and script", type: string }
+          - { name: country, label: Country, type: string }
+          - { name: date, label: "Date (YYYY-MM or YYYY-MM-DD)", type: string }
+          - { name: caption, label: One-line caption, type: string }
+          - name: note
+            label: Context note shown before this stop (optional)
+            type: object
+            fields:
+              - { name: title, label: Heading, type: string }
+              - { name: paras, label: Paragraphs, type: text, list: true }
+          - name: photos
+            label: "Photos (1 = feature, 2 = pair, 3+ = carousel)"
+            type: object
+            list: true
+            fields:
+              - { name: src, label: Photo, type: image }
+              - { name: alt, label: Description for screen readers, type: string }
+              - { name: lead, label: Use as the big lead photo, type: boolean }
+              - { name: date, label: "Date taken (YYYY-MM-DD; the camera file name P8130545 = 13 August)", type: string }
   - name: portugal-2015
     label: "Journey · Portugal, December 2015"
     type: file
