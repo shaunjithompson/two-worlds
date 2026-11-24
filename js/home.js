@@ -14,6 +14,9 @@
   var ALIAS = { sevan: 'armenia', darial: 'georgia', nazare: 'portugal', lisbon: 'portugal', krakow: 'poland', hardanger: 'norway' };
   // The upcoming journey's route as lon, lat pairs (content/places.json). Drawn faintly so the essays lead.
   var ROUTE_NEXT = window.TW_ROUTE_NEXT || [];
+  // The route travelled so far, country to country in travel order (atlas only: <div id="map" data-route>).
+  var ROUTE_DONE = map0() && map0().hasAttribute('data-route') ? (window.TW_ROUTE_TRAVELLED || []) : [];
+  function map0() { return document.getElementById('map'); }
 
   // The whole world, 180°W–180°E and 84°N–58°S, in map units (U per degree).
   var U = 26 / 3, LON0 = -180, LAT0 = 84, LAT1 = -58;
@@ -329,6 +332,13 @@
       g.fillStyle = 'rgb(' + Math.round(DOT[0] + (T[0] - DOT[0]) * f2) + ',' + Math.round(DOT[1] + (T[1] - DOT[1]) * f2) + ',' + Math.round(DOT[2] + (T[2] - DOT[2]) * f2) + ')';
       g.beginPath(); g.arc(lit[k], lit[k + 1], r * (1 + 0.8 * f2), 0, 6.2832); g.fill();
     }
+    g.lineJoin = 'round'; g.lineCap = 'round';
+    ROUTE_DONE.forEach(function (C) {
+      g.strokeStyle = 'rgba(232,103,74,0.9)'; g.lineWidth = 2; g.setLineDash([7, 5]); g.lineDashOffset = 0;
+      g.beginPath(); g.moveTo(rx(C[0]), ry(C[1]));
+      for (var q = 2; q < C.length; q += 2) g.lineTo(rx(C[q]), ry(C[q + 1]));
+      g.stroke(); g.setLineDash([]);
+    });
     var N = ROUTE_NEXT;
     if (N.length >= 4) {
     g.lineJoin = 'round'; g.lineCap = 'round';
