@@ -399,6 +399,19 @@ def place_index(places):
             open(p(f), 'w', encoding='utf-8').write(t)
 
 
+def cache_bust():
+    """Stamp the generated map data's script tags with a short hash of their content (js/places.js?v=…),
+    so browsers fetch the new file as soon as a place is added instead of keeping a cached copy."""
+    import hashlib
+    for page in ('index.html', 'atlas.html'):
+        s = open(p(page), encoding='utf-8').read(); t = s
+        for js in ('places.js', 'dots.js'):
+            h = hashlib.sha1(open(p('js', js), 'rb').read()).hexdigest()[:8]
+            t = re.sub(r'<script src="js/' + re.escape(js) + r'(\?v=[0-9a-f]*)?"></script>', f'<script src="js/{js}?v={h}"></script>', t)
+        if t != s:
+            open(p(page), 'w', encoding='utf-8').write(t)
+
+
 PLACES, WORKS, JOURNEYS = content()
 
 if __name__ == '__main__':
@@ -417,4 +430,5 @@ if __name__ == '__main__':
                 open(p(f), 'w', encoding='utf-8').write(t)
     sitemap()
     print('map dots:', dots())
+    cache_bust()
     print('done')
