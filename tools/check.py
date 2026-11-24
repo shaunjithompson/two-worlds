@@ -120,6 +120,7 @@ def check_links(places):
             if re.match(r'^(https?:|mailto:|tel:|data:|//)', ref):
                 continue
             path, _, anchor = ref.partition('#')
+            path = path.split('?')[0]  # cache-busting query (js/places.js?v=…)
             if path.startswith('/two-worlds/'):  # absolute links (404.html) on GitHub Pages
                 path = path[len('/two-worlds/'):] or 'index.html'
             target = path or f
