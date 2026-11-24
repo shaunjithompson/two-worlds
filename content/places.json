@@ -1,6 +1,19 @@
 {
   "places": [
     {
+      "id": "turkmenistan",
+      "name": "Turkmenistan",
+      "lon": 58.9,
+      "lat": 39.4,
+      "photos": [
+        "assets/ashgabat-cover.jpg",
+        "assets/dashoguz-01.jpg",
+        "assets/dashoguz-07.jpg",
+        "assets/ashgabat-04.jpg",
+        "assets/ashgabat-01.jpg"
+      ]
+    },
+    {
       "id": "iran",
       "name": "Iran",
       "lon": 53.7,

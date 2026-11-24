@@ -1,0 +1,97 @@
+{
+  "title": "Turkmenistan",
+  "titleNative": "Türkmenistan",
+  "subtitle": "from Dashoguz to Ashgabat",
+  "date": "2015-07",
+  "published": "2026-11-24",
+  "leg": "Dashoguz to Mashhad",
+  "standfirst": "Photos from Turkmenistan at the end of July 2015. A transit visa let me travel on my own, but only through two cities: Dashoguz, near the Uzbek border, and Ashgabat.",
+  "cover": {
+    "src": "assets/ashgabat-cover.jpg",
+    "alt": "Two white buildings with arched windows and flags on their roofs, cars crossing a junction in front, Ashgabat",
+    "date": "2015-08-01"
+  },
+  "after": {
+    "place": "Mashhad",
+    "country": "Iran",
+    "url": "iran-2015.html"
+  },
+  "place": "turkmenistan",
+  "stops": [
+    {
+      "place": "Dashoguz",
+      "native": "Daşoguz",
+      "country": "Turkmenistan",
+      "date": "2015-07-30",
+      "caption": "Dashoguz, the first town over the border from Uzbekistan. From here the road runs south across the Karakum Desert to Ashgabat.",
+      "photos": [
+        {
+          "src": "assets/dashoguz-01.jpg",
+          "alt": "A gilded statue on a pedestal in front of a white colonnade and a tall flagpole, a child pushing a pram across the square",
+          "lead": true,
+          "date": "2015-07-30"
+        },
+        {
+          "src": "assets/dashoguz-02.jpg",
+          "alt": "A tree-lined avenue with lit street lamps leading to a gold monument and a domed white building",
+          "date": "2015-07-30"
+        },
+        {
+          "src": "assets/dashoguz-03.jpg",
+          "alt": "A large white building outlined in gold lights, its centre shaped like an open book, a car and a cyclist on the road in front",
+          "date": "2015-07-30"
+        },
+        {
+          "src": "assets/dashoguz-04.jpg",
+          "alt": "A waiting room with metal bench seats and a row of computers along the wall, people seated with their backs to the camera",
+          "date": "2015-07-31"
+        },
+        {
+          "src": "assets/dashoguz-05.jpg",
+          "alt": "The white railway station in Dashoguz, a portrait of President Berdimuhamedow above the entrance under the gold letters of 'Wokzal'",
+          "date": "2015-07-31"
+        },
+        {
+          "src": "assets/dashoguz-06.jpg",
+          "alt": "A police officer and another man beside a blue roadside building in the desert, seen through a car windscreen",
+          "date": "2015-07-31"
+        },
+        {
+          "src": "assets/dashoguz-07.jpg",
+          "alt": "A corrugated-iron shelter on bare ground in the Karakum Desert, scrub and low dunes behind",
+          "date": "2015-07-31"
+        }
+      ]
+    },
+    {
+      "place": "Ashgabat",
+      "native": "Aşgabat",
+      "country": "Turkmenistan",
+      "date": "2015-07-31",
+      "caption": "Ashgabat, the capital, under the Kopet Dag. The herbs in the bazaar are labelled in Russian and Turkmen. Then south over the mountains to Mashhad.",
+      "photos": [
+        {
+          "src": "assets/ashgabat-04.jpg",
+          "alt": "A bazaar stall of dried herbs, flowers and berries in wooden trays, handwritten labels in Russian and Turkmen, the seller behind",
+          "lead": true,
+          "date": "2015-08-01"
+        },
+        {
+          "src": "assets/ashgabat-01.jpg",
+          "alt": "Traffic on a wide avenue in Ashgabat, white apartment blocks and the Kopet Dag mountains ahead, seen from a car",
+          "date": "2015-07-31"
+        },
+        {
+          "src": "assets/ashgabat-02.jpg",
+          "alt": "Turkmen newspapers on a glass table, each front page with a photograph of President Berdimuhamedow, beside a tourism magazine",
+          "date": "2015-08-01"
+        },
+        {
+          "src": "assets/ashgabat-03.jpg",
+          "alt": "A supermarket aisle in Ashgabat, staff restocking an open fridge of butter and cheese, a red crate in the middle",
+          "date": "2015-08-01"
+        }
+      ]
+    }
+  ]
+}

@@ -31,6 +31,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = 'https://shaunjithompson.github.io/two-worlds/'
 WIDTHS = (800, 1400)
 PAGES = ['index.html', 'atlas.html', 'portugal-2015.html', 'georgia-2015.html', 'armenia-2015.html',
+         'iran-2015.html', 'turkmenistan-2015.html',
          'a-la-cote-de-la-mer-de-gegham.html', 'beyond-the-darial-pass.html', 'morocco-to-the-gambia.html']
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
           'September', 'October', 'November', 'December']
